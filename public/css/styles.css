@@ -1,0 +1,32 @@
+#main {
+    margin-top: 45px !important;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#footer {
+	line-height: 40px;
+}
+
+.line-user {
+	margin-left: 0px;
+  margin-right: 0px;
+}
+
+.line-user div {
+	/*margin-bottom: 0px !important;*/
+  /*padding: 2px;*/
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+.img-system {
+	max-width: 70%;
+}
+
+.icon-sidebar {
+	margin-right: 10px;
+}
