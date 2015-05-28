@@ -36,10 +36,22 @@ app.factory('User', function($resource) {
                     return cb(err);
                 }).$promise;
         },
-        getUser: function(user, callback) {
+        getUser: function(id, callback) {
             var cb = callback || angular.noop;
             return User.get({
-                    id: user._id
+                    id: id
+                },
+                function(data) {
+                    return cb(data);
+                },
+                function(err) {
+                    return cb(err);
+                }).$promise;
+        },
+        removeUser: function(id, callback) {
+            var cb = callback || angular.noop;
+            return User.delete({
+                    id: id
                 },
                 function(data) {
                     return cb(data);

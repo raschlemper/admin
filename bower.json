@@ -1,6 +1,6 @@
 {
   "name": "admin-teratec",
-  "directory": "~/public/",
+  "appPath": "public/",
   "version": "0.0.0",
   "dependencies": {
     "angular": ">=1.2.*",
@@ -12,9 +12,11 @@
     "angular-sanitize": ">=1.2.*",
     "angular-touch": ">=1.2.*",
     "angular-bootstrap": "~0.11.0",
+    "angular-ui-router": "~0.2.10",
     "font-awesome": ">=4.1.0",
-    "lodash": "~2.4.1",
-    "angular-ui-router": "~0.2.10"
+    "bootswatch": "~3.3.4",
+    "underscore": "~1.7.0",
+    "lodash": "~2.4.1"
   },
   "authors": [
     "rafael.schlemper <teratec.company@gmail.com>"
@@ -30,5 +32,9 @@
     "public/bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "resolutions": {
+    "bootstrap": "~3.3.4",
+    "webcomponentsjs": "^0.6.0"
+  }
 }

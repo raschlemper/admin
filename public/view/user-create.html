@@ -10,7 +10,7 @@
                         <label class="col-sm-2 control-label" for="provider">Provider: </label>
                         <div class="col-sm-3">
                             <select class="form-control" name="provider" id="provider" ng-model="user.provider" required>
-                                <option>Local</option>
+                                <option value="{{provider.code}}" ng-repeat="provider in providers">{{provider.descricao}}</option>
                             </select>
                         </div>
                     </div>
@@ -36,8 +36,7 @@
                         <label class="col-sm-2 control-label" for="role">Role: </label>
                         <div class="col-sm-3">
                             <select class="form-control" name="role" id="role" ng-model="user.role" required>
-                                <option>Administrador</option>
-                                <option>Usuario</option>
+                                <option value="{{role.code}}" ng-repeat="role in roles">{{role.descricao}}</option>
                             </select>
                         </div>
                     </div>

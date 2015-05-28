@@ -1,11 +1,27 @@
 'use strict';
 
-app.controller('UserCtrl', function($scope, $http, User, Pagination) {
+app.controller('UserCtrl', function($scope, $http, $stateParams, User, Pagination) {
+
+    $scope.providers = [{
+        code: 'local',
+        descricao: 'Local'
+    }, {
+        code: 'producao',
+        descricao: 'Produção'
+    }];
+
+    $scope.roles = [{
+        code: 'user',
+        descricao: 'Usuário'
+    }, {
+        code: 'admin',
+        descricao: 'Administrador'
+    }];
 
     $scope.users = {};
     $scope.users = [];
 
-    var getAllUsers = function() {
+    $scope.getAllUsers = function() {
         User.allUsers()
             .then(function(data) {
                 $scope.users = data;
@@ -21,25 +37,45 @@ app.controller('UserCtrl', function($scope, $http, User, Pagination) {
                 $scope.user = data;
             })
             .catch(function() {
-                $scope.user = {};                
+                $scope.user = {};
             });
     }
 
-    $scope.getUser = function(user) {
-        User.getUser(user)
+    $scope.getUser = function() {
+        if (!$stateParams.id) {
+            return;
+        }
+        User.getUser($stateParams.id)
             .then(function(data) {
                 $scope.user = data;
-                console.log($scope.user);
             })
             .catch(function() {
-                $scope.user = {};                
+                $scope.user = {};
             });
+    }
+
+    $scope.removeUser = function(user) {
+        if (!user) {
+            return;
+        }
+        User.removeUser(user._id)
+            .then(function(data) {
+                removeUserFromList(user);
+            })
+            .catch(function() {
+                $scope.user = {};
+            });
+    }
+
+    var removeUserFromList = function(user) {
+        $scope.users = _.without($scope.users, user);
     }
 
     var init = function() {
         $scope.pagination = Pagination.pagination;
         $scope.list = Pagination.list;
-        getAllUsers();
+        $scope.getAllUsers();
+        $scope.getUser();
     }();
 
 });

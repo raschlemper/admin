@@ -5,17 +5,17 @@
 }
 
 #footer {
-	line-height: 40px;
+    line-height: 40px;
 }
 
 .line-user {
-	margin-left: 0px;
-  margin-right: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .line-user div {
-	/*margin-bottom: 0px !important;*/
-  /*padding: 2px;*/
+    /*margin-bottom: 0px !important;*/
+    /*padding: 2px;*/
 }
 
 .vertical-align {
@@ -24,9 +24,13 @@
 }
 
 .img-system {
-	max-width: 70%;
+    max-width: 70%;
 }
 
 .icon-sidebar {
-	margin-right: 10px;
+    margin-right: 10px;
+}
+
+.btn-icon-20 {
+    font-size: 20px;
 }

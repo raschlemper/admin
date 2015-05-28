@@ -26,8 +26,11 @@
                                         <p class="list-group-item-text">{{ user.role }}</p>
                                     </div>
                                     <div class="col-md-2 text-center">
-                                        <button class="btn btn-primary" ng-click="getUser(user)" app-href="/user/edit">
-                                            <i class="glyphicon glyphicon-edit"></i>
+                                        <button class="btn btn-primary" app-href="/user/{{user._id}}">
+                                            <i class="fa fa-edit btn-icon-20"></i>
+                                        </button>
+                                        <button class="btn btn-danger" ng-click="removeUser(user)">
+                                            <i class="fa fa-trash-o btn-icon-20"></i>
                                         </button>
                                     </div>
                                 </div>
