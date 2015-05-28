@@ -6,7 +6,7 @@
             </div>
             <div class="panel-body">
                 <div class="list-group">
-                    <a href="" class="list-group-item" ng-repeat="user in users | limitTo : list.begin(pagination.currentPage) | limitTo: list.size(pagination.currentPage)">
+                    <span href="" class="list-group-item" ng-repeat="user in users | limitTo : list.begin(pagination.currentPage) | limitTo: list.size(pagination.currentPage, users.length)">
                         <div class="row line-user vertical-align">
                             <div class="col-md-1">
                                 <img ng-src="image/{{ user.image }}" class="center-block img-circle img-thumbnail" />
@@ -26,14 +26,14 @@
                                         <p class="list-group-item-text">{{ user.role }}</p>
                                     </div>
                                     <div class="col-md-2 text-center">
-                                        <button class="btn btn-default" app-href="/user/edit">
+                                        <button class="btn btn-primary" ng-click="getUser(user)" app-href="/user/edit">
                                             <i class="glyphicon glyphicon-edit"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </span>
                 </div>
                 <div class="text-center">
                     <pagination total-items="users.length" ng-model="pagination.currentPage" class="pagination-md" items-per-page="pagination.maxPerPage" boundary-links="true" rotate="true" num-pages="pagination.numPages">

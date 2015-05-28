@@ -1,36 +1,52 @@
 'use strict';
 
-app.factory('User', function ($resource) {
+app.factory('User', function($resource) {
 
-    var resource = $resource('/users', { },
-      {      
+    var User = $resource('/users/:id', {
+        id: '@id'
+    }, {
+        getAll: {
+            method: 'GET',
+            isArray: true
+        },
         get: {
-          method: 'GET',
-          isArray: true
+            method: 'GET'
         }
-  	  });
+    });
 
     return {
 
         allUsers: function(callback) {
             var cb = callback || angular.noop;
-            return resource.get({ },
-            function(data) {
-                return cb(data);
-            }, 
-            function(err) {
-                return cb(err);
-            }).$promise;
+            return User.getAll({},
+                function(data) {
+                    return cb(data);
+                },
+                function(err) {
+                    return cb(err);
+                }).$promise;
         },
         createUser: function(user, callback) {
             var cb = callback || angular.noop;
-            return resource.save(user, 
-            function(data) {
-                return cb(data);
-            }, 
-            function(err) {
-                return cb(err);
-            }).$promise;
+            return User.save(user,
+                function(data) {
+                    return cb(data);
+                },
+                function(err) {
+                    return cb(err);
+                }).$promise;
+        },
+        getUser: function(user, callback) {
+            var cb = callback || angular.noop;
+            return User.get({
+                    id: user._id
+                },
+                function(data) {
+                    return cb(data);
+                },
+                function(err) {
+                    return cb(err);
+                }).$promise;
         }
 
     }

@@ -23,3 +23,16 @@ exports.create = function(req, res, next) {
     res.json(200, req.user);
   });
 };
+
+/**
+ * Get user
+ */
+exports.show = function (req, res, next) {
+  var userId = req.params.id;
+  console.log(userId);
+  User.findById(userId, function (err, user) {
+    if (err) return next(err);
+    if (!user) return res.send(401);
+    res.json(200, user);
+  });
+};

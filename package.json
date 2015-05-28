@@ -26,14 +26,10 @@
 
   "dependencies": {
     "express": "~4.0.0",
-<<<<<<< HEAD
     "lodash": "~2.4.1",
     "mongodb": "*",
-    "mongoose": "*"
-=======
-    "lodash": "~2.4.1",
+    "mongoose": "*",
     "body-parser": "~1.5.0"
->>>>>>> ab9757a9ef8b3d1da0b4e10f215381503c153889
   },
   "devDependencies": {},
   "bundleDependencies": [],

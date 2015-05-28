@@ -1,0 +1,9 @@
+<div class="list-group">
+    <span href="" class="list-group-item" ng-repeat="item in getData() | limitTo : list.begin(pagination.currentPage) | limitTo: list.size(pagination.currentPage)">
+        <ng-transclude/>
+    </span>
+</div>
+<div class="text-center">
+    <pagination total-items="data.length" ng-model="pagination.currentPage" class="pagination-md" items-per-page="pagination.maxPerPage" boundary-links="true" rotate="true" num-pages="pagination.numPages">
+    </pagination>
+</div>
