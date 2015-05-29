@@ -31,16 +31,6 @@ app.controller('UserCtrl', function($scope, $http, $stateParams, User, Paginatio
             });
     }
 
-    $scope.createUser = function() {
-        User.createUser($scope.user)
-            .then(function(data) {
-                $scope.user = data;
-            })
-            .catch(function() {
-                $scope.user = {};
-            });
-    }
-
     $scope.getUser = function() {
         if (!$stateParams.id) {
             return;
@@ -52,6 +42,29 @@ app.controller('UserCtrl', function($scope, $http, $stateParams, User, Paginatio
             .catch(function() {
                 $scope.user = {};
             });
+    }
+
+    $scope.createUser = function() {
+        User.createUser($scope.user)
+            .then(function(data) {
+                $scope.user = data;
+            })
+            .catch(function() {
+                $scope.user = {};
+            });
+    }
+
+    $scope.updateUser = function(form) {
+        $scope.submitted = true;
+        if(form.$valid) {
+            User.updateUser($scope.user)
+                .then(function(data) {
+                    $scope.user = data;
+                })
+                .catch(function() {
+                    $scope.user = {};
+                });
+        }
     }
 
     $scope.removeUser = function(user) {

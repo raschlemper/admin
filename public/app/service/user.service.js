@@ -9,8 +9,8 @@ app.factory('User', function($resource) {
             method: 'GET',
             isArray: true
         },
-        get: {
-            method: 'GET'
+        update: {
+            method: 'PUT'
         }
     });
 
@@ -19,6 +19,18 @@ app.factory('User', function($resource) {
         allUsers: function(callback) {
             var cb = callback || angular.noop;
             return User.getAll({},
+                function(data) {
+                    return cb(data);
+                },
+                function(err) {
+                    return cb(err);
+                }).$promise;
+        },
+        getUser: function(id, callback) {
+            var cb = callback || angular.noop;
+            return User.get({
+                    id: id
+                },
                 function(data) {
                     return cb(data);
                 },
@@ -36,11 +48,9 @@ app.factory('User', function($resource) {
                     return cb(err);
                 }).$promise;
         },
-        getUser: function(id, callback) {
+        updateUser: function(user, callback) {
             var cb = callback || angular.noop;
-            return User.get({
-                    id: id
-                },
+            return User.update(user,
                 function(data) {
                     return cb(data);
                 },
