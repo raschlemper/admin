@@ -14,17 +14,6 @@ exports.index = function(req, res) {
 };
 
 /**
- * Create user
- */
-exports.create = function(req, res, next) {
-    var newUser = new User(req.body);
-    newUser.save(function(err, user) {
-        if (err) return res.send(500, err);
-        res.json(200, user);
-    });
-};
-
-/**
  * Get user
  */
 exports.show = function(req, res, next) {
@@ -33,6 +22,17 @@ exports.show = function(req, res, next) {
         if (err) return next(err);
         if (!user) return res.send(401);
         res.json(200, user);
+    });
+};
+
+/**
+ * Create user
+ */
+exports.create = function(req, res, next) {
+    var newUser = new User(req.body);
+    newUser.save(function(err, user) {
+        if (err) return res.send(500, err);
+        res.json(200);
     });
 };
 
@@ -52,6 +52,6 @@ exports.destroy = function(req, res) {
 exports.change = function(req, res, next) {
     User.findByIdAndUpdate(req.body._id, req.body, function(err, user) {
       if(err) return res.send(500, err);
-      res.json(200, user);
+      res.json(200);
     });
 };

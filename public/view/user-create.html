@@ -1,11 +1,15 @@
 <div class="col-md-12 col-sm-12">
-    <div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4>Usuários - Cadastro</h4>
-            </div>
-            <div class="panel-body">
-                <form class="form-horizontal" role="form">
+    <div class="well bs-component">
+        <form class="form-horizontal" role="form" class="form" name="form" ng-submit="createUser(form)" novalidate>
+            <fieldset>
+                <legend>Usuários - Cadastro</legend>
+
+                <div class="col-lg-2">
+                    <img ng-src="image/user.png" class="center-block img-thumbnail" />
+                </div>    
+
+                <div class="col-lg-10">
+
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="provider">Provider: </label>
                         <div class="col-sm-3">
@@ -40,16 +44,17 @@
                             </select>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="panel-footer text-right">
-                <button class="btn btn-danger" app-href="/user">
-                    <i class="glyphicon glyphicon-remove"></i> Cancel
-                </button>
-                <button class="btn btn-primary" ng-click="createUser()">
-                    <i class="glyphicon glyphicon-ok"></i> Create
-                </button>
-            </div>
-        </div>
+                    <div class="form-actions text-right">
+                        <button type="button" class="btn btn-danger" app-href="/user">
+                            <i class="glyphicon glyphicon-chevron-left"></i> Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-ok"></i> Create
+                        </button>
+                    </div>
+                
+                </div>    
+            </fieldset>
+        </form>
     </div>
 </div>

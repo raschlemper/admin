@@ -18,7 +18,7 @@ app.factory('User', function($resource) {
 
         allUsers: function(callback) {
             var cb = callback || angular.noop;
-            return User.getAll({},
+            return User.query({},
                 function(data) {
                     return cb(data);
                 },

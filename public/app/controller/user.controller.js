@@ -46,24 +46,16 @@ app.controller('UserCtrl', function($scope, $http, $stateParams, User, Paginatio
 
     $scope.createUser = function() {
         User.createUser($scope.user)
-            .then(function(data) {
-                $scope.user = data;
-            })
-            .catch(function() {
-                $scope.user = {};
-            });
+            .then(function(data) { })
+            .catch(function() { });
     }
 
     $scope.updateUser = function(form) {
         $scope.submitted = true;
         if(form.$valid) {
             User.updateUser($scope.user)
-                .then(function(data) {
-                    $scope.user = data;
-                })
-                .catch(function() {
-                    $scope.user = {};
-                });
+                .then(function(data) { })
+                .catch(function() { });
         }
     }
 
