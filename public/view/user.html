@@ -1,42 +1,55 @@
-<div class="col-md-12 col-sm-12">
-    <div class="well bs-component"><fieldset>
-        <legend>Usuários</legend>
-        <div class="list-group">
-            <span href="" class="list-group-item" ng-repeat="user in users | limitTo : list.begin(pagination.currentPage) | limitTo: list.size(pagination.currentPage, users.length)">
-                <div class="row line-user vertical-align">
-                    <div class="col-md-1">
-                        <img ng-src="image/{{ user.image }}" class="center-block img-circle img-thumbnail" />
-                    </div>
-                    <div class="col-md-11">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h4 class="list-group-item-heading">{{ user.name }}</h4>
+<div class="col-md-12 col-sm-12">         
+
+    <div class="alert alert-dismissible alert-success" ng-show="msg.success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <p>{{ msg.success }}</p>
+    </div>          
+
+    <div class="alert alert-dismissible alert-danger" ng-show="msg.success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <p>{{ msg.success }}</p>
+    </div>
+
+    <div class="well bs-component">
+        <fieldset>
+            <legend>Usuários</legend>
+            <div class="list-group">
+                <span href="" class="list-group-item" ng-repeat="user in users | limitTo : list.begin(pagination.currentPage) | limitTo: list.size(pagination.currentPage, users.length)">
+                    <div class="row line-user vertical-align">
+                        <div class="col-md-1">
+                            <img ng-src="image/{{ user.image }}" class="center-block img-circle img-thumbnail" />
+                        </div>
+                        <div class="col-md-11">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <h4 class="list-group-item-heading">{{ user.name }}</h4>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <h4 class="list-group-item-heading">Ações</h4>
+                                </div>
                             </div>
-                            <div class="col-md-2 text-center">
-                                <h4 class="list-group-item-heading">Ações</h4>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <p class="list-group-item-text">{{ user.email }}</p>
+                                    <p class="list-group-item-text">{{ user.role }}</p>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <button class="btn btn-primary" app-href="/user/{{user._id}}">
+                                        <i class="fa fa-edit btn-icon-20"></i>
+                                    </button>
+                                    <button class="btn btn-danger" ng-click="removeUser(user)">
+                                        <i class="fa fa-trash-o btn-icon-20"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="list-group-item-text">{{ user.email }}</p>
-                                <p class="list-group-item-text">{{ user.role }}</p>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <button class="btn btn-primary" app-href="/user/{{user._id}}">
-                                    <i class="fa fa-edit btn-icon-20"></i>
-                                </button>
-                                <button class="btn btn-danger" ng-click="removeUser(user)">
-                                    <i class="fa fa-trash-o btn-icon-20"></i>
-                                </button>
-                            </div>
-                        </div>
                     </div>
-                </div>
-            </span>
-        </div>
-        <div class="text-center">
-            <pagination total-items="users.length" ng-model="pagination.currentPage" class="pagination-md" items-per-page="pagination.maxPerPage" boundary-links="true" rotate="true" num-pages="pagination.numPages">
-            </pagination>
-        </div>
+                </span>
+            </div>
+            <div class="text-center">
+                <pagination total-items="users.length" ng-model="pagination.currentPage" class="pagination-md" items-per-page="pagination.maxPerPage" boundary-links="true" rotate="true" num-pages="pagination.numPages">
+                </pagination>
+            </div>
+        </fieldset>
     </div>
 </div>

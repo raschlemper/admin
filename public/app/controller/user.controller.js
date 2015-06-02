@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('UserCtrl', function($scope, $http, $stateParams, User, Pagination) {
+app.controller('UserCtrl', function($scope, $location, $stateParams, User, Pagination) {
 
     $scope.providers = [{
         code: 'local',
@@ -20,6 +20,7 @@ app.controller('UserCtrl', function($scope, $http, $stateParams, User, Paginatio
 
     $scope.users = {};
     $scope.users = [];
+    $scope.msg = { success: null , error: null };
 
     $scope.getAllUsers = function() {
         User.allUsers()
@@ -54,7 +55,10 @@ app.controller('UserCtrl', function($scope, $http, $stateParams, User, Paginatio
         $scope.submitted = true;
         if(form.$valid) {
             User.updateUser($scope.user)
-                .then(function(data) { })
+                .then(function(data) { 
+                    $scope.msg.success = "Usuário alterado com sucesso!";
+                    // $location.url("/user");
+                })
                 .catch(function() { });
         }
     }
