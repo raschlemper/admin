@@ -25,17 +25,17 @@
     margin-right: 0px;
 }
 
-.line-user div {
-    /*margin-bottom: 0px !important;*/
-    /*padding: 2px;*/
+.img-size {
+    width: 100px;
 }
 
 .list-group-item {
-    margin: 10px;
+    margin: 2px;
+    border-left: 5px solid #008CBA;
 }
 
 .list-group-item-heading strong {
-    color: #666;
+    color: #008CBA;
 }
 
 .list-group-item-text strong {
