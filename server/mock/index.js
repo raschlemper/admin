@@ -5,7 +5,5 @@
 
 'use strict';
 
-/*
- * Insert users
- */
 require('./userMock'); 
+require('./systemMock'); 

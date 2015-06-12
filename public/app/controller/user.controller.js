@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('UserCtrl', function($scope, $location, $stateParams, User, Pagination) {
+app.controller('UserCtrl', function($scope, $location, $stateParams, User, System, Pagination) {
 
     $scope.providers = [{
         code: 'local',
@@ -18,8 +18,9 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, User, Pagin
         descricao: 'Administrador'
     }];
 
-    $scope.users = {};
+    $scope.user = {};
     $scope.users = [];
+    $scope.systems = [];
     $scope.msg = { success: null , error: null };
 
     $scope.getAllUsers = function() {
@@ -80,11 +81,23 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, User, Pagin
         $scope.users = _.without($scope.users, user);
     }
 
+
+    $scope.getAllSystems = function() {
+        System.allSystems()
+            .then(function(data) {
+                $scope.systems = data;
+            })
+            .catch(function() {
+                $scope.systems = [];
+            });
+    }
+
     var init = function() {
         $scope.pagination = Pagination.pagination;
         $scope.list = Pagination.list;
         $scope.getAllUsers();
         $scope.getUser();
+        $scope.getAllSystems();
     }();
 
 });

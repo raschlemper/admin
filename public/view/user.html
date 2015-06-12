@@ -10,11 +10,11 @@
         <p>{{ msg.success }}</p>
     </div>
 
-    <div class="well bs-component">
+    <div class="bs-component">
         <fieldset>
             <legend>Usuários</legend>
-            <div class="list-group">
-                <span href="" class="list-group-item" ng-repeat="user in users | limitTo : list.begin(pagination.currentPage) | limitTo: list.size(pagination.currentPage, users.length)">
+            <div class="well list-group">
+                <div class="list-group-item" ng-repeat="user in users | limitTo : list.begin(pagination.currentPage) | limitTo: list.size(pagination.currentPage, users.length)">
                     <div class="row line-user vertical-align">
                         <div class="col-md-1">
                             <img ng-src="image/{{ user.image }}" class="center-block img-circle img-thumbnail" />
@@ -22,7 +22,9 @@
                         <div class="col-md-11">
                             <div class="row">
                                 <div class="col-md-10">
-                                    <h4 class="list-group-item-heading">{{ user.name }}</h4>
+                                    <h4 class="list-group-item-heading">
+                                        <strong>{{ user.name }}</strong>
+                                    </h4>
                                 </div>
                                 <div class="col-md-2 text-center">
                                     <h4 class="list-group-item-heading">Ações</h4>
@@ -30,8 +32,12 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-10">
-                                    <p class="list-group-item-text">{{ user.email }}</p>
-                                    <p class="list-group-item-text">{{ user.role }}</p>
+                                    <p class="list-group-item-text">
+                                        <strong>Email:</strong> <i>{{ user.email }}</i>
+                                    </p>
+                                    <p class="list-group-item-text">
+                                        <strong>Permissão:</strong> <i>{{ user.role }}</i>
+                                    </p>
                                 </div>
                                 <div class="col-md-2 text-center">
                                     <button class="btn btn-primary" app-href="/user/{{user._id}}">
@@ -44,7 +50,7 @@
                             </div>
                         </div>
                     </div>
-                </span>
+                </div>
             </div>
             <div class="text-center">
                 <pagination total-items="users.length" ng-model="pagination.currentPage" class="pagination-md" items-per-page="pagination.maxPerPage" boundary-links="true" rotate="true" num-pages="pagination.numPages">
