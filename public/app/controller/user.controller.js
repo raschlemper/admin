@@ -90,7 +90,12 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, User, Syste
             .catch(function() {
                 $scope.systems = [];
             });
-    }
+    };
+
+    $scope.dropzoneConfig = {
+      parallelUploads: 3,
+      maxFileSize: 30
+    };
 
     var init = function() {
         $scope.pagination = Pagination.pagination;

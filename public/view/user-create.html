@@ -14,14 +14,18 @@
                     <div class="well tab-pane fade" id="tabcadastro">
                         <div class="row">
                             <div class="col-lg-3">
-                                <form action="//file-arrow-circle-o-up" class="dropzone" id="my-awesome-dropzone">
+                                <!-- <form action="//file-arrow-circle-o-up" class="dropzone" id="my-awesome-dropzone">
                                     <div class="fallback">
                                         <input name="file" type="file" multiple="" />
                                     </div>
-                                </form>
+                                </form> -->
 
                                 <!-- <img ng-src="image/users/user.png" class="center-block img-thumbnail" />
                                 <p><input type="text" name="name" id="name" class="form-control" ng-model="user.name" required></p> -->
+
+                                <form class="dropzone" method="post" enctype="multipart/form-data" ng-dropzone dropzone="dropzone" dropzone-config="dropzoneConfig">
+                                    <img ng-src="image/users/user.png" class="center-block img-thumbnail" />
+                                </form>
                             </div>
                             <div class="col-lg-9">
                                 <div class="form-group">
@@ -97,16 +101,5 @@ $('#myTab a:first').tab('show')
 $('#myTab a').click(function(e) {
     e.preventDefault()
     $(this).tab('show')
-});
-var myDropzone = new Dropzone(".dropzone", { url: "file-upload"});
-$(".dropzone").dropzone({
-    paramName: "file", // The name that will be used to transfer the file
-    maxFilesize: 0.5, // MB
-
-    addRemoveLinks : true,
-    dictResponseError: 'Error while uploading file!',
-
-    //change the previewTemplate to use Bootstrap progress bars
-    previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n    <div class=\"dz-size\" data-dz-size></div>\n    <img data-dz-thumbnail />\n  </div>\n  <div class=\"progress progress-sm progress-striped active\"><div class=\"progress-bar progress-bar-success\" data-dz-uploadprogress></div></div>\n  <div class=\"dz-success-mark\"><span></span></div>\n  <div class=\"dz-error-mark\"><span></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n</div>"
 });
 </script>

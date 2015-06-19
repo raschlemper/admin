@@ -6,6 +6,7 @@ var app = angular.module('teratecAdminApp', [
         'ngResource',
         'ngSanitize',
         'ngTouch',
+        'ngDropzone',
         'ui.router',
         'ui.bootstrap'
     ])
