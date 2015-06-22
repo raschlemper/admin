@@ -22,10 +22,14 @@
 
                                 <!-- <img ng-src="image/users/user.png" class="center-block img-thumbnail" />
                                 <p><input type="text" name="name" id="name" class="form-control" ng-model="user.name" required></p> -->
-
-                                <form class="dropzone" method="post" enctype="multipart/form-data" ng-dropzone dropzone="dropzone" dropzone-config="dropzoneConfig">
-                                    <img ng-src="image/users/user.png" class="center-block img-thumbnail" />
-                                </form>
+                                <div class="dropzone" dropzone="[image/png, image/jpeg, image/gif]"
+                                    file="image" file-name="imageFileName" data-max-file-size="3">
+                                  <span>Drop Image Here</span>
+                                </div>
+                                <div class="image-container">
+                                  <img ng-src={{image}} />
+                                  <span class="file-name">{{imageFileName}}</span>
+                                </div>
                             </div>
                             <div class="col-lg-9">
                                 <div class="form-group">

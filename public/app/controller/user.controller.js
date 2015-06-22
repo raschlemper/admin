@@ -92,10 +92,8 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, User, Syste
             });
     };
 
-    $scope.dropzoneConfig = {
-      parallelUploads: 3,
-      maxFileSize: 30
-    };
+    $scope.image = null
+    $scope.imageFileName = ''
 
     var init = function() {
         $scope.pagination = Pagination.pagination;
