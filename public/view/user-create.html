@@ -3,29 +3,19 @@
         <form class="form-horizontal" role="form" class="form" name="form" ng-submit="createUser(form)" novalidate>
             <fieldset>
                 <legend>Usuários - Cadastro</legend>
-
                 <ul class="nav nav-tabs" id="myTab">
                     <li><a href="#tabcadastro" data-toggle="tab">Cadastro</a></li>
                     <li><a href="#tabsistemas" data-toggle="tab">Sistemas</a></li>
                 </ul>
-
                 <div class="tab-content">
-
                     <div class="well tab-pane fade" id="tabcadastro">
                         <div class="row">
                             <div class="col-lg-3">
-                                <!-- <form action="//file-arrow-circle-o-up" class="dropzone" id="my-awesome-dropzone">
-                                    <div class="fallback">
-                                        <input name="file" type="file" multiple="" />
-                                    </div>
-                                </form> -->
-
-                                <!-- <img ng-src="image/users/user.png" class="center-block img-thumbnail" />
-                                <p><input type="text" name="name" id="name" class="form-control" ng-model="user.name" required></p> -->
-
-                                <form class="dropzone" method="post" enctype="multipart/form-data" ng-dropzone dropzone="dropzone" dropzone-config="dropzoneConfig">
-                                    <img ng-src="image/users/user.png" name="file" class="center-block img-thumbnail" />
-                                </form>
+                                <div dropzone="[image/png, image/jpeg, image/gif]" file="image" file-name="imageFileName" data-max-file-size="1">
+                                    <img ng-src="{{image}}" id="user-image" class="center-block img-thumbnail" ng-click="selectionImage(this)"/>
+                                    <input type="file" name="user" id="user" class="file-upload" />
+                                    <p class="text-center">{{imageFileName}}</p>
+                                </div>
                             </div>
                             <div class="col-lg-9">
                                 <div class="form-group">
@@ -65,7 +55,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="tab-pane fade" id="tabsistemas">
                         <div class="list-group">
                             <div class="row list-group-item" ng-repeat="system in systems">
@@ -81,7 +70,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="form-actions text-right">
                         <button type="button" class="btn btn-danger" app-href="/user">
                             <i class="glyphicon glyphicon-chevron-left"></i> Cancel
@@ -102,4 +90,10 @@ $('#myTab a').click(function(e) {
     e.preventDefault()
     $(this).tab('show')
 });
+// $('#user-image').click(function() {
+//     $('#user').click();
+// });
+// $('#user').change(function(event) {    
+//     console.log(event.target.files[0]);
+// });
 </script>

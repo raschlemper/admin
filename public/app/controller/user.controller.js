@@ -92,9 +92,42 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, User, Syste
             });
     };
 
-    $scope.dropzoneConfig = {
-      parallelUploads: 3,
-      maxFileSize: 30
+    $scope.image = "image/users/user.png"
+    $scope.imageFileName = '';
+
+    $scope.$watch('image', function(oldVal, newVal) {
+        console.log($scope.image);
+    })
+
+    $scope.selectionImage = function(value) {
+        angular.element('#user').click();
+        angular.element('#user').change(function(event) {    
+            readerFile(event);
+        });
+    }
+
+    var readerFile = function(event) {
+        var file, name, reader, size, type;
+        if (event != null) {
+            event.preventDefault();
+        }
+        reader = new FileReader();
+        reader.onload = function(evt) {
+            //if (checkSize(size) && isTypeValid(type)) {
+                return $scope.$apply(function() {
+                    $scope.image = evt.target.result;
+                    if (angular.isString($scope.imageFileName)) {
+                        return $scope.imageFileName = name;
+                    }
+                });
+            //}
+        };
+        file = event.target.files[0];
+        name = file.name;
+        type = file.type;
+        size = file.size;
+        reader.readAsDataURL(file);
+        return false;
     };
 
     var init = function() {
