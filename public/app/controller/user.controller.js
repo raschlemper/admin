@@ -21,7 +21,10 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, User, Syste
     $scope.user = {};
     $scope.users = [];
     $scope.systems = [];
-    $scope.msg = { success: null , error: null };
+    $scope.msg = {
+        success: null,
+        error: null
+    };
 
     $scope.getAllUsers = function() {
         User.allUsers()
@@ -48,19 +51,19 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, User, Syste
 
     $scope.createUser = function() {
         User.createUser($scope.user)
-            .then(function(data) { })
-            .catch(function() { });
+            .then(function(data) {})
+            .catch(function() {});
     }
 
     $scope.updateUser = function(form) {
         $scope.submitted = true;
-        if(form.$valid) {
+        if (form.$valid) {
             User.updateUser($scope.user)
-                .then(function(data) { 
+                .then(function(data) {
                     $scope.msg.success = "Usuário alterado com sucesso!";
                     // $location.url("/user");
                 })
-                .catch(function() { });
+                .catch(function() {});
         }
     }
 
@@ -92,50 +95,14 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, User, Syste
             });
     };
 
-    $scope.image = "image/users/user.png"
-    $scope.imageFileName = '';
-
-    $scope.$watch('image', function(oldVal, newVal) {
-        console.log($scope.image);
-    })
-
-    $scope.selectionImage = function(value) {
-        angular.element('#user').click();
-        angular.element('#user').change(function(event) {    
-            readerFile(event);
-        });
-    }
-
-    var readerFile = function(event) {
-        var file, name, reader, size, type;
-        if (event != null) {
-            event.preventDefault();
-        }
-        reader = new FileReader();
-        reader.onload = function(evt) {
-            //if (checkSize(size) && isTypeValid(type)) {
-                return $scope.$apply(function() {
-                    $scope.image = evt.target.result;
-                    if (angular.isString($scope.imageFileName)) {
-                        return $scope.imageFileName = name;
-                    }
-                });
-            //}
-        };
-        file = event.target.files[0];
-        name = file.name;
-        type = file.type;
-        size = file.size;
-        reader.readAsDataURL(file);
-        return false;
-    };
-
     var init = function() {
         $scope.pagination = Pagination.pagination;
         $scope.list = Pagination.list;
         $scope.getAllUsers();
         $scope.getUser();
         $scope.getAllSystems();
+        $scope.image = "image/users/user.png"
+        $scope.imageFileName = '';
     }();
 
 });

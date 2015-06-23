@@ -1,7 +1,9 @@
 app.directive('dropzone', function() {
 
     return {
-        restrict: 'A',
+        restrict: 'E',
+        transclude: true,
+        templateUrl: 'app/directive/html/dropzone.html',
         scope: {
             file: '=',
             fileName: '='
@@ -33,10 +35,9 @@ app.directive('dropzone', function() {
                     return false;
                 }
             };
-            element.bind('dragover', processDragOverOrEnter);
-            element.bind('dragenter', processDragOverOrEnter);
-            return element.bind('drop', function(event) {
-                var file, name, reader, size, type;
+
+            createImage = function(file) {
+                var name, reader, size, type;
                 if (event != null) {
                     event.preventDefault();
                 }
@@ -50,13 +51,25 @@ app.directive('dropzone', function() {
                             }
                         });
                     }
-                };
-                file = event.originalEvent.dataTransfer.files[0];
+                };      
                 name = file.name;
                 type = file.type;
                 size = file.size;
                 reader.readAsDataURL(file);
                 return false;
+            }
+
+            scope.selectionImage = function(value) {
+                angular.element('#user').click();
+                angular.element('#user').change(function(event) {
+                    createImage(event.target.files[0]);
+                });
+            };
+
+            element.bind('dragover', processDragOverOrEnter);
+            element.bind('dragenter', processDragOverOrEnter);
+            return element.bind('drop', function(event) {
+                createImage(event.originalEvent.dataTransfer.files[0]);
             });
         }
     };

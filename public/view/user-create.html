@@ -11,11 +11,7 @@
                     <div class="well tab-pane fade" id="tabcadastro">
                         <div class="row">
                             <div class="col-lg-3">
-                                <div dropzone="[image/png, image/jpeg, image/gif]" file="image" file-name="imageFileName" data-max-file-size="1">
-                                    <img ng-src="{{image}}" id="user-image" class="center-block img-thumbnail" ng-click="selectionImage(this)"/>
-                                    <input type="file" name="user" id="user" class="file-upload" />
-                                    <p class="text-center">{{imageFileName}}</p>
-                                </div>
+                                <dropzone file="image" file-name="imageFileName"></dropzone>
                             </div>
                             <div class="col-lg-9">
                                 <div class="form-group">
