@@ -52,7 +52,41 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="tabsistemas">
-                        <div class="list-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="list-group">
+                                    <div class="list-group-item center-block" ng-repeat="system in systems">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <i class="fa fa-{{system.icon.image}}" ng-class="system.icon.color"></i> 
+                                                {{system.name}}
+                                            </div>
+                                            <div class="col-md-2 text-right">
+                                                <i class="glyphicon glyphicon-plus add" ng-click="getSystem(system)"></i>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                </div>   
+                            </div>    
+                            <div class="col-md-8">
+                                <div class="choose" ng-show="!system">
+                                    Escolha um sistema para cadastrar!
+                                </div>
+                                <div class="row" ng-show="system">
+                                    <div class="col-lg-3">
+                                        <img ng-src="image/systems/{{ system.image }}" class="center-block img-thumbnail" />
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="name">Nome: </label>
+                                            <div class="col-sm-8 form-control" name="name" id="name">
+                                                {{ system.name }}
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>    
+                        </div>      
+                        <!-- <div class="list-group">
                             <div class="row list-group-item" ng-repeat="system in systems">
                                 <div class="col-md-2">
                                     <img ng-src="image/systems/{{ system.image }}" class="center-block img-thumbnail" />
@@ -64,7 +98,7 @@
                                     <p class="list-group-item-text">{{ system.descricao }}</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="form-actions text-right">
                         <button type="button" class="btn btn-danger" app-href="/user">

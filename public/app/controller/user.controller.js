@@ -95,6 +95,10 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, User, Syste
             });
     };
 
+    $scope.getSystem = function(system) {
+        $scope.system = system;
+    }
+
     var init = function() {
         $scope.pagination = Pagination.pagination;
         $scope.list = Pagination.list;

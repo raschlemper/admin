@@ -10,11 +10,13 @@ System.find({}).remove(function() {
     System.create({
         name: 'MinhaConsulta',
         descricao: 'Sistema para gereciamento de consultas, e para o controle financeiro e emissão de boletos.',
-        image: "minhaconsulta.png"
+        image: "minhaconsulta.png",
+        icon: { image: 'leaf', color: 'green' }
     },{
         name: 'ReportManager',
         descricao: 'Sistema para gereciamento de json, e para o emissão de Relatórios.',
-        image: "reportmanager.png"
+        image: "reportmanager.png",
+        icon: { image: 'file-code-o', color: 'blue' }
     }, function() {
         console.log('finished populating Systems');
     });

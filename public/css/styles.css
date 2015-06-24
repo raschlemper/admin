@@ -93,3 +93,28 @@
 .file-upload {
     display: none !important;
 }
+
+.add {
+    cursor: pointer;
+}
+
+i {
+    padding: 8px;
+    border-radius: 100%;
+    margin-right: 5px;
+}
+
+i.add {
+    background: #008cba;
+    color: white;
+}
+
+i.green {
+    background: #66CC66;
+    color: white;
+}
+
+i.blue {
+    background: #6699FF;
+    color: white;
+}
