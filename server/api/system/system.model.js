@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 
 var SystemSchema = new Schema({
   name: String,
-  descricao: String,
+  desciption: String,
   image: { type: String, default: 'system.jpg' },
   icon: { image: String, color: String }
 });

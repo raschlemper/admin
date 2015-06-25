@@ -58,33 +58,58 @@
                                     <div class="list-group-item center-block" ng-repeat="system in systems">
                                         <div class="row">
                                             <div class="col-md-10">
-                                                <i class="fa fa-{{system.icon.image}}" ng-class="system.icon.color"></i> 
+                                                <i class="fa fa-{{system.icon.image}} icon-radius" ng-class="system.icon.color"></i> 
                                                 {{system.name}}
                                             </div>
-                                            <div class="col-md-2 text-right">
-                                                <i class="glyphicon glyphicon-plus add" ng-click="getSystem(system)"></i>
+                                            <div class="col-md-2 text-right normal">
+                                                <i ng-class="{ 'glyphicon glyphicon-plus add': systemSelection != system,
+                                                               'glyphicon glyphicon-minus remove': systemSelection == system }" 
+                                                   ng-click="getSystem(system)" class="icon-radius"></i>
                                             </div>
                                         </div>
                                     </div>    
                                 </div>   
                             </div>    
-                            <div class="col-md-8">
-                                <div class="choose" ng-show="!system">
-                                    Escolha um sistema para cadastrar!
-                                </div>
-                                <div class="row" ng-show="system">
-                                    <div class="col-lg-3">
-                                        <img ng-src="image/systems/{{ system.image }}" class="center-block img-thumbnail" />
+                            <div class="col-md-8 border-system">
+
+                                <div class="row">
+                                    <div class="form-actions text-right col-md-12">
+                                        <button type="button" class="btn btn-danger" app-href="/user">
+                                            <i class="glyphicon glyphicon-plus"></i> Add
+                                        </button>
                                     </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="well choose col-md-12" ng-show="!systemSelection">
+                                        Escolha um sistema para cadastrar!
+                                    </div>
+                                </div>
+
+                                <div class="well row width-margin" ng-show="systemSelection">
                                     <div class="col-lg-9">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="name">Nome: </label>
-                                            <div class="col-sm-8 form-control" name="name" id="name">
-                                                {{ system.name }}
+                                        <div class="row">
+                                            <label class="col-sm-3 control-label" for="systemName">Nome: </label>
+                                            <div class="col-sm-9">
+                                                <div class="form-control-text" name="systemName" id="systemName">
+                                                    {{ systemSelection.name }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-3 control-label" for="systemDesciption">Descrição: </label>
+                                            <div class="col-sm-9">
+                                                <div class="form-control-text" name="systemDesciption" id="systemDesciption">
+                                                    {{ systemSelection.desciption }}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>  
-                                </div>    
+                                    <div class="col-lg-3">
+                                        <img ng-src="image/systems/{{ systemSelection.image }}" class="center-block img-thumbnail" />
+                                    </div>
+                                </div> 
+                            </div>   
                         </div>      
                         <!-- <div class="list-group">
                             <div class="row list-group-item" ng-repeat="system in systems">

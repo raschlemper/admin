@@ -96,7 +96,7 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, User, Syste
     };
 
     $scope.getSystem = function(system) {
-        $scope.system = system;
+        $scope.systemSelection = system;
     }
 
     var init = function() {
