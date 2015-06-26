@@ -57,7 +57,8 @@
 
                                 <div class="row">
                                     <div class="form-actions text-right col-md-12">
-                                        <button type="button" class="btn btn-primary btn-full" app-href="/user">
+                                        <button type="button" class="btn btn-primary btn-full" 
+                                                ng-click="getSystem(null)">
                                             <i class="glyphicon glyphicon-plus"></i> Adicionar Sistema
                                         </button>
                                     </div>
@@ -83,19 +84,32 @@
                             <div class="col-md-8 border-system height-full">
 
                                 <div ng-show="!systemSelection">
-                                    <!-- <div class="row">
+
+                                    <div class="row">
                                         <div class="choose col-md-12 text-center">
                                             <legend>Escolha um sistema para cadastrar!</legend>
                                         </div>
-                                    </div> -->
-                                    <div class="row">
-                                        <div class="choose col-md-4" ng-repeat="system in systems">
-                                            <img ng-src="image/systems/{{ system.image }}" class="center-block img-thumbnail" />
-                                            <h5 class="list-group-item-heading text-center title">
-                                                <strong>{{ system.name }}</strong>
-                                            </h5>
+                                    </div>
+
+                                    <div class="list-group">
+                                        <div class="row list-group-item" ng-repeat="system in systems">
+                                            <div class="col-md-2">
+                                                <img ng-src="image/systems/{{ system.image }}" class="center-block img-thumbnail" />
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h4 class="list-group-item-heading">
+                                                    <strong>{{ system.name }}</strong>
+                                                </h4>
+                                                <p class="list-group-item-text text-justify">{{ system.description }}</p>
+                                            </div>
+                                            <div class="col-md-2 vertical-align">
+                                                <button type="submit" class="btn btn-primary icon-radius">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
+
                                 </div>
 
                                 <div class="row width-margin" ng-show="systemSelection">
@@ -112,7 +126,7 @@
                                             <label class="col-sm-3 control-label" for="systemDesciption">Descrição: </label>
                                             <div class="col-sm-9">
                                                 <div class="form-control-text" name="systemDesciption" id="systemDesciption">
-                                                    {{ systemSelection.desciption }}
+                                                    {{ systemSelection.description }}
                                                 </div>
                                             </div>
                                         </div>
