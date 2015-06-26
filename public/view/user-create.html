@@ -51,42 +51,54 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="tabsistemas">
-                        <div class="row">
+                    <div class="well tab-pane fade" id="tabsistemas">
+                        <div class="row height-full">
                             <div class="col-md-4">
-                                <div class="list-group">
-                                    <div class="list-group-item center-block" ng-repeat="system in systems">
-                                        <div class="row">
-                                            <div class="col-md-10">
-                                                <i class="fa fa-{{system.icon.image}} icon-radius" ng-class="system.icon.color"></i> 
-                                                {{system.name}}
-                                            </div>
-                                            <div class="col-md-2 text-right normal">
-                                                <i ng-class="{ 'glyphicon glyphicon-plus add': systemSelection != system,
-                                                               'glyphicon glyphicon-minus remove': systemSelection == system }" 
-                                                   ng-click="getSystem(system)" class="icon-radius"></i>
-                                            </div>
-                                        </div>
-                                    </div>    
-                                </div>   
-                            </div>    
-                            <div class="col-md-8 border-system">
 
                                 <div class="row">
                                     <div class="form-actions text-right col-md-12">
-                                        <button type="button" class="btn btn-danger" app-href="/user">
-                                            <i class="glyphicon glyphicon-plus"></i> Add
+                                        <button type="button" class="btn btn-primary btn-full" app-href="/user">
+                                            <i class="glyphicon glyphicon-plus"></i> Adicionar Sistema
                                         </button>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="well choose col-md-12" ng-show="!systemSelection">
-                                        Escolha um sistema para cadastrar!
+                                <div class="list-group">
+                                    <div class="list-group-item center-block" ng-repeat="system in systems">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <i class="fa fa-{{system.icon.image}} icon icon-radius" ng-class="system.icon.color"></i> 
+                                                {{system.name}}
+                                            </div>
+                                            <div class="col-md-2 text-right normal">
+                                                <i ng-class="{ 'fa fa-chevron-right': systemSelection == system,
+                                                               'fa fa-ellipsis-v': systemSelection != system }" 
+                                                   ng-click="getSystem(system)" class="icon"></i>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                </div>  
+
+                            </div>    
+                            <div class="col-md-8 border-system height-full">
+
+                                <div ng-show="!systemSelection">
+                                    <!-- <div class="row">
+                                        <div class="choose col-md-12 text-center">
+                                            <legend>Escolha um sistema para cadastrar!</legend>
+                                        </div>
+                                    </div> -->
+                                    <div class="row">
+                                        <div class="choose col-md-4" ng-repeat="system in systems">
+                                            <img ng-src="image/systems/{{ system.image }}" class="center-block img-thumbnail" />
+                                            <h5 class="list-group-item-heading text-center title">
+                                                <strong>{{ system.name }}</strong>
+                                            </h5>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="well row width-margin" ng-show="systemSelection">
+                                <div class="row width-margin" ng-show="systemSelection">
                                     <div class="col-lg-9">
                                         <div class="row">
                                             <label class="col-sm-3 control-label" for="systemName">Nome: </label>

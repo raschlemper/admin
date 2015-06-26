@@ -38,6 +38,10 @@
     color: #008CBA;
 }
 
+.list-group-item-heading.title {
+    margin-top: 10px;
+}
+
 .list-group-item-text strong {
     color: #999;
 }
@@ -98,28 +102,31 @@
     cursor: pointer;
 }
 
-.icon-radius {
+.icon {
     padding: 8px;
-    border-radius: 100%;
     margin-right: 5px;
 }
 
-.icon-radius.add {
+.icon-radius {
+    border-radius: 100%;
+}
+
+.icon.add {
     background: #008cba;
     color: white;
 }
 
-.icon-radius.remove {
+.icon.remove {
     background: #F04124;
     color: white;
 }
 
-.icon-radius.green {
+.icon.green {
     background: #66CC66;
     color: white;
 }
 
-.icon-radius.blue {
+.icon.blue {
     background: #6699FF;
     color: white;
 }
@@ -154,4 +161,18 @@
     opacity:1.00;
     -moz-opacity: 1.00;
     filter: alpha(opacity=100);
+}
+
+.tab-pane {
+    height: 320px;
+}
+
+.btn-full {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.height-full {
+    height: 100%;
+    overflow: auto;
 }
