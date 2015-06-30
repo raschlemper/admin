@@ -17,6 +17,21 @@ System.find({}).remove(function() {
         description: 'Sistema para gereciamento de json, e para o emissão de Relatórios.',
         image: "reportmanager.png",
         icon: { image: 'file-code-o', color: 'blue' }
+    },{
+        name: 'SalesManager',
+        description: 'Sistema para gereciamento de vendas, integrado com sistemas ppc.',
+        image: "salesmanager.png",
+        icon: { image: 'money', color: 'red' }
+    },{
+        name: 'Casamento.com',
+        description: 'Sistema para gereciamento e divulgação de cerimonias de casamento.',
+        image: "casamento.png",
+        icon: { image: 'camera', color: 'yellow' }
+    },{
+        name: 'Boleto.com',
+        description: 'Sistema para gereciamento de boletos.',
+        image: "boleto.png",
+        icon: { image: 'barcode', color: 'silver' }
     }, function() {
         console.log('finished populating Systems');
     });

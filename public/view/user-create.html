@@ -1,4 +1,4 @@
-<div class="col-md-12 col-sm-12">
+<div class="col-md-12 col-md-12">
     <div class="bs-component">
         <form class="form-horizontal" role="form" class="form" name="form" ng-submit="createUser(form)" novalidate>
             <fieldset>
@@ -8,52 +8,67 @@
                     <li><a href="#tabsistemas" data-toggle="tab">Sistemas</a></li>
                 </ul>
                 <div class="tab-content">
+
                     <div class="well tab-pane fade" id="tabcadastro">
-                        <div class="row">
+
+                        <div class="row height-full">
+
                             <div class="col-lg-3">
                                 <dropzone file="image" file-name="imageFileName"></dropzone>
                             </div>
+
                             <div class="col-lg-9">
+
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="provider">Provider: </label>
-                                    <div class="col-sm-3">
+                                    <label class="col-md-2 control-label" for="provider">Provider: </label>
+                                    <div class="col-md-3">
                                         <select class="form-control" name="provider" id="provider" ng-model="user.provider" required>
                                             <option value="{{provider.code}}" ng-repeat="provider in providers">{{provider.descricao}}</option>
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="name">Nome: </label>
-                                    <div class="col-sm-6">
+                                    <label class="col-md-2 control-label" for="name">Nome: </label>
+                                    <div class="col-md-6">
                                         <input type="text" name="name" id="name" class="form-control" ng-model="user.name" required>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="email">Email: </label>
-                                    <div class="col-sm-5">
+                                    <label class="col-md-2 control-label" for="email">Email: </label>
+                                    <div class="col-md-5">
                                         <input type="email" name="email" id="email" class="form-control" ng-model="user.email" required>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="password">Password: </label>
-                                    <div class="col-sm-4">
+                                    <label class="col-md-2 control-label" for="password">Password: </label>
+                                    <div class="col-md-4">
                                         <input type="password" name="password" id="password" class="form-control" ng-model="user.password" required>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="role">Role: </label>
-                                    <div class="col-sm-3">
+                                    <label class="col-md-2 control-label" for="role">Role: </label>
+                                    <div class="col-md-3">
                                         <select class="form-control" name="role" id="role" ng-model="user.role" required>
                                             <option value="{{role.code}}" ng-repeat="role in roles">{{role.descricao}}</option>
                                         </select>
                                     </div>
                                 </div>
+
                             </div>
+
                         </div>
+
                     </div>
+
                     <div class="well tab-pane fade" id="tabsistemas">
+
                         <div class="row height-full">
-                            <div class="col-md-4">
+
+                            <div class="col-md-4 systemChoose">
 
                                 <div class="row">
                                     <div class="form-actions text-right col-md-12">
@@ -64,8 +79,10 @@
                                     </div>
                                 </div>
 
-                                <div class="list-group">
-                                    <div class="list-group-item center-block" ng-repeat="system in systems">
+                                <div class="list-group list-group-overflow">
+                                    <div class="list-group-item list-group-item-link center-block"  
+                                         ng-click="getSystem(system)" 
+                                         ng-repeat="system in user.systems">
                                         <div class="row">
                                             <div class="col-md-10">
                                                 <i class="fa fa-{{system.icon.image}} icon icon-radius" ng-class="system.icon.color"></i> 
@@ -73,8 +90,8 @@
                                             </div>
                                             <div class="col-md-2 text-right normal">
                                                 <i ng-class="{ 'fa fa-chevron-right': systemSelection == system,
-                                                               'fa fa-ellipsis-v': systemSelection != system }" 
-                                                   ng-click="getSystem(system)" class="icon"></i>
+                                                               'fa fa-link': systemSelection != system }" 
+                                                   class="icon"></i>
                                             </div>
                                         </div>
                                     </div>    
@@ -83,7 +100,7 @@
                             </div>    
                             <div class="col-md-8 border-system height-full">
 
-                                <div ng-show="!systemSelection">
+                                <div class="systemChoose" ng-show="!systemSelection">
 
                                     <div class="row">
                                         <div class="choose col-md-12 text-center">
@@ -91,51 +108,111 @@
                                         </div>
                                     </div>
 
-                                    <div class="list-group">
-                                        <div class="row list-group-item" ng-repeat="system in systems">
-                                            <div class="col-md-2">
-                                                <img ng-src="image/systems/{{ system.image }}" class="center-block img-thumbnail" />
-                                            </div>
-                                            <div class="col-md-8">
-                                                <h4 class="list-group-item-heading">
-                                                    <strong>{{ system.name }}</strong>
-                                                </h4>
-                                                <p class="list-group-item-text text-justify">{{ system.description }}</p>
-                                            </div>
-                                            <div class="col-md-2 vertical-align">
-                                                <button type="submit" class="btn btn-primary icon-radius">
-                                                    <i class="fa fa-plus"></i>
-                                                </button>
+                                    <div class="list-group list-group-overflow"> 
+                                        <div ng-repeat="system in systems">
+                                            <div class="list-group-item" ng-show="system.show">
+                                                <div class="row row-50">
+                                                    <div class="col-md-2">
+                                                        <img ng-src="image/systems/{{ system.image }}" class="center-block img-thumbnail" />
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h4 class="list-group-item-heading">
+                                                            <strong>{{ system.name }}</strong>
+                                                        </h4>
+                                                        <p class="list-group-item-text text-justify">{{ system.description }}</p>
+                                                    </div>
+                                                    <div class="col-md-2 vertical-align text-center">
+                                                        <button class="btn btn-primary" ng-click="addSystem(system)">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
                                 </div>
 
-                                <div class="row width-margin" ng-show="systemSelection">
-                                    <div class="col-lg-9">
-                                        <div class="row">
-                                            <label class="col-sm-3 control-label" for="systemName">Nome: </label>
-                                            <div class="col-sm-9">
-                                                <div class="form-control-text" name="systemName" id="systemName">
-                                                    {{ systemSelection.name }}
+                                <div class="width-margin" ng-show="systemSelection">
+
+                                    <div class="row">
+
+                                        <div class="col-md-3">
+                                            <img ng-src="image/systems/{{ systemSelection.image }}" class="center-block img-thumbnail" />
+                                        </div>
+                                    
+                                        <div class="col-md-9">
+                                            <h4 class="list-group-item-heading">
+                                                <strong>{{ systemSelection.name }}</strong>
+                                            </h4>
+                                            <p class="list-group-item-text text-justify">
+                                                {{ systemSelection.description }}
+                                            </p>
+                                        </div>                                          
+
+                                    </div>     
+
+                                    <div class="horizontal-line"></div>                               
+
+                                    <div class="row">
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Período: </label>
+                                            <div class="col-md-9">
+                                                <div class="row">
+
+                                                    <div class="radio col-md-3" ng-repeat="periodo in periodos">
+                                                        <label><input type="radio" name="periodos" id="{{ periodo.code }}" 
+                                                                value="{{ periodo.code }}" ng-click="getDate(periodo.days)">{{ periodo.descricao }}</label>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <label class="col-sm-3 control-label" for="systemDesciption">Descrição: </label>
-                                            <div class="col-sm-9">
-                                                <div class="form-control-text" name="systemDesciption" id="systemDesciption">
-                                                    {{ systemSelection.description }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>  
-                                    <div class="col-lg-3">
-                                        <img ng-src="image/systems/{{ systemSelection.image }}" class="center-block img-thumbnail" />
+
                                     </div>
+
+                                    <div class="row">
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">De: </label>                                            
+                                            <div class="col-md-9">
+                                                <div class="row">
+
+                                                    <div class="col-md-5">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dateInitial" is-open="openedInitial" ng-required="true" close-text="Close" />
+                                                            <span class="input-group-btn">
+                                                                <button type="button" class="btn btn-default" ng-click="openInitial($event)">
+                                                                    <i class="fa fa-calendar"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-1 control-label text-center">Até</div>
+
+                                                    <div class="col-md-5">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dateFinal" is-open="openedFinal" ng-required="true" close-text="Close" />
+                                                            <span class="input-group-btn">
+                                                                <button type="button" class="btn btn-default" ng-click="openFinal($event)">
+                                                                    <i class="fa fa-calendar"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>  
+
+                                    </div>
+
                                 </div> 
-                            </div>   
+
+                            </div>  
+
                         </div>      
                         <!-- <div class="list-group">
                             <div class="row list-group-item" ng-repeat="system in systems">
@@ -171,6 +248,7 @@ $('#myTab a').click(function(e) {
     e.preventDefault()
     $(this).tab('show')
 });
+
 // $('#user-image').click(function() {
 //     $('#user').click();
 // });

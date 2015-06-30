@@ -34,6 +34,10 @@
     border-left: 5px solid #008CBA;
 }
 
+.list-group-item-link {
+    cursor: pointer;
+}
+
 .list-group-item-heading strong {
     color: #008CBA;
 }
@@ -47,8 +51,15 @@
 }
 
 .vertical-align {
-    display: flex;
-    align-items: center;
+    height: 100%;
+}
+
+.row-50 {
+    height: 50px;
+}
+
+.row-50 .vertical-align {
+    line-height: 50px;
 }
 
 .img-system {
@@ -111,23 +122,33 @@
     border-radius: 100%;
 }
 
-.icon.add {
-    background: #008cba;
-    color: white;
+.icon.silver {
+    background-color: #e7e7e7;
+    color: black;
 }
 
-.icon.remove {
-    background: #F04124;
+.icon.blue {
+    background-color: #6699FF;
     color: white;
 }
 
 .icon.green {
-    background: #66CC66;
+    background-color: #43ac6a;
     color: white;
 }
 
-.icon.blue {
-    background: #6699FF;
+.icon.blue-ligth {
+    background-color: #5bc0de;
+    color: white;
+}
+
+.icon.yellow {
+    background-color: #e99002;
+    color: white;
+}
+
+.icon.red {
+    background-color: #f04124;
     color: white;
 }
 
@@ -174,5 +195,19 @@
 
 .height-full {
     height: 100%;
-    overflow: auto;
+}
+
+.list-group-overflow {
+    height: 100%;
+    overflow-y: auto;   
+    overflow-x: hidden;    
+}
+
+.systemChoose {
+    height: 225px;
+}
+
+.horizontal-line {
+    margin: 30px 0 30px 0; 
+    border-bottom: 1px dashed #ccc;
 }

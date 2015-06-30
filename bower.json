@@ -18,7 +18,8 @@
         "underscore": "~1.7.0",
         "lodash": "~2.4.1",
         "dropzone": "~2.0.0",
-        "angular-dropzone": "*"
+        "angular-dropzone": "*",
+        "angular-strap": "~2.2.4"
     },
     "authors": [
         "rafael.schlemper <teratec.company@gmail.com>"
