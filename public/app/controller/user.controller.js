@@ -2,6 +2,7 @@
 
 app.controller('UserCtrl', function($scope, $location, $stateParams, $filter, User, System, Pagination) {
 
+    // Criar constantes tipo enum
     $scope.providers = [{
         code: 'local',
         descricao: 'Local'
@@ -46,6 +47,7 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, $filter, Us
     $scope.image = "image/users/user.png"
     $scope.imageFileName = '';
     $scope.format = 'dd/MM/yyyy';
+    $scope.periodoSelect = $scope.periodos[2].code;
 
     $scope.getAllUsers = function() {
         User.allUsers()
@@ -170,13 +172,25 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, $filter, Us
         }
     };
 
-    $scope.getDate = function(days) {
+    $scope.getDate = function(periodo) {
         var dateInitial = new Date();
         var dateFinal = new Date(); 
-        dateFinal.setDate(dateInitial.getDate() + days);
+        dateFinal.setDate(dateInitial.getDate() + periodo.days);
         $scope.dateInitial = $filter('date')(dateInitial, 'dd/MM/yyyy');
         $scope.dateFinal = $filter('date')(dateFinal, 'dd/MM/yyyy');
     }
+
+    $scope.verifyDate = function() {
+        _.map($scope.periodos, function(periodo) {
+            var dates = angular.copy($scope.dateInitial).split("/");;
+            var dateIntialVerify = new Date(dates[2], dates[1] - 1, dates[0]);
+            dateIntialVerify.setDate(dateIntialVerify.getDate() + periodo.days);
+            if(dateIntialVerify.getTime() === $scope.dateFinal.getTime()) {
+                $scope.periodoSelect = periodo.code;
+            }
+        });
+    }
+
 
     var init = function() {
         $scope.pagination = Pagination.pagination;
