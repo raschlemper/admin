@@ -36,17 +36,36 @@ app.directive( 'dateRange', function (FORMAT) {
                 }
             };
 
-            scope.verifyDate = function() {
+            scope.$watch('dateInitial', function(oldVal, newVal) {
+                if(!_.isEqual(oldVal, newVal)) {
+                    verifyDate();
+                }
+            })
+
+            scope.$watch('dateFinal', function(oldVal, newVal) {
+                if(!_.isEqual(oldVal, newVal)) {
+                    verifyDate();
+                }
+            })
+
+            var verifyDate = function() {
                 _.map(scope.periodos, function(periodo) {
-                    var dates = angular.copy(scope.dateInitial).split("/");;
-                    var dateIntialVerify = new Date(dates[2], dates[1] - 1, dates[0]);
-                    dateIntialVerify.setDate(dateIntialVerify.getDate() + periodo.days);
-                    if(dateIntialVerify.getTime() === scope.dateFinal.getTime()) {
+                    var dateIntial = getDate(scope.dateInitial);
+                    var dateFinal = getDate(scope.dateFinal);
+                    var dateIntialVerify = dateIntial;
+                    dateIntialVerify.setDate(dateIntial.getDate() + periodo.days);
+                    if(dateIntialVerify.getTime() === dateFinal.getTime()) {
                         periodo.checked = true;
                     } else {
                         periodo.checked = false;
                     }
                 });
+            }
+
+            var getDate = function(date) {
+                if(_.isDate(date)) return date;
+                var dates = angular.copy(date).split("/");;
+                return new Date(dates[2], dates[1] - 1, dates[0]);
             }
 
         }  

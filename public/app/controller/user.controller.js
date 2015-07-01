@@ -110,12 +110,10 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, $filter,
             system.role = 'user';
             system.dateInitial = new Date();
             system.dateFinal = new Date(); 
-            system.periodo = $scope.periodos[3];
+            system.periodos = angular.copy($scope.periodos);
+            system.periodo = system.periodos[3];
             return system;
         })
-    }
-
-    var setDateDefault = function(system) {
     }
 
     $scope.hideSystemBySelection = function(systems) {
