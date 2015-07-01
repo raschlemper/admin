@@ -23,7 +23,7 @@
                                     <label class="col-md-2 control-label" for="provider">Provider: </label>
                                     <div class="col-md-3">
                                         <select class="form-control" name="provider" id="provider" ng-model="user.provider" required>
-                                            <option value="{{provider.code}}" ng-repeat="provider in providers">{{provider.descricao}}</option>
+                                            <option value="{{provider.code}}" ng-repeat="provider in providers track by $index">{{provider.descricao}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -46,15 +46,6 @@
                                     <label class="col-md-2 control-label" for="password">Password: </label>
                                     <div class="col-md-4">
                                         <input type="password" name="password" id="password" class="form-control" ng-model="user.password" required>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label" for="role">Role: </label>
-                                    <div class="col-md-3">
-                                        <select class="form-control" name="role" id="role" ng-model="user.role" required>
-                                            <option value="{{role.code}}" ng-repeat="role in roles">{{role.descricao}}</option>
-                                        </select>
                                     </div>
                                 </div>
 
@@ -82,7 +73,7 @@
                                 <div class="list-group list-group-overflow">
                                     <div class="list-group-item list-group-item-link center-block"  
                                          ng-click="getSystem(system)" 
-                                         ng-repeat="system in user.systems">
+                                         ng-repeat="system in user.systems track by $index">
                                         <div class="row">
                                             <div class="col-md-10">
                                                 <i class="fa fa-{{system.icon.image}} icon icon-radius" ng-class="system.icon.color"></i> 
@@ -97,7 +88,8 @@
                                     </div>    
                                 </div>  
 
-                            </div>    
+                            </div> 
+
                             <div class="col-md-8 border-system height-full">
 
                                 <div class="systemChoose" ng-show="!systemSelection">
@@ -109,7 +101,7 @@
                                     </div>
 
                                     <div class="list-group list-group-overflow"> 
-                                        <div ng-repeat="system in systems">
+                                        <div ng-repeat="system in systems track by $index">
                                             <div class="list-group-item" ng-show="system.show">
                                                 <div class="row row-50">
                                                     <div class="col-md-2">
@@ -157,56 +149,28 @@
                                     <div class="row">
 
                                         <div class="form-group">
+                                            <label class="col-md-3 control-label" for="role">Role: </label>
+                                            <div class="col-md-6">
+                                                <select class="form-control" name="role" id="role" ng-model="systemSelection.role" required>
+                                                    <option value="{{role.code}}" ng-repeat="role in roles track by $index">{{role.descricao}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
                                             <label class="col-md-3 control-label">Período: </label>
                                             <div class="col-md-9">
                                                 <div class="row">
-
-                                                    <div class="radio col-md-3" ng-repeat="periodo in periodos">
-                                                        <label>
-                                                            <input type="radio" name="periodos" ng-model="periodoSelect"
-                                                                value="{{periodo.code}}" ng-click="getDate(periodo)">
-                                                            {{ periodo.descricao }}
-                                                        </label>
-                                                    </div>
-
+                                                    <periodo periodos="periodos" date-initial="systemSelection.dateInitial" date-final="systemSelection.dateFinal" selection="systemSelection.periodo"></periodo>
                                                 </div>
                                             </div>
                                         </div>
 
-                                    </div>
-
-                                    <div class="row">
-
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">De: </label>                                            
+                                            <label class="col-md-3 control-label">De: </label>
                                             <div class="col-md-9">
                                                 <div class="row">
-
-                                                    <div class="col-md-5">
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dateInitial" is-open="openedInitial" ng-required="true" close-text="Close" />
-                                                            <span class="input-group-btn">
-                                                                <button type="button" class="btn btn-default" ng-click="openInitial($event)">
-                                                                    <i class="fa fa-calendar"></i>
-                                                                </button>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-1 control-label text-center">Até</div>
-
-                                                    <div class="col-md-5">
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-change="verifyDate()"
-                                                                ng-model="dateFinal" is-open="openedFinal" ng-required="true" close-text="Close" />
-                                                            <span class="input-group-btn">
-                                                                <button type="button" class="btn btn-default" ng-click="openFinal($event)">
-                                                                    <i class="fa fa-calendar"></i>
-                                                                </button>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-
+                                                    <date-range periodos="periodos" date-initial="systemSelection.dateInitial" date-final="systemSelection.dateFinal" divisor="até"></date-range>
                                                 </div>
                                             </div>
                                         </div>  
@@ -217,20 +181,8 @@
 
                             </div>  
 
-                        </div>      
-                        <!-- <div class="list-group">
-                            <div class="row list-group-item" ng-repeat="system in systems">
-                                <div class="col-md-2">
-                                    <img ng-src="image/systems/{{ system.image }}" class="center-block img-thumbnail" />
-                                </div>
-                                <div class="col-md-10">
-                                    <h4 class="list-group-item-heading">
-                                        <strong>{{ system.name }}</strong>
-                                    </h4>
-                                    <p class="list-group-item-text">{{ system.descricao }}</p>
-                                </div>
-                            </div>
-                        </div> -->
+                        </div>   
+                        
                     </div>
                     <div class="form-actions text-right">
                         <button type="button" class="btn btn-danger" app-href="/user">

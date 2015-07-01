@@ -1,0 +1,6 @@
+<div class="radio col-md-3" ng-repeat="periodo in periodos track by $index">
+    <label>
+        <input type="radio" name="periodos" ng-checked="periodo.checked" ng-model="periodo.checked" ng-value="true" ng-click="getDate(periodo)">
+        {{ periodo.descricao }}
+    </label>
+</div>

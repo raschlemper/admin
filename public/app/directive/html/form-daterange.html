@@ -1,0 +1,24 @@
+<div class="col-md-5">
+    <div class="input-group">
+        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dateInitial" is-open="openedInitial" ng-required="true" close-text="Close" />
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="openInitial($event)">
+                <i class="fa fa-calendar"></i>
+            </button>
+        </span>
+    </div>
+</div>
+
+<div class="col-md-1 control-label text-center">{{ divisor }}</div>
+
+<div class="col-md-5">
+    <div class="input-group">
+        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-change="verifyDate()"
+            ng-model="dateFinal" is-open="openedFinal" ng-required="true" close-text="Close" />
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="openFinal($event)">
+                <i class="fa fa-calendar"></i>
+            </button>
+        </span>
+    </div>
+</div>
