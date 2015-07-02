@@ -7,7 +7,8 @@ var app = angular.module('teratecAdminApp', [
         'ngSanitize',
         'ngTouch',
         'ui.router',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'ngFileUpload'
     ])
     .config(function($urlRouterProvider, $stateProvider) {
 

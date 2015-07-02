@@ -1,5 +1,18 @@
-<div dropzone="[image/png, image/jpeg, image/gif]" file="file" file-name="fileName" data-max-file-size="1">    
+<!-- <div dropzone="[image/png, image/jpeg, image/gif]" file="file" file-name="fileName" data-max-file-size="1">    
     <img ng-src="{{file}}" id="user-image" class="center-block img-thumbnail" ng-click="selectionImage(this)"/>
     <p class="text-center">{{fileName}}</p>
     <input type="file" name="image" id="image" file-model="modelImage" class="file-upload" />
+</div> -->
+
+<div ngf-drop 
+	 ngf-select 
+     ng-model="files" 
+     class="drop-box" 
+     ngf-drag-over-class="dragover" 
+     ngf-multiple="true" 
+     ngf-allow-dir="true"
+     accept="image/*">
+    <img ng-hide="uploader.isHTML5" ng-src="{{file}}" id="user-image" class="center-block img-thumbnail user-image-size"/>
 </div>
+<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>	
+<p class="text-center">{{files[0].name}}</p>

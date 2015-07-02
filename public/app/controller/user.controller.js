@@ -24,7 +24,7 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, $filter,
 
 
     $scope.$watch('user.image', function(newVal, oldVal) {
-        console.log($scope.user.image);           
+        //console.log($scope.user.image);           
     })
 
     $scope.getAllUsers = function() {
