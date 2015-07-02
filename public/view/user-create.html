@@ -14,7 +14,9 @@
                         <div class="row height-full">
 
                             <div class="col-lg-3">
-                                <dropzone file="image" file-name="imageFileName"></dropzone>
+                                <!-- <dropzone file="image" file-name="imageFileName" model="user.image"></dropzone> 
+                                     angular-file-upload
+                                -->
                             </div>
 
                             <div class="col-lg-9">
@@ -127,7 +129,7 @@
 
                                 <div class="width-margin" ng-show="systemSelection">
 
-                                    <div class="row">
+                                    <div class="row row-70">
 
                                         <div class="col-md-3">
                                             <img ng-src="image/systems/{{ systemSelection.image }}" class="center-block img-thumbnail img-system" />

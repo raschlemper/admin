@@ -6,9 +6,17 @@ app.directive('dropzone', function() {
         templateUrl: 'app/directive/html/dropzone.html',
         scope: {
             file: '=',
-            fileName: '='
+            fileName: '=',
+            modelImage: '='
         },
         link: function(scope, element, attrs) {
+
+            scope.$watch('file', function(newVal, oldVal) {
+                if(newVal !== oldVal) {
+                    scope.modelImage = scope.file;
+                }                
+            })
+
             var checkSize, isTypeValid, processDragOverOrEnter, validMimeTypes;
             processDragOverOrEnter = function(event) {
                 if (event != null) {
@@ -60,8 +68,8 @@ app.directive('dropzone', function() {
             }
 
             scope.selectionImage = function(value) {
-                angular.element('#user').click();
-                angular.element('#user').change(function(event) {
+                angular.element('#image').click();
+                angular.element('#image').change(function(event) {
                     createImage(event.target.files[0]);
                 });
             };

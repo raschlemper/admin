@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('UserCtrl', function($scope, $location, $stateParams, $filter, 
-    User, System, Pagination, FORMAT, LISTS) {
+app.controller('UserCtrl', function($scope, $location, $stateParams, $filter,
+    User, System, Image, Pagination, FORMAT, LISTS) {
 
     var init = function() {
         $scope.user = {};
@@ -20,6 +20,12 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, $filter,
         $scope.getUser();
         $scope.getAllSystems();
     }
+
+
+
+    $scope.$watch('user.image', function(newVal, oldVal) {
+        console.log($scope.user.image);           
+    })
 
     $scope.getAllUsers = function() {
         User.allUsers()
@@ -45,6 +51,7 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, $filter,
     }
 
     $scope.createUser = function() {
+        Image.uploadFile($scope.image);
         User.createUser($scope.user)
             .then(function(data) {})
             .catch(function() {});

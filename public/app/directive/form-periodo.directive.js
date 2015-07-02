@@ -12,8 +12,8 @@ app.directive( 'periodo', function ($filter, FORMAT) {
         },
         link: function(scope, element, attrs) {
 
-            scope.$watch('selection', function(oldVal, newVal) {
-                if(!_.isEqual(oldVal, newVal)) {
+            scope.$watch('selection', function(newVal, oldVal) {
+                if(!_.isEqual(oldVal, newVal) && scope.selection) {
                     scope.getDate(scope.selection);
                 }
             })

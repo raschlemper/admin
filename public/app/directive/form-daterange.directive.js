@@ -36,13 +36,13 @@ app.directive( 'dateRange', function (FORMAT) {
                 }
             };
 
-            scope.$watch('dateInitial', function(oldVal, newVal) {
+            scope.$watch('dateInitial', function(newVal, oldVal) {
                 if(!_.isEqual(oldVal, newVal)) {
                     verifyDate();
                 }
             })
 
-            scope.$watch('dateFinal', function(oldVal, newVal) {
+            scope.$watch('dateFinal', function(newVal, oldVal) {
                 if(!_.isEqual(oldVal, newVal)) {
                     verifyDate();
                 }
