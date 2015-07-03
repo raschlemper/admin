@@ -21,12 +21,6 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, $filter,
         $scope.getAllSystems();
     }
 
-
-
-    $scope.$watch('user.image', function(newVal, oldVal) {
-        //console.log($scope.user.image);           
-    })
-
     $scope.getAllUsers = function() {
         User.allUsers()
             .then(function(data) {
@@ -51,7 +45,8 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, $filter,
     }
 
     $scope.createUser = function() {
-        Image.uploadFile($scope.image);
+        // Ajustar o nome da imagem conforme o hash_id
+        Image.uploadFile($scope.files, $scope.user.name);
         User.createUser($scope.user)
             .then(function(data) {})
             .catch(function() {});

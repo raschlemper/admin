@@ -14,8 +14,19 @@
                         <div class="row height-full">
 
                             <div class="col-lg-3">
-                                <!-- Ajustar os parametros para validar o tamanho da imagem e verificar se model ainda é utilizado -->
-                                <dropzone file="image" file-name="imageFileName" model="user.image"></dropzone> 
+                                <!-- Ajustar os parametros para validar o tamanho da imagem -->
+                                <div ngf-drop 
+                                     ngf-select 
+                                     ng-model="files" 
+                                     class="drop-box" 
+                                     ngf-drag-over-class="dragover" 
+                                     ngf-multiple="true" 
+                                     ngf-allow-dir="true"
+                                     accept="image/*">
+                                    <img ngf-src="files[0]" ngf-default-src="{{image}}" ngf-accept="'image/*'" class="center-block img-thumbnail user-image-size">
+                                </div>
+                                <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
                             </div>
 
                             <div class="col-lg-9">
@@ -47,6 +58,13 @@
                                     <label class="col-md-2 control-label" for="password">Password: </label>
                                     <div class="col-md-4">
                                         <input type="password" name="password" id="password" class="form-control" ng-model="user.password" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="password">Image: </label>
+                                    <div class="col-md-9">
+                                        <p class="list-group-item-text vertical-align">{{files[0].name}}</p>
                                     </div>
                                 </div>
 

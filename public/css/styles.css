@@ -30,7 +30,7 @@
 }
 
 .user-image-size {
-    height: 250px;
+    max-height: 250px;
 }
 
 .list-group-item {
@@ -48,6 +48,10 @@
 
 .list-group-item-heading.title {
     margin-top: 10px;
+}
+
+.list-group-item-text {
+    padding-top: 8px;
 }
 
 .list-group-item-text strong {

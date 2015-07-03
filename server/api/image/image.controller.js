@@ -1,10 +1,17 @@
 'use strict';
 
+var _ = require("underscore")
+var fs = require('fs');
+
 /**
  * Create image
  */
 exports.create = function(req, res, next) {
-    console.log(1,req.file);
-    console.log(2,req.params.file);
-    console.log(3,req.body.file);
+	var file = req.files.file;
+	fs.readFile(file.path, function (err, data) {
+		fs.writeFile(file.name, data, function(err) {
+			if (err) return console.log(err);
+	  		console.log('Hello World > helloworld.txt');
+		});
+	});
 };
