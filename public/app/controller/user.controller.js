@@ -44,12 +44,24 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, $filter,
             });
     }
 
-    $scope.createUser = function() {
-        // Ajustar o nome da imagem conforme o hash_id
-        Image.uploadFile($scope.files, $scope.user.name);
+    $scope.createUser = function() {    
+        saveImage();  
+    }
+
+    var saveUser = function() {
         User.createUser($scope.user)
             .then(function(data) {})
             .catch(function() {});
+    }
+
+    var saveImage = function() {
+        Image.uploadFile($scope.files[0], $scope.user.name)
+            .success(function (data, status, headers, config) {
+                console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+                $scope.user.image = data;  
+                saveUser();
+            });
+        
     }
 
     $scope.updateUser = function(form) {

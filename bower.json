@@ -20,7 +20,8 @@
         "dropzone": "~2.0.0",
         "angular-dropzone": "*",
         "angular-strap": "~2.2.4",
-        "ng-file-upload": "~5.0.9"
+        "ng-file-upload": "~5.0.9",
+        "hashids": "1.0.0"
     },
     "authors": [
         "rafael.schlemper <teratec.company@gmail.com>"

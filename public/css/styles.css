@@ -42,7 +42,8 @@
     cursor: pointer;
 }
 
-.list-group-item-heading strong {
+.list-group-item-heading strong,
+.title-file strong {
     color: #008CBA;
 }
 
