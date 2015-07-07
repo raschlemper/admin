@@ -2,26 +2,38 @@
 
 app.factory('Image', function($q, Upload) {
 
-    var uploadFileUser = function(file, name, callback) {
+    var progress = function(deferred, cb, evt) {
+        var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+        console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);        
+    }
+
+    var success = function (deferred, cb, data, config) {
+        console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+        deferred.resolve(data);
+        return cb();
+    }
+
+    var error = function (deferred, cb, err) {
+        deferred.reject(err);
+        return cb(err);
+    }
+
+    var uploadFileUser = function(file, user, callback) {
         var cb = callback || angular.noop;
         var deferred = $q.defer();
         Upload.upload({
             url: '/users/image/',
-            fields: { 'name': name },
+            fields: { 'name': user.name, 'email': user.email },
             file: file
         })
-        .progress(function (evt) {
-            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-            console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+        .progress(function(evt) {
+            progress(deferred, cb, evt);        
         })
         .success(function (data, status, headers, config) {
-            console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
-            deferred.resolve(data);
-            return cb();
+            success(deferred, cb, data, config);
         })
         .error(function (err, status, headers, config) {
-            deferred.reject(err);
-            return cb(err);
+            error(deferred, cb, err);
         }.bind(this));
         return deferred.promise;
     }
@@ -35,18 +47,14 @@ app.factory('Image', function($q, Upload) {
                 fields: {'name': name},
                 file: file
             })
-            .progress(function (evt) {
-                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+            .progress(function(evt) {
+                progress(deferred, cb, evt);        
             })
             .success(function (data, status, headers, config) {
-                console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
-                deferred.resolve(data);
-                return cb();
+                success(deferred, cb, data, config);
             })
             .error(function (err, status, headers, config) {
-                deferred.reject(err);
-                return cb(err);
+                error(deferred, cb, err);
             }.bind(this));
         }
         return deferred.promise;

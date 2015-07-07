@@ -74,7 +74,7 @@ app.factory('User', function($http, $q, $resource, Image) {
             var cb = callback || angular.noop;
             return User.save(user,
                 function(data) {
-                    Image.uploadFileUser(file, user.name);
+                    Image.uploadFileUser(file, user);
                     return cb(data);
                 },
                 function(err) {

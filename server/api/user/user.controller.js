@@ -63,19 +63,24 @@ exports.change = function(req, res, next) {
  */
 exports.createWithImage = function() {
     return compose() 
-        .use(function(user, req, res, next) {
+        .use(function(req, res, next) {
+            var file = req.files.file;
+            var name = Image.fileName(file.type, req.body.name);
             if(req.files.file) { 
-                Image.create(req, res, next); 
-                next(user);
+                // Image.create(req, res, next);
+                Image.createSize(req, res, next); 
+                next();
             }
         })
-        .use(function(user, req, res, next) {
+        .use(function(req, res, next) {
             var file = req.files.file;
-            var name = Image.fileName(file.type, user.name);
-            User.findByIdAndUpdate(user._id, { $set: { image: name } }, function(err, user) {
-                if (err) return res.send(500, err);
-                res.json(200, user);
-            });
+            var name = Image.fileName(file.type, req.body.name);
+            User.update( { 'name': req.body.name, 'email': req.body.email }, 
+                { 'image': name },
+                function(err, numberAffected, user) {
+                    if (err) return res.send(500, err);
+                    res.json(200, user);
+                });
 
         });
 };

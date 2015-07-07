@@ -33,7 +33,8 @@
     "composable-middleware": "^0.3.0",
     "underscore": "~1.8.3",
     "connect-multiparty": "*",
-    "hashids": "1.0.0"
+    "hashids": "1.0.0",
+    "imagemagick": "0.1.3"
   },
   "devDependencies": {},
   "bundleDependencies": [],

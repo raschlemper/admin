@@ -2,6 +2,8 @@
 
 var _ = require("underscore");
 var fs = require('fs');
+var im = require('imagemagick');
+var compose = require('composable-middleware');
 var Hashids = require('hashids');
 
 var hashids = new Hashids("teratec", 8, 
@@ -18,10 +20,30 @@ var create = function(req, res, next) {
 		var path = 'public/image/users/' + name;
 		fs.writeFile(path, data, function(err) {
 			if (err) return err;
-        	res.json(200, name);
+        	res.json(200, data);
 		});
 	});
 };
+
+var createSize = function(req, res, next) {
+    var file = req.files.file;
+    var name = fileName(file.type, req.body.name);
+    fs.readFile(file.path, function (err, data) {
+        var path = 'public/image/users/' + name;
+        fs.writeFile(path, data, function(err) {
+            if (err) throw err;
+            var options = {
+                width: 30,
+                height: 20,
+                srcPath: name,
+                dstPath: "output.png"
+            };
+            im.resize(options, function(err){
+                if (err) throw err;
+            });
+        });
+    });
+}
 
 var fileName = function(type, name) {
 	var nameEncode = encode(name);
@@ -48,6 +70,7 @@ var decode = function(value) {
 }
 
 exports.create = create;
+exports.createSize = createSize;
 exports.fileName = fileName;
 exports.encode = encode;
 exports.decode = decode;
