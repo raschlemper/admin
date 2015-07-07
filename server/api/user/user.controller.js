@@ -1,12 +1,14 @@
 'use strict';
 
+var compose = require('composable-middleware');
+var Image = require('../image/image.controller');
 var User = require('./user.model');
 
 /**
  * Get list of users
  * restriction: 'admin'
  */
-exports.index = function(req, res) {
+exports.index = function(req, res, next) {
     User.find({}, function(err, users) {
         if (err) return res.send(500, err);
         res.json(200, users);
@@ -39,7 +41,7 @@ exports.create = function(req, res, next) {
 /**
  * Remove user
  */
-exports.destroy = function(req, res) {
+exports.destroy = function(req, res, next) {
     User.findByIdAndRemove(req.params.id, function(err, user) {
         if (err) return res.send(500, err);
         return res.send(204);
@@ -54,4 +56,26 @@ exports.change = function(req, res, next) {
       if(err) return res.send(500, err);
       res.json(200);
     });
+};
+
+/**
+ * Create user
+ */
+exports.createWithImage = function() {
+    return compose() 
+        .use(function(user, req, res, next) {
+            if(req.files.file) { 
+                Image.create(req, res, next); 
+                next(user);
+            }
+        })
+        .use(function(user, req, res, next) {
+            var file = req.files.file;
+            var name = Image.fileName(file.type, user.name);
+            User.findByIdAndUpdate(user._id, { $set: { image: name } }, function(err, user) {
+                if (err) return res.send(500, err);
+                res.json(200, user);
+            });
+
+        });
 };

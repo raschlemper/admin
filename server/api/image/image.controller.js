@@ -11,21 +11,21 @@ var imagePath = 'public/image/users/';
 /**
  * Create image
  */
-exports.create = function(req, res, next) {
+var create = function(req, res, next) {
 	var file = req.files.file;
-	var name = fileName(file, req.body.name);
+	var name = fileName(file.type, req.body.name);
 	fs.readFile(file.path, function (err, data) {
 		var path = 'public/image/users/' + name;
 		fs.writeFile(path, data, function(err) {
-			if (err) return console.log(err);
+			if (err) return err;
         	res.json(200, name);
 		});
 	});
 };
 
-var fileName = function(file, name) {
+var fileName = function(type, name) {
 	var nameEncode = encode(name);
-	switch(file.type) {
+	switch(type) {
     case "image/jpeg":
         return nameEncode + '.jpg';
         break;
@@ -42,7 +42,12 @@ var encode = function(value) {
     return hashids.encodeHex(valueHex);
 }
 
-var dencode = function(value) {
+var decode = function(value) {
 	var valueHex = hashids.decodeHex(value);
     return Buffer(valueHex, 'hex').toString('utf8');
 }
+
+exports.create = create;
+exports.fileName = fileName;
+exports.encode = encode;
+exports.decode = decode;

@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('User', function($resource) {
+app.factory('User', function($http, $q, $resource, Image) {
 
     var User = $resource('/users/:id', {
         id: '@id'
@@ -64,6 +64,17 @@ app.factory('User', function($resource) {
                     id: id
                 },
                 function(data) {
+                    return cb(data);
+                },
+                function(err) {
+                    return cb(err);
+                }).$promise;
+        },
+        createUserWithImage: function(file, user, callback) {
+            var cb = callback || angular.noop;
+            return User.save(user,
+                function(data) {
+                    Image.uploadFileUser(file, user.name);
                     return cb(data);
                 },
                 function(err) {
