@@ -2,7 +2,7 @@
 
 var _ = require("underscore");
 var fs = require('fs');
-var im = require('imagemagick');
+var gm = require('gm');
 var compose = require('composable-middleware');
 var Hashids = require('hashids');
 
@@ -32,15 +32,14 @@ var createSize = function(req, res, next) {
         var path = 'public/image/users/' + name;
         fs.writeFile(path, data, function(err) {
             if (err) throw err;
-            var options = {
-                width: 30,
-                height: 20,
-                srcPath: name,
-                dstPath: "output.png"
-            };
-            im.resize(options, function(err){
-                if (err) throw err;
-            });
+            var pathNew = 'public/image/users/new' + name;
+            var teste = gm(path)
+                .resize(30, 50)
+                .autoOrient();
+                // .write(path, function (err) {
+                //   if (!err) console.log(' hooray! ');
+                // });
+            console.log(teste);
         });
     });
 }
