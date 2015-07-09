@@ -67,8 +67,7 @@ exports.createWithImage = function() {
             var file = req.files.file;
             var name = Image.fileName(file.type, req.body.name);
             if(req.files.file) { 
-                // Image.create(req, res, next);
-                Image.createSize(req, res, next); 
+                Image.createImageUser(file, name); 
                 next();
             }
         })

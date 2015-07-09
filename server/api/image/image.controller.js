@@ -2,7 +2,7 @@
 
 var _ = require("underscore");
 var fs = require('fs');
-var gm = require('gm');
+var lwip = require('lwip');
 var compose = require('composable-middleware');
 var Hashids = require('hashids');
 
@@ -25,21 +25,17 @@ var create = function(req, res, next) {
 	});
 };
 
-var createSize = function(req, res, next) {
-    var file = req.files.file;
-    var name = fileName(file.type, req.body.name);
-    fs.readFile(file.path, function (err, data) {
-        var path = 'public/image/users/' + name;
-        fs.writeFile(path, data, function(err) {
-            if (err) throw err;
-            var pathNew = 'public/image/users/new' + name;
-            var teste = gm(path)
-                .resize(30, 50)
-                .autoOrient();
-                // .write(path, function (err) {
-                //   if (!err) console.log(' hooray! ');
-                // });
-            console.log(teste);
+// TODO: Fazer o resize conforme o h ou o w da image,
+// considerar o maior pelo tamanho da image e calcular a outra medida
+// http://thejackalofjavascript.com/image-manipulation-node-js/ 
+var createImageUser = function(file, name) {
+    var path = 'public/image/users/' + name;
+    lwip.open(file.path, function(err, image) {
+        if (err) throw err;
+        image.resize(180, 250, function(err, rzdImg) {
+            rzdImg.writeFile(path, function(err) {
+                if (err) throw err;
+            });
         });
     });
 }
@@ -69,7 +65,7 @@ var decode = function(value) {
 }
 
 exports.create = create;
-exports.createSize = createSize;
+exports.createImageUser = createImageUser;
 exports.fileName = fileName;
 exports.encode = encode;
 exports.decode = decode;
