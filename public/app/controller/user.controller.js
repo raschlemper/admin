@@ -23,7 +23,7 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, $filter,
     }
 
     var resetForm = function(form) {
-        
+
     }
 
     $scope.getAllUsers = function() {
@@ -54,6 +54,7 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, $filter,
         if (form.$valid) { 
             if($scope.files) { createUserWithImage($scope.files[0], $scope.user); }
             else { createUserWithoutImage($scope.user); }
+            $scope.submitted = false;
             form.$setPristine();
         } else {
             $scope.msg.error = form.$error;

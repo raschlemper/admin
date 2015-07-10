@@ -3,7 +3,7 @@
     <message success="msg.success" error="msg.error" dismiss="false"/>
 
     <div class="bs-component">
-        <form class="form-horizontal" role="form" class="form" name="form" ng-submit="createUser(form)" novalidate>
+        <form class="form-horizontal" role="form" class="form" name="form" ng-submit="createUser(form)" clean-form novalidate>
             <fieldset>
                 <legend>Usuários - Cadastro</legend>
                 <ul class="nav nav-tabs" id="myTab">
@@ -56,7 +56,7 @@
                                                                     'has-error': form.name.$invalid && submitted }">
                                     <label class="col-md-2 control-label" for="name">Nome: </label>
                                     <div class="col-md-6">
-                                        <input type="text" name="name" id="name" class="form-control" ng-model="user.name" required clean-form="form.name">
+                                        <input type="text" name="name" id="name" class="form-control" ng-model="user.name" required>
                                         <p class="help-block" ng-show="form.name.$error.required && submitted">Digite o nome do usuário.</p>
                                     </div>
                                 </div>
