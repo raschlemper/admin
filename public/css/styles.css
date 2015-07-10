@@ -225,3 +225,7 @@
     margin: 20px 0; 
     border-bottom: 1px dashed #ccc;
 }
+
+p.help-block {
+    margin-bottom: -5px !important;
+}

@@ -65,16 +65,16 @@ var getSize = function(widthMax, heightMax, width, height) {
 var verifyWidthSize = function(widthMax, newWidth, newHeight) {
     if(widthMax > newWidth) return;
     return {
-        'width': widthMax;
-        'height': newHeight;      
+        'width': widthMax,
+        'height': newHeight      
     }
 }
 
 var verifyHeightSize = function(heightMax, newWidth, newHeight) {
     if(heightMax > newHeight) return;
     return {
-        'width': newWidth;
-        'height': heightMax;
+        'width': newWidth,
+        'height': heightMax
     }   
 }
 

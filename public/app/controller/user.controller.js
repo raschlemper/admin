@@ -19,6 +19,7 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, $filter,
         $scope.getAllUsers();
         $scope.getUser();
         $scope.getAllSystems();
+        $scope.pattern = '[a-zA-Z]{3,}@[a-zA-Z]{3,}[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}';
     }
 
     $scope.getAllUsers = function() {
@@ -44,10 +45,19 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, $filter,
             });
     }
 
-    $scope.createUser = function() {   
-        User.createUserWithImage($scope.files[0], $scope.user)
-            .then(function(data) {})
-            .catch(function() {});
+    $scope.createUser = function(form) {  
+        $scope.submitted = true;
+        if (form.$valid) { 
+            User.createUserWithImage($scope.files[0], $scope.user)
+                .then(function(data) {
+                    $scope.msg.success = "Usuário cadastrado com sucesso!";                
+                })
+                .catch(function() {
+                    $scope.msg.error = "Problemas ao cadastrar o usuário!";
+                });
+        } else {
+            $scope.msg.error = form.$error;
+        }
     }
 
     $scope.updateUser = function(form) {
@@ -58,7 +68,10 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, $filter,
                     $scope.msg.success = "Usuário alterado com sucesso!";
                     // $location.url("/user");
                 })
-                .catch(function() {});
+                .catch(function(e) {
+                    $scope.msg.error = "Problemas ao alteradar o usuário!";
+
+                });
         }
     }
 
