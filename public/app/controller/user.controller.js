@@ -22,6 +22,10 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, $filter,
         $scope.pattern = '[a-zA-Z]{3,}@[a-zA-Z]{3,}[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}';
     }
 
+    var resetForm = function(form) {
+        
+    }
+
     $scope.getAllUsers = function() {
         User.allUsers()
             .then(function(data) {
@@ -48,16 +52,32 @@ app.controller('UserCtrl', function($scope, $location, $stateParams, $filter,
     $scope.createUser = function(form) {  
         $scope.submitted = true;
         if (form.$valid) { 
-            User.createUserWithImage($scope.files[0], $scope.user)
-                .then(function(data) {
-                    $scope.msg.success = "Usuário cadastrado com sucesso!";                
-                })
-                .catch(function() {
-                    $scope.msg.error = "Problemas ao cadastrar o usuário!";
-                });
+            if($scope.files) { createUserWithImage($scope.files[0], $scope.user); }
+            else { createUserWithoutImage($scope.user); }
+            form.$setPristine();
         } else {
             $scope.msg.error = form.$error;
         }
+    }
+
+    var createUserWithoutImage = function(user) {  
+        User.createUser(user)
+            .then(function(data) {
+                $scope.msg.success = "Usuário cadastrado com sucesso!";                
+            })
+            .catch(function() {
+                $scope.msg.error = "Problemas ao cadastrar o usuário!";
+            });
+    }
+
+    var createUserWithImage = function(files, user) {  
+        User.createUserWithImage(files[0], user)
+            .then(function(data) {
+                $scope.msg.success = "Usuário cadastrado com sucesso!";                
+            })
+            .catch(function() {
+                $scope.msg.error = "Problemas ao cadastrar o usuário!";
+            });
     }
 
     $scope.updateUser = function(form) {

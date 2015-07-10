@@ -26,7 +26,8 @@
                                      ngf-multiple="true" 
                                      ngf-allow-dir="true"
                                      accept="image/*">
-                                    <img ngf-src="files[0]" ngf-default-src="{{image}}" ngf-accept="'image/*'" class="center-block img-thumbnail user-image-size">
+                                    <img id="image" name="image" ngf-src="files[0]" ngf-default-src="{{image}}" ngf-accept="'image/*'" 
+                                        class="center-block img-thumbnail user-image-size">
                                 </div>
                                 <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
                                 <h6 class="text-center title-file">
@@ -55,7 +56,7 @@
                                                                     'has-error': form.name.$invalid && submitted }">
                                     <label class="col-md-2 control-label" for="name">Nome: </label>
                                     <div class="col-md-6">
-                                        <input type="text" name="name" id="name" class="form-control" ng-model="user.name" required>
+                                        <input type="text" name="name" id="name" class="form-control" ng-model="user.name" required clean-form="form.name">
                                         <p class="help-block" ng-show="form.name.$error.required && submitted">Digite o nome do usuário.</p>
                                     </div>
                                 </div>
@@ -64,7 +65,7 @@
                                                                     'has-error': form.email.$invalid && submitted }">
                                     <label class="col-md-2 control-label" for="email">Email: </label>
                                     <div class="col-md-5">
-                                        <input type="text" pattern="{{pattern}}" name="email" id="email" class="form-control" ng-model="user.email" required>
+                                        <input type="email" name="email" id="email" class="form-control" ng-model="user.email" required>
                                         <p class="help-block" ng-show="form.email.$error.required && submitted">Digite o email do usuário.</p>
                                         <p class="help-block" ng-show="form.email.$error.email && submitted">Digite um email válido.</p>
                                     </div>
@@ -188,7 +189,7 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label" for="role">Role: </label>
                                             <div class="col-md-6">
-                                                <select class="form-control" name="role" id="role" ng-model="systemSelection.role" required>
+                                                <select class="form-control" name="role" id="role" ng-model="systemSelection.role">
                                                     <option value="{{role.code}}" ng-repeat="role in roles track by $index">{{role.descricao}}</option>
                                                 </select>
                                             </div>
