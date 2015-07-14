@@ -9,6 +9,11 @@
  */
 angular.module('teratecAdminApp').controller('MainCtrl', function($scope) {
 
+    var init = function() {
+        $scope.msg = { success: null, error: null };
+        setLineHeightMainContainer();
+    }
+
     var setLineHeightMainContainer = function() {
         var main = angular.element(window).height();
         var menu = angular.element("#menu").height();
@@ -22,6 +27,6 @@ angular.module('teratecAdminApp').controller('MainCtrl', function($scope) {
         setLineHeightMainContainer();
     });
 
-    setLineHeightMainContainer();
+    init();
 
 });

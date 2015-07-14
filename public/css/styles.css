@@ -229,3 +229,7 @@
 p.help-block {
     margin-bottom: -5px !important;
 }
+
+button.close {
+    color: #000;
+}

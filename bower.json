@@ -13,6 +13,7 @@
         "angular-touch": ">=1.2.*",
         "angular-bootstrap": "~0.11.0",
         "angular-ui-router": "~0.2.10",
+        "angular-translate": "~2.7.2",
         "font-awesome": ">=4.1.0",
         "bootswatch": "~3.3.4",
         "underscore": "~1.7.0",

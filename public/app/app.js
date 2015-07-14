@@ -8,7 +8,8 @@ var app = angular.module('teratecAdminApp', [
         'ngTouch',
         'ui.router',
         'ui.bootstrap',
-        'ngFileUpload'
+        'ngFileUpload',
+        'pascalprecht.translate'
     ])
     .config(function($urlRouterProvider, $stateProvider) {
 
@@ -29,7 +30,7 @@ var app = angular.module('teratecAdminApp', [
             .state('userCreate', {
                 url: '/user/create',
                 templateUrl: 'view/user-create.html',
-                controller: 'UserCtrl'
+                controller: 'UserFormCtrl'
             })
             .state('userEdit', {
                 url: '/user/:id',

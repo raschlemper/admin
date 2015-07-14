@@ -1,14 +1,23 @@
-<div class="col-md-12 col-md-12">       
+<div class="col-md-12 col-md-12"> 
+
+<!-- 
+    - Fazer a troca das msgs pelo translate
+    - Fazer as validações dos campos
+    - Criar a limpeza do formulario
+    - Retirar as directivas de form
+    - Criar o translate dos campos das lista dos js contant
+    - Fazer o ajuste para salvar os systema do usuário pelo mock
+ -->      
 
     <message success="msg.success" error="msg.error" dismiss="false"/>
 
     <div class="bs-component">
-        <form class="form-horizontal" role="form" class="form" name="form" ng-submit="createUser(form)" clean-form novalidate>
+        <form class="form-horizontal" role="form" class="form" name="form" ng-submit="createUser(form)" novalidate>
             <fieldset>
-                <legend>Usuários - Cadastro</legend>
+                <legend translate>TITLE.USER.CREATE</legend>
                 <ul class="nav nav-tabs" id="myTab">
-                    <li><a href="#tabcadastro" data-toggle="tab">Cadastro</a></li>
-                    <li><a href="#tabsistemas" data-toggle="tab">Sistemas</a></li>
+                    <li><a href="#tabcadastro" data-toggle="tab" translate>NAV.CREATE</a></li>
+                    <li><a href="#tabsistemas" data-toggle="tab" translate>NAV.SYSTEMS</a></li>
                 </ul>
                 <div class="tab-content">
 
@@ -17,7 +26,6 @@
                         <div class="row height-full">
 
                             <div class="col-lg-3">
-                                <!-- Ajustar os parametros para validar o tamanho da imagem -->
                                 <div ngf-drop 
                                      ngf-select 
                                      ng-model="files" 
@@ -41,42 +49,42 @@
 
                                 <div class="form-group" ng-class="{ 'has-success': form.provider.$valid && submitted,
                                                                     'has-error': form.provider.$invalid && submitted }">
-                                    <label class="col-md-2 control-label" for="provider">Provider: </label>
+                                    <label class="col-md-2 control-label" for="provider">{{'LABEL.PROVIDER' | translate}}:</label>
                                     <div class="col-md-3">
                                         <select class="form-control" name="provider" id="provider" ng-model="user.provider" required>
                                             <option value="{{provider.code}}" ng-repeat="provider in providers track by $index">
                                                 {{provider.descricao}}
                                             </option>
                                         </select>
-                                        <p class="help-block" ng-show="form.provider.$error.required && submitted">Escolha um item da lista.</p>
+                                        <p class="help-block" ng-show="form.provider.$error.required && submitted" translate>MSG.ITEM.CHOOSE.ONE</p>
                                     </div>
                                 </div>
 
                                 <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
                                                                     'has-error': form.name.$invalid && submitted }">
-                                    <label class="col-md-2 control-label" for="name">Nome: </label>
+                                    <label class="col-md-2 control-label" for="name">{{'LABEL.NAME' | translate}}:</label>
                                     <div class="col-md-6">
                                         <input type="text" name="name" id="name" class="form-control" ng-model="user.name" required>
-                                        <p class="help-block" ng-show="form.name.$error.required && submitted">Digite o nome do usuário.</p>
+                                        <p class="help-block" ng-show="form.name.$error.required && submitted" translate>MSG.USER.NAME</p>
                                     </div>
                                 </div>
 
                                 <div class="form-group" ng-class="{ 'has-success': form.email.$valid && submitted,
                                                                     'has-error': form.email.$invalid && submitted }">
-                                    <label class="col-md-2 control-label" for="email">Email: </label>
+                                    <label class="col-md-2 control-label" for="email">{{'LABEL.EMAIL' | translate}}:</label>
                                     <div class="col-md-5">
                                         <input type="email" name="email" id="email" class="form-control" ng-model="user.email" required>
-                                        <p class="help-block" ng-show="form.email.$error.required && submitted">Digite o email do usuário.</p>
-                                        <p class="help-block" ng-show="form.email.$error.email && submitted">Digite um email válido.</p>
+                                        <p class="help-block" ng-show="form.email.$error.required && submitted" translate>MSG.USER.EMAIL</p>
+                                        <p class="help-block" ng-show="form.email.$error.email && submitted" translate>MSG.VALID.EMAIL</p>
                                     </div>
                                 </div>
 
                                 <div class="form-group" ng-class="{ 'has-success': form.password.$valid && submitted,
                                                                     'has-error': form.password.$invalid && submitted }">
-                                    <label class="col-md-2 control-label" for="password">Password: </label>
+                                    <label class="col-md-2 control-label" for="password">{{'LABEL.PASSWORD' | translate}}: </label>
                                     <div class="col-md-4">
                                         <input type="password" name="password" id="password" class="form-control" ng-model="user.password" required>
-                                        <p class="help-block" ng-show="form.password.$error.required && submitted">Digite sua senha.</p>
+                                        <p class="help-block" ng-show="form.password.$error.required && submitted" translate>MSG.USER.PASSWORD</p>
                                     </div>
                                 </div>
 
