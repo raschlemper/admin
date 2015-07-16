@@ -4,23 +4,23 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     User, System, Image, Pagination, FORMAT, LISTS) {
 
     var init = function() {
-        $scope.user = {};
-        $scope.systems = [];
-        $scope.image = "image/users/user.png"
-        $scope.imageFileName = '';
         $scope.providers = LISTS.providers;
         $scope.roles = LISTS.roles;
         $scope.periodos = LISTS.periodos;
         $scope.getUser();
         $scope.getAllSystems();
-    }
-
-    var formDefault = function() {
-
+        $scope.systems = [];
+        $scope.image = "image/users/user.png";
+        $scope.imageFileName = '';
+        $scope.user = {
+            'provider': LISTS.providers[0];
+        };
     }
 
     var resetForm = function(form) {
-
+        form.$setPristine();
+        $scope.submitted = false;
+        init();
     }
 
     $scope.getUser = function() {
@@ -37,12 +37,10 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     }
 
     $scope.createUser = function(form) {  
-        $scope.submitted = true;
         if (form.$valid) { 
             if($scope.files) { createUserWithImage($scope.files[0], $scope.user); }
             else { createUserWithoutImage($scope.user); }
-            $scope.submitted = false;
-            form.$setPristine();
+            resetForm();
         } else {
             $scope.msg.error = form.$error;
         }

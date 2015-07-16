@@ -81,7 +81,7 @@
                             <div class="col-md-4 systemChoose">
                                 <div class="row">
                                     <div class="form-actions text-right col-md-12">
-                                        <button type="button" class="btn btn-primary btn-full" ng-click="getSystem(null)">
+                                        <button type="button" class="btn btn-primary btn-full" ng-click="showSystems()">
                                             <i class="glyphicon glyphicon-plus"></i> Adicionar Sistema
                                         </button>
                                     </div>
@@ -121,7 +121,7 @@
                                                         <p class="list-group-item-text text-justify">{{ system.description }}</p>
                                                     </div>
                                                     <div class="col-md-2 vertical-align text-center">
-                                                        <button class="btn btn-primary" ng-click="addSystem(system)">
+                                                        <button type="button" class="btn btn-primary" ng-click="addSystem(system)">
                                                             <i class="fa fa-plus"></i>
                                                         </button>
                                                     </div>

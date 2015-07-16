@@ -6,11 +6,17 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
   name: String,
-  email: { type: String, lowercase: true },
-  role: { type: String, default: 'user' },
+  email: { type: String, lowercase: true },  
   password: String,
   image: String,
-  provider: String
+  provider: String,
+  systems: [{
+    _id: {type: Schema.Types.ObjectId, ref: 'System'},
+    role: { type: String, default: 'user' },
+    dateInitial: Date,
+    dateFinal: Date
+  }]
+
 });
 
 
