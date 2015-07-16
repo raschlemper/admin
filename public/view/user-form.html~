@@ -86,7 +86,11 @@
                                 <div class="row">
                                     <div class="form-actions text-right col-md-12">
                                         <button type="button" class="btn btn-primary btn-full" ng-click="showSystems()">
+<<<<<<< HEAD
                                             <i class="glyphicon glyphicon-plus"></i> {{'BUTTON.ADD.SYSTEM' | translate}}
+=======
+                                            <i class="glyphicon glyphicon-plus"></i> Adicionar Sistema
+>>>>>>> d8ca4292d0d5bbbcc3408ffcb1743e19e54742a9
                                         </button>
                                     </div>
                                 </div>
