@@ -32,7 +32,7 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#/user" translate>MENU.USERS</a></li>
+                    <li class="active"><a href="#/user">{{'MENU.USERS' | translate}}</a></li>
                 </ul>
             </div>
         </div>
@@ -44,12 +44,12 @@
             <ul id="sidebar" class="nav nav-stacked fixed">
                 <li>
                     <a href="#/user">
-                        <i class="glyphicon glyphicon-list icon-sidebar"></i>{{ 'MENU.LIST' | translate }}
+                        <i class="glyphicon glyphicon-list icon-sidebar"></i>{{'MENU.LIST' | translate}}
                     </a>
                 </li>
                 <li>
                     <a href="#/user/create">
-                        <i class="glyphicon glyphicon-plus icon-sidebar"></i>{{ 'MENU.CREATE' | translate }}
+                        <i class="glyphicon glyphicon-plus icon-sidebar"></i>{{'MENU.CREATE' | translate}}
                     </a>
                 </li>
             </ul>
@@ -90,6 +90,7 @@
     <script src="app/service/system.service.js" type="text/javascript"></script>
     <script src="app/service/pagination.service.js" type="text/javascript"></script>
     <script src="app/service/image.service.js" type="text/javascript"></script>
+    <script src="app/service/date.service.js" type="text/javascript"></script>
 
     <script src="app/directive/app-href.directive.js" type="text/javascript"></script>
     <script src="app/directive/message.directive.js" type="text/javascript"></script>

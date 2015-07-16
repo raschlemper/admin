@@ -11,13 +11,22 @@ app.config(['$translateProvider', function($translateProvider) {
     	'LABEL.NAME': 'Nome',
     	'LABEL.EMAIL': 'Email',
     	'LABEL.PASSWORD': 'Senha',
+        'LABEL.ROLE': 'Role',
+        'LABEL.PERIOD': 'Período',
+        'LABEL.DE': 'De',
+        'LABEL.ATE': 'Até',
+        'BUTTON.ADD.SYSTEM': 'Adicionar Sistema',
+        'BUTTON.SAVE': 'Salvar',
+        'BUTTON.CANCEL': 'Cancelar',
     	'MSG.ITEM.CHOOSE.ONE': 'Escolha um item da lista.',
+        'MSG.ITEM.CHOOSE.SYSTEM': 'Escolha um sistema para cadastrar!',
     	'MSG.USER.NAME': 'Digite o nome do usuário.',
     	'MSG.USER.EMAIL': 'Digite o email do usuário.',
     	'MSG.USER.PASSWORD': 'Digite a senha do usuário.',
     	'MSG.VALID.EMAIL': 'Digite um email válido.',
         'MSG.USER.CREATE.SUCCESS': 'Usuário cadastrado com sucesso!',
-        'MSG.USER.CREATE.ERROR': 'Problemas ao cadastrar o usuário!'
+        'MSG.USER.CREATE.ERROR': 'Problemas ao cadastrar o usuário!',
+        'MSG.DRAG_DROP.NOT_SUPORTTED': 'Arquivo Drag/Drop não é suportado neste navegador!'
     });
 
 	$translateProvider.useSanitizeValueStrategy('sanitize');

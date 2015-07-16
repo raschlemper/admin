@@ -37,7 +37,7 @@ app.constant('LISTS', {
         code: 'mes',
         descricao: '30 Dias',
         days: 30,
-        checked: true
+        checked: false
     }]
 
 });

@@ -1,20 +1,94 @@
 'use strict';
 
 app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter,
-    User, System, Image, Pagination, FORMAT, LISTS) {
+    User, System, Image, Pagination, DateUtil, FORMAT, LISTS) {
+
+    var element = {
+        'tab': angular.element('#myTab');
+    }
 
     var init = function() {
         $scope.user = {};
         $scope.systems = [];
-        $scope.image = "image/users/user.png"
-        $scope.imageFileName = '';
+        $scope.msg = {};
+        $scope.image = {};
         $scope.providers = LISTS.providers;
         $scope.roles = LISTS.roles;
         $scope.periodos = LISTS.periodos;
         $scope.format = FORMAT.date;
         $scope.getUser();
         $scope.getAllSystems();
+        setUp();
     }
+
+    var setUp = function() {
+        $scope.image = "image/users/user.png";
+        $scope.user = {
+            'provider': LISTS.providers[0].code,
+            'systems': []
+        };
+        $scope.periodos[3].checked = true;
+        $scope.msg = { success: null, error: null };
+        element.tab.find('a:first').tab('show');
+    }
+
+    var setUpSystems = function(systems) {
+        return _.map(systems, function(system) {
+            system.role = 'user';
+            system.periodos = angular.copy($scope.periodos);
+            system.periodo = system.periodos[3];
+            system.dateInitial = new Date();
+            system.dateFinal = DateUtil.addDaysToDate(new Date(), system.periodo.days);
+            return system;
+        })
+    }
+    
+    var resetForm = function(form) {
+        form.$setPristine();
+        $scope.submitted = false;
+        init();
+    }
+
+    $scope.$watch('systems', function(newVal, oldVal) {
+        if(!$scope.systems) return;
+        if(!_.isEqual(oldVal, newVal)) {
+            $scope.systems = setUpSystems($scope.systems);
+        }
+    });
+
+    $scope.$watch('systemSelection', function(newVal, oldVal) {
+        if(!$scope.systemSelection) return;
+        if(!_.isEqual(oldVal, newVal)) {
+            if(!_.isEqual(oldVal.periodo, newVal.periodo)) { 
+                $scope.getDate($scope.systemSelection.periodo);
+            }
+            if((!_.isEqual(oldVal.dateInitial, newVal.dateInitial) || 
+               (!_.isEqual(oldVal.dateFinal, newVal.dateFinal)) {
+                verifyDate();
+            }
+        }
+    });
+
+    // $scope.$watch('systemSelection.periodo', function(newVal, oldVal) {
+    //     if(!$scope.systemSelection) return;
+    //     if(!_.isEqual(oldVal, newVal) && $scope.systemSelection.periodo) {
+    //         $scope.getDate($scope.systemSelection.periodo);
+    //     }
+    // });
+
+    // $scope.$watch('systemSelection.dateInitial', function(newVal, oldVal) {
+    //     if(!$scope.systemSelection) return;
+    //     if(!_.isEqual(oldVal, newVal)) {
+    //         verifyDate();
+    //     }
+    // });
+
+    // $scope.$watch('systemSelection.dateFinal', function(newVal, oldVal) {
+    //     if(!$scope.systemSelection) return;
+    //     if(!_.isEqual(oldVal, newVal)) {
+    //         verifyDate();
+    //     }
+    // });
 
     $scope.getDate = function(periodo) {
         var dateInitial = new Date();
@@ -24,24 +98,6 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         $scope.systemSelection.dateFinal = $filter('date')(dateFinal, FORMAT.date);
         $scope.systemSelection.periodo = angular.copy(periodo);
     };  
-
-    $scope.$watch('systemSelection.periodo', function(newVal, oldVal) {
-        if(!_.isEqual(oldVal, newVal) && $scope.systemSelection.periodo) {
-            $scope.getDate($scope.systemSelection.periodo);
-        }
-    });
-
-    $scope.$watch('systemSelection.dateInitial', function(newVal, oldVal) {
-        if(!_.isEqual(oldVal, newVal)) {
-            verifyDate();
-        }
-    });
-
-    $scope.$watch('systemSelection.dateFinal', function(newVal, oldVal) {
-        if(!_.isEqual(oldVal, newVal)) {
-            verifyDate();
-        }
-    });
 
     $scope.openInitial = function($event) {
         $event.preventDefault();
@@ -67,10 +123,9 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
 
     var verifyDate = function() {
         _.map($scope.systemSelection.periodos, function(periodo) {
-            var dateIntial = getDate($scope.systemSelection.dateInitial);
-            var dateFinal = getDate($scope.systemSelection.dateFinal);
-            var dateIntialVerify = dateIntial;
-            dateIntialVerify.setDate(dateIntial.getDate() + periodo.days);
+            var dateIntial = getDateFromStr.getDate($scope.systemSelection.dateInitial);
+            var dateFinal = getDateFromStr.getDate($scope.systemSelection.dateFinal);
+            var dateIntialVerify = DateUtil.addDaysToDate(dateIntial, periodo.days);
             if(dateIntialVerify.getTime() === dateFinal.getTime()) {
                 periodo.checked = true;
             } else {
@@ -79,23 +134,17 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         });
     };
 
-    var getDate = function(date) {
-        if(_.isDate(date)) return date;
-        var dates = angular.copy(date).split("/");;
-        return new Date(dates[2], dates[1] - 1, dates[0]);
-    };
+    // var addDaysToDate = function(date, days) {
+    //     var dateVerify = date;
+    //     dateVerify.setDate(date.getDate() + days);
+    //     return dateVerify;
+    // }
 
-
-
-
-
-    var formDefault = function() {
-
-    }
-
-    var resetForm = function(form) {
-
-    }
+    // var getDate = function(date) {
+    //     if(_.isDate(date)) return date;
+    //     var dates = angular.copy(date).split("/");;
+    //     return new Date(dates[2], dates[1] - 1, dates[0]);
+    // };
 
     $scope.getUser = function() {
         if (!$stateParams.id) {
@@ -113,18 +162,30 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     $scope.createUser = function(form) {  
         $scope.submitted = true;
         if (form.$valid) { 
-            if($scope.files) { createUserWithImage($scope.files[0], $scope.user); }
-            else { createUserWithoutImage($scope.user); }
-            $scope.submitted = false;
-            form.$setPristine();
+            setSystemsUser();
+            if($scope.files) { createUserWithImage(form, $scope.files[0], $scope.user); }
+            else { createUserWithoutImage(form, $scope.user); }
         } else {
-            $scope.msg.error = form.$error;
+            $scope.msg.error = 'Msg de formulario invalido';
         }
     }
 
-    var createUserWithoutImage = function(user) {  
+    var setSystemsUser = function() {
+        var systems = angular.copy($scope.user.systems);
+        $scope.user.systems = _.map(systems, function(system) {
+            return {
+                _id: system._id,
+                role: system.role,
+                dateInitial: getDateFromStr.getDate(system.dateInitial),
+                dateFinal: getDateFromStr.getDate(system.dateFinal)
+            };
+        })
+    }
+
+    var createUserWithoutImage = function(form, user) {  
         User.createUser(user)
             .then(function(data) {
+                resetForm(form);
                 $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';                
             })
             .catch(function() {
@@ -132,9 +193,10 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
             });
     }
 
-    var createUserWithImage = function(files, user) {  
-        User.createUserWithImage(files[0], user)
+    var createUserWithImage = function(form, file, user) {  
+        User.createUserWithImage(file, user)
             .then(function(data) {
+                resetForm(form);
                 $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';           
             })
             .catch(function() {
@@ -160,8 +222,8 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     $scope.getAllSystems = function() {
         System.allSystems()
             .then(function(data) {
-                addItensParaTeste(data);
-                var systems = addFieldsToSystems(data);
+                //addItensParaTeste(data);
+                // var systems = setUpSystems(data);
                 $scope.systems = $scope.hideSystemBySelection(systems);
             })
             .catch(function() {
@@ -173,6 +235,10 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         $scope.systemSelection = system;
     }
 
+    $scope.showSystems = function() {
+        $scope.systemSelection = null;
+    }
+
     $scope.addSystem = function(system) {  
         $scope.user.systems.push(system);
         system.show = !$scope.existSystem(system);
@@ -181,17 +247,6 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     $scope.delSystem = function(system) {  
         $scope.user.systems.splice(system);
         system.show = !$scope.existSystem(system);
-    }
-
-    var addFieldsToSystems = function(systems) {
-        return _.map(systems, function(system) {
-            system.role = 'user';
-            system.dateInitial = new Date();
-            system.dateFinal = new Date(); 
-            system.periodos = angular.copy($scope.periodos);
-            system.periodo = system.periodos[3];
-            return system;
-        })
     }
 
     $scope.hideSystemBySelection = function(systems) {
@@ -206,10 +261,15 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     }
 
     // Apenas para teste
-    var addItensParaTeste = function(systems) {
-        if(!$scope.user.systems) { $scope.user.systems = []; }
-        $scope.addSystem(systems[0]);
-    }
+    // var addItensParaTeste = function(systems) {
+    //     if(!$scope.user.systems) { $scope.user.systems = []; }
+    //     $scope.addSystem(systems[0]);
+    // }
+
+    $scope.showTab = function($event) {
+        $event.preventDefault();
+        angular.element(this).tab('show');
+    });
 
     init();
 

@@ -10,7 +10,6 @@
 angular.module('teratecAdminApp').controller('MainCtrl', function($scope) {
 
     var init = function() {
-        $scope.msg = { success: null, error: null };
         setLineHeightMainContainer();
     }
 

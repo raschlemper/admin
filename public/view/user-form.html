@@ -6,6 +6,10 @@
     - Retirar as directivas de form
     - Criar o translate dos campos das lista dos js contant
     - Fazer o ajuste para salvar os systema do usuário pelo mock
+    - Colocar os valores default no node
+    - Colocar a image default do usuário quando não for escolhido foto
+    - Fazer o acrescimo dos campos do sistema no node
+    - Quebrar o controller conforme as funções ???
  -->
     <message success="msg.success" error="msg.error" dismiss="false" />
     <div class="bs-component">
@@ -13,8 +17,8 @@
             <fieldset>
                 <legend translate>TITLE.USER.CREATE</legend>
                 <ul class="nav nav-tabs" id="myTab">
-                    <li><a href="#tabcadastro" data-toggle="tab" translate>NAV.CREATE</a></li>
-                    <li><a href="#tabsistemas" data-toggle="tab" translate>NAV.SYSTEMS</a></li>
+                    <li><a href="#tabcadastro" data-toggle="tab" ng-click="showTab()">{{'NAV.CREATE' | translate}}</a></li>
+                    <li><a href="#tabsistemas" data-toggle="tab" ng-click="showTab()">{{'NAV.SYSTEMS' | translate}}</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="well tab-pane fade" id="tabcadastro">
@@ -23,7 +27,7 @@
                                 <div ngf-drop ngf-select ng-model="files" class="drop-box" ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true" accept="image/*">
                                     <img id="image" name="image" ngf-src="files[0]" ngf-default-src="{{image}}" ngf-accept="'image/*'" class="center-block img-thumbnail user-image-size">
                                 </div>
-                                <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+                                <div ngf-no-file-drop>{{'MSG.DRAG_DROP.NOT_SUPORTTED' | translate}}</div>
                                 <h6 class="text-center title-file">
                                     <strong>{{files[0].name}}</strong>
                                 </h6>
@@ -81,8 +85,8 @@
                             <div class="col-md-4 systemChoose">
                                 <div class="row">
                                     <div class="form-actions text-right col-md-12">
-                                        <button type="button" class="btn btn-primary btn-full" ng-click="getSystem(null)">
-                                            <i class="glyphicon glyphicon-plus"></i> Adicionar Sistema
+                                        <button type="button" class="btn btn-primary btn-full" ng-click="showSystems()">
+                                            <i class="glyphicon glyphicon-plus"></i> {{'BUTTON.ADD.SYSTEM' | translate}}
                                         </button>
                                     </div>
                                 </div>
@@ -104,7 +108,7 @@
                                 <div class="systemChoose" ng-show="!systemSelection">
                                     <div class="row">
                                         <div class="choose col-md-12 text-center">
-                                            <legend>Escolha um sistema para cadastrar!</legend>
+                                            <legend>{{'MSG.ITEM.CHOOSE.SYSTEM' | translate}}</legend>
                                         </div>
                                     </div>
                                     <div class="list-group list-group-overflow">
@@ -121,7 +125,7 @@
                                                         <p class="list-group-item-text text-justify">{{ system.description }}</p>
                                                     </div>
                                                     <div class="col-md-2 vertical-align text-center">
-                                                        <button class="btn btn-primary" ng-click="addSystem(system)">
+                                                        <button type="button" class="btn btn-primary" ng-click="addSystem(system)">
                                                             <i class="fa fa-plus"></i>
                                                         </button>
                                                     </div>
@@ -147,7 +151,7 @@
                                     <hr>
                                     <div class="row">
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="role">Role: </label>
+                                            <label class="col-md-3 control-label" for="role">{{'LABEL.ROLE' | translate}}:</label>
                                             <div class="col-md-6">
                                                 <select class="form-control" name="role" id="role" ng-model="systemSelection.role">
                                                     <option value="{{role.code}}" ng-repeat="role in roles track by $index">{{role.descricao}}</option>
@@ -155,7 +159,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Período: </label>
+                                            <label class="col-md-3 control-label">{{'LABEL.PERIOD' | translate}}:</label>
                                             <div class="col-md-9">
                                                 <div class="row">
                                                     <!-- <periodo periodos="systemSelection.periodos" date-initial="systemSelection.dateInitial" date-final="systemSelection.dateFinal" selection="systemSelection.periodo"></periodo> -->
@@ -168,7 +172,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">De: </label>
+                                            <label class="col-md-3 control-label">{{'LABEL.DE' | translate}}: </label>
                                             <div class="col-md-9">
                                                 <div class="row">
                                                     <!-- <date-range periodos="systemSelection.periodos" date-initial="systemSelection.dateInitial" date-final="systemSelection.dateFinal" divisor="até"></date-range> -->
@@ -182,7 +186,7 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-1 control-label text-center">até</div>
+                                                    <div class="col-md-1 control-label text-center">{{'LABEL.ATE' | translate}}</div>
                                                     <div class="col-md-5">
                                                         <div class="input-group">
                                                             <input type="text" class="form-control" datepicker-popup="{{format}}" ng-change="verifyDate()" ng-model="systemSelection.dateFinal" is-open="openedFinal" close-text="Close" />
@@ -203,10 +207,10 @@
                     </div>
                     <div class="form-actions text-right">
                         <button type="button" class="btn btn-danger" app-href="/user">
-                            <i class="glyphicon glyphicon-chevron-left"></i> Cancel
+                            <i class="glyphicon glyphicon-chevron-left"></i> {{'BUTTON.CANCEL' | translate}}
                         </button>
                         <button type="submit" class="btn btn-primary">
-                            <i class="glyphicon glyphicon-ok"></i> Create
+                            <i class="glyphicon glyphicon-ok"></i> {{'BUTTON.SAVE' | translate}}
                         </button>
                     </div>
                 </div>
@@ -216,16 +220,9 @@
 </div>
 </div>
 <script>
-$('#myTab a:first').tab('show')
-$('#myTab a').click(function(e) {
-    e.preventDefault()
-    $(this).tab('show')
-});
-
-// $('#user-image').click(function() {
-//     $('#user').click();
-// });
-// $('#user').change(function(event) {    
-//     console.log(event.target.files[0]);
+// $('#myTab a:first').tab('show')
+// $('#myTab a').click(function(e) {
+//     e.preventDefault()
+//     $(this).tab('show')
 // });
 </script>
