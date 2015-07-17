@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('User', function($http, $q, $resource, Image) {
+app.factory('User', function($http, $q, $resource, PromiseTracker, Image) {
 
     var User = $resource('/users/:id', {
         id: '@id'
@@ -40,13 +40,15 @@ app.factory('User', function($http, $q, $resource, Image) {
         },
         createUser: function(user, callback) {
             var cb = callback || angular.noop;
-            return User.save(user,
+            var promise = User.save(user,
                 function(data) {
                     return cb(data);
                 },
                 function(err) {
                     return cb(err);
                 }).$promise;
+            PromiseTracker.addPromise(promise);
+            return promise;
         },
         updateUser: function(user, callback) {
             var cb = callback || angular.noop;

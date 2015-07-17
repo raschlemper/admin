@@ -1,5 +1,5 @@
 <div class="col-md-12 col-md-12">
-    <!-- 
+<!-- 
     - Fazer a troca das msgs pelo translate
     - Fazer as validações dos campos
     - Criar a limpeza do formulario
@@ -10,15 +10,36 @@
     - Colocar a image default do usuário quando não for escolhido foto
     - Fazer o acrescimo dos campos do sistema no node
     - Quebrar o controller conforme as funções ???
- -->
+-->
     <message success="msg.success" error="msg.error" dismiss="false" />
+
+        <!-- <div id="loading" ng-show="progress.active()">
+            <div class="img">
+                <div class="sk-spinner sk-spinner-fading-circle">
+                    <div class="sk-circle1 sk-circle"></div>
+                    <div class="sk-circle3 sk-circle"></div>
+                    <div class="sk-circle2 sk-circle"></div>
+                    <div class="sk-circle4 sk-circle"></div>
+                    <div class="sk-circle5 sk-circle"></div>
+                    <div class="sk-circle6 sk-circle"></div>
+                    <div class="sk-circle7 sk-circle"></div>
+                    <div class="sk-circle8 sk-circle"></div>
+                    <div class="sk-circle9 sk-circle"></div>
+                    <div class="sk-circle10 sk-circle"></div>
+                    <div class="sk-circle11 sk-circle"></div>
+                    <div class="sk-circle12 sk-circle"></div>
+                </div>
+            </div>
+        </div> -->
+
     <div class="bs-component">
+
         <form class="form-horizontal" role="form" class="form" name="form" ng-submit="createUser(form)" novalidate>
             <fieldset>
                 <legend translate>TITLE.USER.CREATE</legend>
                 <ul class="nav nav-tabs" id="myTab">
-                    <li><a href="#tabcadastro" data-toggle="tab" ng-click="showTab()">{{'NAV.CREATE' | translate}}</a></li>
-                    <li><a href="#tabsistemas" data-toggle="tab" ng-click="showTab()">{{'NAV.SYSTEMS' | translate}}</a></li>
+                    <li><a href="#tabcadastro" data-toggle="tab" ng-click="showTab($event)">{{'NAV.CREATE' | translate}}</a></li>
+                    <li><a href="#tabsistemas" data-toggle="tab" ng-click="showTab($event)">{{'NAV.SYSTEMS' | translate}}</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="well tab-pane fade" id="tabcadastro">

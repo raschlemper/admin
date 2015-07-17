@@ -9,7 +9,8 @@ var app = angular.module('teratecAdminApp', [
         'ui.router',
         'ui.bootstrap',
         'ngFileUpload',
-        'pascalprecht.translate'
+        'pascalprecht.translate',
+        'ajoslin.promise-tracker'
     ])
     .config(function($urlRouterProvider, $stateProvider) {
 
