@@ -1,16 +1,16 @@
 'use strict';
 
-app.controller('UserCtrl', function($scope, User, Pagination) {
+app.controller('UserCtrl', function($scope, UserService, PaginationService) {
 
     var init = function() {
         $scope.users = [];
-        $scope.pagination = Pagination.pagination;
-        $scope.list = Pagination.list;
+        $scope.pagination = PaginationService.pagination;
+        $scope.list = PaginationService.list;
         $scope.getAllUsers();
     }
 
     $scope.getAllUsers = function() {
-        User.allUsers()
+        UserService.allUsers()
             .then(function(data) {
                 $scope.users = data;
             })

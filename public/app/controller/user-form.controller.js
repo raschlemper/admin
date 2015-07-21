@@ -1,7 +1,7 @@
 'use strict';
 
 app.controller('UserFormCtrl', function($rootScope, $scope, $location, $stateParams, $filter,
-    User, System, Image, Pagination, DateUtil, FORMAT, LISTS) {
+    UserService, SystemService, ImageService, DateService, FORMAT, LISTS) {
 
     var element = {
         'tab': angular.element('#myTab')
@@ -38,7 +38,7 @@ app.controller('UserFormCtrl', function($rootScope, $scope, $location, $statePar
             system.periodos = angular.copy($scope.periodos);
             system.periodo = system.periodos[3];
             system.dateInitial = new Date();
-            system.dateFinal = DateUtil.addDaysToDate(new Date(), system.periodo.days);
+            system.dateFinal = DateService.addDaysToDate(new Date(), system.periodo.days);
             return system;
         })
     }
@@ -110,9 +110,9 @@ app.controller('UserFormCtrl', function($rootScope, $scope, $location, $statePar
 
     var verifyDate = function() {
         _.map($scope.systemSelection.periodos, function(periodo) {
-            var dateIntial = DateUtil.getDateFromStr($scope.systemSelection.dateInitial);
-            var dateFinal = DateUtil.getDateFromStr($scope.systemSelection.dateFinal);
-            var dateIntialVerify = DateUtil.addDaysToDate(dateIntial, periodo.days);
+            var dateIntial = DateService.getDateFromStr($scope.systemSelection.dateInitial);
+            var dateFinal = DateService.getDateFromStr($scope.systemSelection.dateFinal);
+            var dateIntialVerify = DateService.addDaysToDate(dateIntial, periodo.days);
             if(dateIntialVerify.getTime() === dateFinal.getTime()) {
                 periodo.checked = true;
             } else {
@@ -125,7 +125,7 @@ app.controller('UserFormCtrl', function($rootScope, $scope, $location, $statePar
         if (!$stateParams.id) {
             return;
         }
-        User.getUser($stateParams.id)
+        UserService.getUser($stateParams.id)
             .then(function(data) {
                 $scope.user = data;
             })
@@ -158,7 +158,7 @@ app.controller('UserFormCtrl', function($rootScope, $scope, $location, $statePar
     }
 
     var createUserWithoutImage = function(form, user) {  
-        User.createUser(user)
+        UserService.createUser(user)
             .then(function(data) {
                 resetForm(form);
                 $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';                
@@ -170,7 +170,7 @@ app.controller('UserFormCtrl', function($rootScope, $scope, $location, $statePar
     }
 
     var createUserWithImage = function(form, file, user) {  
-        User.createUserWithImage(file, user)
+        UserService.createUserWithImage(file, user)
             .then(function(data) {
                 resetForm(form);
                 $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';           
@@ -183,7 +183,7 @@ app.controller('UserFormCtrl', function($rootScope, $scope, $location, $statePar
     $scope.updateUser = function(form) {
         $scope.submitted = true;
         if (form.$valid) {
-            User.updateUser($scope.user)
+            UserService.updateUser($scope.user)
                 .then(function(data) {
                     $scope.msg.success = "Usuário alterado com sucesso!";
                     // $location.url("/user");
@@ -196,7 +196,7 @@ app.controller('UserFormCtrl', function($rootScope, $scope, $location, $statePar
     }
 
     $scope.getAllSystems = function() {
-        System.allSystems()
+        SystemService.allSystems()
             .then(function(data) {
                 //addItensParaTeste(data);
                 // var systems = setUpSystems(data);

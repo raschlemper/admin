@@ -1,24 +1,24 @@
 'use strict';
 
-app.factory('Image', function($q, Upload) {
+app.factory('ImageService', function($q, Upload) {
 
-    var progress = function(deferred, cb, evt) {
+    var _progress = function(deferred, cb, evt) {
         var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-        console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);        
+        // console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);        
     }
 
-    var success = function (deferred, cb, data, config) {
-        console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+    var _success = function (deferred, cb, data, config) {
+        // console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
         deferred.resolve(data);
         return cb();
     }
 
-    var error = function (deferred, cb, err) {
+    var _error = function (deferred, cb, err) {
         deferred.reject(err);
         return cb(err);
     }
 
-    var uploadFileUser = function(file, user, callback) {
+    var _uploadFileUser = function(file, user, callback) {
         var cb = callback || angular.noop;
         var deferred = $q.defer();
         Upload.upload({
@@ -26,19 +26,19 @@ app.factory('Image', function($q, Upload) {
             fields: { 'name': user.name, 'email': user.email },
             file: file
         })
-        .progress(function(evt) {
+        ._progress(function(evt) {
             progress(deferred, cb, evt);        
         })
-        .success(function (data, status, headers, config) {
+        ._success(function (data, status, headers, config) {
             success(deferred, cb, data, config);
         })
-        .error(function (err, status, headers, config) {
+        ._error(function (err, status, headers, config) {
             error(deferred, cb, err);
         }.bind(this));
         return deferred.promise;
     }
 
-    var uploadFile = function(file, name, callback) {
+    var _uploadFile = function(file, name, callback) {
         var cb = callback || angular.noop;
         var deferred = $q.defer();
         if (file) {
@@ -47,13 +47,13 @@ app.factory('Image', function($q, Upload) {
                 fields: {'name': name},
                 file: file
             })
-            .progress(function(evt) {
+            ._progress(function(evt) {
                 progress(deferred, cb, evt);        
             })
-            .success(function (data, status, headers, config) {
+            ._success(function (data, status, headers, config) {
                 success(deferred, cb, data, config);
             })
-            .error(function (err, status, headers, config) {
+            ._error(function (err, status, headers, config) {
                 error(deferred, cb, err);
             }.bind(this));
         }
@@ -61,8 +61,8 @@ app.factory('Image', function($q, Upload) {
     }
 
     return {
-        uploadFileUser: uploadFileUser,
-        uploadFile: uploadFile
+        uploadFileUser: _uploadFileUser,
+        uploadFile: _uploadFile
     }
 
 });

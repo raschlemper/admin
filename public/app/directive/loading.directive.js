@@ -1,4 +1,4 @@
-app.directive('loading', function(PromiseTracker) {
+app.directive('loading', function(PromiseTrackerService) {
 
     return {
 
@@ -8,7 +8,7 @@ app.directive('loading', function(PromiseTracker) {
 
         link: function(scope, element, attrs, ctrl) {
 
-            scope.progress = PromiseTracker;
+            scope.progress = PromiseTrackerService;
             
         }
 

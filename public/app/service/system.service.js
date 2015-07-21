@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('System', function($resource) {
+app.factory('SystemService', function($resource) {
 
     var System = $resource('/systems/:id', {
         id: '@id'

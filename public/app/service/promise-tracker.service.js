@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('PromiseTracker', function(promiseTracker) {
+app.factory('PromiseTrackerService', function(promiseTracker) {
 
     return promiseTracker({ activationDelay: 0, minDuration: 750 });
 

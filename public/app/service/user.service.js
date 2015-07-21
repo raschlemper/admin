@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('User', function($http, $q, $resource, PromiseTracker, Image) {
+app.factory('UserService', function($http, $q, $resource, PromiseTrackerService, ImageService) {
 
     var User = $resource('/users/:id', {
         id: '@id'
@@ -47,7 +47,7 @@ app.factory('User', function($http, $q, $resource, PromiseTracker, Image) {
                 function(err) {
                     return cb(err);
                 }).$promise;
-            PromiseTracker.addPromise(promise);
+            PromiseTrackerService.addPromise(promise);
             return promise;
         },
         updateUser: function(user, callback) {
@@ -76,7 +76,7 @@ app.factory('User', function($http, $q, $resource, PromiseTracker, Image) {
             var cb = callback || angular.noop;
             return User.save(user,
                 function(data) {
-                    Image.uploadFileUser(file, user);
+                    ImageService.uploadFileUser(file, user);
                     return cb(data);
                 },
                 function(err) {

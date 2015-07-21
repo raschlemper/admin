@@ -1,25 +1,25 @@
 'use strict';
 
-app.factory('Pagination', function() {
+app.factory('PaginationService', function() {
 
-    var pagination = {
+    var _pagination = {
         currentPage: 1,
         maxPerPage: 6
     };
 
-    var list = {
+    var _list = {
         begin: function(currentPage) {
-            return pagination.maxPerPage * currentPage;
+            return _pagination.maxPerPage * currentPage;
         },
         size: function(currentPage, length) {
-            var last = list.begin(currentPage) - length;
-            return -1 * (pagination.maxPerPage - last);
+            var last = _list.begin(currentPage) - length;
+            return -1 * (_pagination.maxPerPage - last);
         }
     };
 
     return {
-        pagination: pagination,
-        list: list
+        pagination: _pagination,
+        list: _list
     }
 
 });
