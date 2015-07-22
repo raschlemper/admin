@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('UserFormCtrl', function($rootScope, $scope, $location, $stateParams, $filter,
-    UserService, SystemService, ImageService, DateService, FORMAT, LISTS) {
+app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter,
+    UserBuilder, UserService, SystemService, ImageService, DateService, FORMAT, LISTS) {
 
     var element = {
         'tab': angular.element('#myTab')
@@ -22,12 +22,13 @@ app.controller('UserFormCtrl', function($rootScope, $scope, $location, $statePar
     }
 
     var setUp = function() {
-        $scope.image = "image/users/user.png";
-        $scope.user = {
-            'provider': LISTS.providers[0].code,
-            'systems': []
-        };
-        $scope.periodos[3].checked = true;
+        // $scope.image = "image/users/user.png";
+        // $scope.user = {
+        //     'provider': LISTS.providers[0].code,
+        //     'systems': []
+        // };
+        // $scope.periodos[3].checked = true;
+        $scope.user = UserBuilder.createUserDefault();
         $scope.msg = { success: null, error: null };
         element.tab.find('a:first').tab('show');
     }

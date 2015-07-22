@@ -9,12 +9,15 @@ app.factory('User', function() {
 	    _password = null,
 	    _systems = [];
 
-	var _cerate = function(image, provider, name, email, password) {
-		this.image = image;
-		this._provider = privider;
-		this._name = name;
-		this.email = email;
-		this._password = password;
+	var _create = function(image, provider, name, email, password) {
+		return {
+			image: image,
+			provider: provider,
+			name: name,
+			email: email,
+			password: password,
+			systems: []
+		}
 	}
 
 	var _setSystems = function(systems) {

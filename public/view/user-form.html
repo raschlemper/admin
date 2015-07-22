@@ -46,7 +46,7 @@
                         <div class="row height-full">
                             <div class="col-lg-3">
                                 <div ngf-drop ngf-select ng-model="files" class="drop-box" ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true" accept="image/*">
-                                    <img id="image" name="image" ngf-src="files[0]" ngf-default-src="{{image}}" ngf-accept="'image/*'" class="center-block img-thumbnail user-image-size">
+                                    <img id="image" name="image" ngf-src="files[0]" ngf-default-src="{{user.image}}" ngf-accept="'image/*'" class="center-block img-thumbnail user-image-size">
                                 </div>
                                 <div ngf-no-file-drop>{{'MSG.DRAG_DROP.NOT_SUPORTTED' | translate}}</div>
                                 <h6 class="text-center title-file">
