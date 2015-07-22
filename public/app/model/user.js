@@ -1,16 +1,10 @@
 'use strict';
 
 app.factory('User', function() {
-	
-	var _image = null,
-	    _provider = null,
-	    _name = null,
-	    _email = null,
-	    _password = null,
-	    _systems = [];
 
-	var _create = function(image, provider, name, email, password) {
+	var _create = function(id, image, provider, name, email, password) {
 		return {
+			id: id,
 			image: image,
 			provider: provider,
 			name: name,
@@ -20,13 +14,24 @@ app.factory('User', function() {
 		}
 	}
 
-	var _setSystems = function(systems) {
-		this._systems = systems;
+	var _createSystem = function(id, role, dateInitial, dateFinal) {
+		return {
+			id: id,
+			role: role,
+			dateInitial: dateInitial,
+			dateFinal: dateFinal
+		}
+	}
+
+	var _addSystems = function(id, role, dateInitial, dateFinal) {
+		this._systems.push(_createSystem(
+			id, role, dateInitial, dateFinal
+		));
 	}
 
 	return {
 		create: _create,
-		setSystems: _setSystems
+		addSystems: _addSystems
 	}
 
 });

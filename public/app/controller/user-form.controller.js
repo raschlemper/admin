@@ -1,11 +1,11 @@
 'use strict';
 
 app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter,
-    UserBuilder, UserService, SystemService, ImageService, DateService, FORMAT, LISTS) {
+    UserBuilder, SystemBuilder, UserService, SystemService, ImageService, DateService, FORMAT, LISTS) {
 
-    var element = {
-        'tab': angular.element('#myTab')
-    }
+    // var element = {
+    //     'tab': angular.element('#myTab')
+    // }
 
     var init = function() {
         $scope.user = {};
@@ -30,17 +30,18 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         // $scope.periodos[3].checked = true;
         $scope.user = UserBuilder.createUserDefault();
         $scope.msg = { success: null, error: null };
-        element.tab.find('a:first').tab('show');
+        // element.tab.find('a:first').tab('show');
+        AppFunction.tabUserCreate();
     }
 
     var setUpSystems = function(systems) {
         return _.map(systems, function(system) {
-            system.role = 'user';
-            system.periodos = angular.copy($scope.periodos);
-            system.periodo = system.periodos[3];
-            system.dateInitial = new Date();
-            system.dateFinal = DateService.addDaysToDate(new Date(), system.periodo.days);
-            return system;
+            // system.role = 'user';
+            // system.periodos = angular.copy($scope.periodos);
+            // system.periodo = system.periodos[3];
+            // system.dateInitial = new Date();
+            // system.dateFinal = DateService.addDaysToDate(new Date(), system.periodo.days);
+            return SystemBuilder.createSystem(system);
         })
     }
     
@@ -244,10 +245,10 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     //     $scope.addSystem(systems[0]);
     // }
 
-    $scope.showTab = function($event) {
-        $event.preventDefault();
-        angular.element(this).tab('show');
-    };
+    // $scope.showTab = function($event) {
+    //     $event.preventDefault();
+    //     angular.element(this).tab('show');
+    // };
 
     init();
 
