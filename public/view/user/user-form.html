@@ -23,11 +23,11 @@
                     <li><a href="#tabsistemas" data-toggle="tab" ng-click="showTab($event)">{{'NAV.SYSTEMS' | translate}}</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div class="well tab-pane fade" id="tabcadastro" ng-controller="UserFormUserCtrl">
+                    <div class="well tab-pane fade" id="tabcadastro">
                         <div ng-include src="'view/user/user-form-user.html'"></div>
-                    </div
-                    <div class="well tab-pane fade" id="tabsistemas" ng-controller="UserFormSystemCtrl">
-                        
+                    </div>
+                    <div class="well tab-pane fade" id="tabsistemas">
+                        <div ng-include src="'view/user/user-form-system.html'"></div>                        
                     </div>
                     <div class="form-actions text-right">
                         <button type="button" class="btn btn-danger" app-href="/user">

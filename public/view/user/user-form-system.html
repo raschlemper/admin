@@ -1,0 +1,123 @@
+<div class="row height-full" ng-controller="UserFormSystemCtrl">
+    <div class="col-md-4 systemChoose">
+        <div class="row">
+            <div class="form-actions text-right col-md-12">
+                <button type="button" class="btn btn-primary btn-full" ng-click="showSystems()">
+                    <i class="glyphicon glyphicon-plus"></i> {{'BUTTON.ADD.SYSTEM' | translate}}
+                </button>
+            </div>
+        </div>
+        <div class="list-group list-group-overflow">
+            <div class="list-group-item list-group-item-link center-block" ng-click="getSystem(system)" ng-repeat="system in user.systems track by $index">
+                <div class="row">
+                    <div class="col-md-10">
+                        <i class="fa fa-{{system.icon.image}} icon icon-radius" ng-class="system.icon.color"></i> {{system.name}}
+                    </div>
+                    <div class="col-md-2 text-right normal">
+                        <i ng-class="{ 'fa fa-chevron-right': systemSelection == system,
+                                       'fa fa-link': systemSelection != system }" class="icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 border-system height-full">
+        <div class="systemChoose" ng-show="!systemSelection">
+            <div class="row">
+                <div class="choose col-md-12 text-center">
+                    <legend>{{'MSG.ITEM.CHOOSE.SYSTEM' | translate}}</legend>
+                </div>
+            </div>
+            <div class="list-group list-group-overflow">
+                <div ng-repeat="system in systems track by $index">
+                    <div class="list-group-item" ng-show="system.show">
+                        <div class="row row-50">
+                            <div class="col-md-2">
+                                <img ng-src="image/systems/{{ system.image }}" class="center-block img-thumbnail" />
+                            </div>
+                            <div class="col-md-8">
+                                <h4 class="list-group-item-heading">
+                                    <strong>{{ system.name }}</strong>
+                                </h4>
+                                <p class="list-group-item-text text-justify">{{ system.description }}</p>
+                            </div>
+                            <div class="col-md-2 vertical-align text-center">
+                                <button type="button" class="btn btn-primary" ng-click="addSystem(system)">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="width-margin" ng-show="systemSelection">
+            <div class="row row-70">
+                <div class="col-md-3">
+                    <img ng-src="image/systems/{{ systemSelection.image }}" class="center-block img-thumbnail img-system" />
+                </div>
+                <div class="col-md-9">
+                    <h4 class="list-group-item-heading">
+                        <strong>{{ systemSelection.name }}</strong>
+                    </h4>
+                    <p class="list-group-item-text text-justify">
+                        {{ systemSelection.description }}
+                    </p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="role">{{'LABEL.ROLE' | translate}}:</label>
+                    <div class="col-md-6">
+                        <select class="form-control" name="role" id="role" ng-model="systemSelection.role">
+                            <option value="{{role.code}}" ng-repeat="role in roles track by $index">{{role.descricao}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">{{'LABEL.PERIOD' | translate}}:</label>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <!-- <periodo periodos="systemSelection.periodos" date-initial="systemSelection.dateInitial" date-final="systemSelection.dateFinal" selection="systemSelection.periodo"></periodo> -->
+                            <div class="radio col-md-3" ng-repeat="periodo in systemSelection.periodos track by $index">
+                                <label>
+                                    <input type="radio" name="periodos" ng-checked="periodo.checked" ng-model="periodo.checked" ng-value="true" ng-click="getDate(periodo)"> {{ periodo.descricao }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">{{'LABEL.DE' | translate}}: </label>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <!-- <date-range periodos="systemSelection.periodos" date-initial="systemSelection.dateInitial" date-final="systemSelection.dateFinal" divisor="até"></date-range> -->
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="systemSelection.dateInitial" is-open="openedInitial" close-text="Close" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openInitial($event)">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-1 control-label text-center">{{'LABEL.ATE' | translate}}</div>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-change="verifyDate()" ng-model="systemSelection.dateFinal" is-open="openedFinal" close-text="Close" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openFinal($event)">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

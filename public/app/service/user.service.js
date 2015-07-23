@@ -2,7 +2,7 @@
 
 app.factory('UserService', function($http, $q, $resource, PromiseTrackerService, ImageService) {
 
-    var User = $resource('/users/:id', {
+    var UserResource = $resource('/users/:id', {
         id: '@id'
     }, {
         getAll: {
@@ -18,7 +18,7 @@ app.factory('UserService', function($http, $q, $resource, PromiseTrackerService,
 
         allUsers: function(callback) {
             var cb = callback || angular.noop;
-            return User.query({},
+            return UserResource.query({},
                 function(data) {
                     return cb(data);
                 },
@@ -28,7 +28,7 @@ app.factory('UserService', function($http, $q, $resource, PromiseTrackerService,
         },
         getUser: function(id, callback) {
             var cb = callback || angular.noop;
-            return User.get({
+            return UserResource.get({
                     id: id
                 },
                 function(data) {
@@ -40,7 +40,7 @@ app.factory('UserService', function($http, $q, $resource, PromiseTrackerService,
         },
         createUser: function(user, callback) {
             var cb = callback || angular.noop;
-            var promise = User.save(user,
+            var promise = UserResource.save(user,
                 function(data) {
                     return cb(data);
                 },
@@ -52,7 +52,7 @@ app.factory('UserService', function($http, $q, $resource, PromiseTrackerService,
         },
         updateUser: function(user, callback) {
             var cb = callback || angular.noop;
-            return User.update(user,
+            return UserResource.update(user,
                 function(data) {
                     return cb(data);
                 },
@@ -62,7 +62,7 @@ app.factory('UserService', function($http, $q, $resource, PromiseTrackerService,
         },
         removeUser: function(id, callback) {
             var cb = callback || angular.noop;
-            return User.delete({
+            return UserResource.delete({
                     id: id
                 },
                 function(data) {
@@ -74,7 +74,7 @@ app.factory('UserService', function($http, $q, $resource, PromiseTrackerService,
         },
         createUserWithImage: function(file, user, callback) {
             var cb = callback || angular.noop;
-            return User.save(user,
+            return UserResource.save(user,
                 function(data) {
                     ImageService.uploadFileUser(file, user);
                     return cb(data);
