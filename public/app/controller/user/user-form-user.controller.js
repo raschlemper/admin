@@ -1,7 +1,11 @@
 'use strict';
 
 app.controller('UserFormUserCtrl', function($scope, $location, $stateParams, $filter,
-    UserBuilder, SystemBuilder, UserService, SystemService, ImageService, DateService, FORMAT, LISTS) {    
+    UserBuilder, SystemBuilder, UserService, SystemService, ImageService, DateService, FORMAT, LISTS) {  
+
+    var init = function() {
+
+    }  
 
     $scope.getUser = function() {
         if (!$stateParams.id) {
@@ -76,59 +80,6 @@ app.controller('UserFormUserCtrl', function($scope, $location, $stateParams, $fi
                 });
         }
     }
-
-    $scope.getAllSystems = function() {
-        SystemService.allSystems()
-            .then(function(data) {
-                //addItensParaTeste(data);
-                // var systems = setUpSystems(data);
-                $scope.systems = data;
-                $scope.systems = $scope.hideSystemBySelection($scope.systems);
-            })
-            .catch(function() {
-                $scope.systems = [];
-            });
-    }
-
-    $scope.getSystem = function(system) {
-        $scope.systemSelection = system;
-    }
-
-    $scope.showSystems = function() {
-        $scope.systemSelection = null;
-    }
-
-    $scope.addSystem = function(system) {  
-        $scope.user.systems.push(system);
-        system.show = !$scope.existSystem(system);
-    }
-
-    $scope.delSystem = function(system) {  
-        $scope.user.systems.splice(system);
-        system.show = !$scope.existSystem(system);
-    }
-    
-    $scope.hideSystemBySelection = function(systems) {
-        return _.map(systems, function(system) {
-            system.show = !$scope.existSystem(system);
-            return system;
-        })
-    }
-
-    $scope.existSystem = function(system) {
-        return _.contains($scope.user.systems, system);
-    }
-
-    // Apenas para teste
-    // var addItensParaTeste = function(systems) {
-    //     if(!$scope.user.systems) { $scope.user.systems = []; }
-    //     $scope.addSystem(systems[0]);
-    // }
-
-    // $scope.showTab = function($event) {
-    //     $event.preventDefault();
-    //     angular.element(this).tab('show');
-    // };
 
     init();
 

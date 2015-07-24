@@ -3,12 +3,23 @@
 app.controller('UserFormSystemCtrl', function($scope, $location, $stateParams, $filter,
     UserBuilder, SystemBuilder, UserService, SystemService, ImageService, DateService, FORMAT, LISTS) {
 
-    $scope.$watch('systems', function(newVal, oldVal) {
-        if(!$scope.systems) return;
-        if(!_.isEqual(oldVal, newVal)) {
-            $scope.systems = setUpSystems($scope.systems);
-        }
-    });
+    var init = function() {
+        // $scope.systems = [];
+        // $scope.getAllSystems();
+    };
+
+    // var setUpSystems = function(systems) {
+    //     return _.map(systems, function(system) {
+    //         return SystemBuilder.createSystem(system);
+    //     })
+    // }
+
+    // $scope.$watch('systems', function(newVal, oldVal) {
+    //     if(!$scope.systems) return;
+    //     if(!_.isEqual(oldVal, newVal)) {
+    //         $scope.systems = setUpSystems($scope.systems);
+    //     }
+    // });
 
     $scope.$watch('systemSelection.periodo', function(newVal, oldVal) {
         if(!$scope.systemSelection) return;
@@ -30,6 +41,19 @@ app.controller('UserFormSystemCtrl', function($scope, $location, $stateParams, $
             verifyDate();
         }
     });
+
+    // $scope.getAllSystems = function() {
+    //     SystemService.allSystems()
+    //         .then(function(data) {
+    //             //addItensParaTeste(data);
+    //             // var systems = setUpSystems(data);
+    //             $scope.systems = data;
+    //             $scope.systems = $scope.hideSystemBySelection($scope.systems);
+    //         })
+    //         .catch(function() {
+    //             $scope.systems = [];
+    //         });
+    // }
 
     $scope.getDate = function(periodo) {
         var dateInitial = new Date();
@@ -75,17 +99,6 @@ app.controller('UserFormSystemCtrl', function($scope, $location, $stateParams, $
         });
     };
 
-    $scope.getAllSystems = function() {
-        SystemService.allSystems()
-            .then(function(data) {
-                $scope.systems = data;
-                $scope.systems = $scope.hideSystemBySelection($scope.systems);
-            })
-            .catch(function() {
-                $scope.systems = [];
-            });
-    };
-
     $scope.getSystem = function(system) {
         $scope.systemSelection = system;
     }
@@ -103,16 +116,19 @@ app.controller('UserFormSystemCtrl', function($scope, $location, $stateParams, $
         $scope.user.systems.splice(system);
         system.show = !$scope.existSystem(system);
     }
-    
-    $scope.hideSystemBySelection = function(systems) {
-        return _.map(systems, function(system) {
-            system.show = !$scope.existSystem(system);
-            return system;
-        })
-    }
 
-    $scope.existSystem = function(system) {
-        return _.contains($scope.user.systems, system);
-    }
+    // TODO: Verificar se tem necessidade de ser no $scope, colocar dentro do setup do sistema
+    // $scope.hideSystemBySelection = function(systems) {
+    //     return _.map(systems, function(system) {
+    //         system.show = !$scope.existSystem(system);
+    //         return system;
+    //     })
+    // }
+
+    // $scope.existSystem = function(system) {
+    //     return _.contains($scope.user.systems, system);
+    // }
+
+    init();
 
 });
