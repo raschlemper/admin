@@ -2,7 +2,7 @@
 
 app.factory('SystemBuilder', function(System, DateService, LISTS) {
 
-	var _createSystem = function(system) {
+	var createSystem = function(system) {
 		var periodo = LISTS.periodos[3];
 		var obj = System.create (
 			system._id,
@@ -19,10 +19,10 @@ app.factory('SystemBuilder', function(System, DateService, LISTS) {
 			new Date(),
 			DateService.addDaysToDate(new Date(), periodo.days)
 		);
-		return obj;
+		return angular.copy(obj);
 	}
 
 	return {
-		createSystem: _createSystem
+		createSystem: createSystem
 	}
 });

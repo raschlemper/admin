@@ -17,10 +17,10 @@
 
         <form class="form-horizontal" role="form" class="form" name="form" ng-submit="createUser(form)" novalidate>
             <fieldset>
-                <legend translate>TITLE.USER.CREATE</legend>
+                <legend translate><span translate="TITLE.USER.CREATE"/></legend>
                 <ul class="nav nav-tabs" id="myTab">
-                    <li><a href="#tabcadastro" data-toggle="tab" ng-click="showTab($event)">{{'NAV.CREATE' | translate}}</a></li>
-                    <li><a href="#tabsistemas" data-toggle="tab" ng-click="showTab($event)">{{'NAV.SYSTEMS' | translate}}</a></li>
+                    <li><a href="#tabcadastro" data-toggle="tab" ng-click="showTab($event)"><span translate="NAV.CREATE"/></a></li>
+                    <li><a href="#tabsistemas" data-toggle="tab" ng-click="showTab($event)"><span translate="NAV.SYSTEMS"/></a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="well tab-pane fade" id="tabcadastro">
@@ -31,10 +31,10 @@
                     </div>
                     <div class="form-actions text-right">
                         <button type="button" class="btn btn-danger" app-href="/user">
-                            <i class="glyphicon glyphicon-chevron-left"></i> {{'BUTTON.CANCEL' | translate}}
+                            <i class="glyphicon glyphicon-chevron-left"></i><span translate="BUTTON.CANCEL"/>
                         </button>
                         <button type="submit" class="btn btn-primary">
-                            <i class="glyphicon glyphicon-ok"></i> {{'BUTTON.SAVE' | translate}}
+                            <i class="glyphicon glyphicon-ok"></i><span translate="BUTTON.SAVE"/>
                         </button>
                     </div>
                 </div>

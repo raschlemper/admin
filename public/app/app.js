@@ -35,8 +35,8 @@ var app = angular.module('teratecAdminApp', [
             })
             .state('userEdit', {
                 url: '/user/:id',
-                templateUrl: 'view/user/user-edit.html',
-                controller: 'UserCtrl'
+                templateUrl: 'view/user/user-form.html',
+                controller: 'UserFormCtrl'
             });
 
     })

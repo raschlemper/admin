@@ -2,23 +2,14 @@
 
 app.factory('User', function() {
 
-	var id,
-		image = image,
-		provider = provider,
-		name = name,
-		email = email,
-		password = password,
-		systems = [];
-
-	var create = function(id, image, provider, name, email, password) {
-		this.id = id;
-		this.image = image;
-		this.provider = provider;
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.systems = [];
-		return this;
+	var user = {
+		id: null,
+		image: null,
+		provider: null,
+		name: null,
+		email: null,
+		password: null,
+		systems: []
 	}
 
 	var createSystem = function(id, role, dateInitial, dateFinal) {
@@ -30,16 +21,28 @@ app.factory('User', function() {
 		}
 	}
 
-	var addSystems = function(id, role, dateInitial, dateFinal) {
-		this._systems.push(
-			createSystem(id, role, dateInitial, dateFinal)
-		);
-		return this;
+	user.addImage = function(image) {
+		user.image = image;
 	}
 
-	return {
-		create: create,
-		addSystems: addSystems
+	user.addSystems = function(id, role, dateInitial, dateFinal) {
+		user.systems.push(
+			createSystem(id, role, dateInitial, dateFinal)
+		);
+	}
+
+	return {	
+
+		create: function(id, image, provider, name, email, password) {
+			user.id = id;
+			user.image = image;
+			user.provider = provider;
+			user.name = name;
+			user.email = email;
+			user.password = password;
+			user.systems = [];
+			return user;
+		}
 	}
 
 });

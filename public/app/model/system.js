@@ -2,50 +2,46 @@
 
 app.factory('System', function() {
 
-	var id = null,
-	    name = null, 
-	    description = null,
-		image = null,
-		icon = null,
-		role = null,
-		periodos = [],
-		periodo = null,
-		dateInitial = null,
-		dateFinal = null,
-		show = false;
-
-	var create = function(id, name, description, image, icon) {
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.image = image;
-		this.icon = icon;
-		return this;
+	var system = {
+		id: null,
+	    name: null, 
+	    description: null,
+		image: null,
+		icon: null,
+		role: null,
+		periodos: [],
+		periodo: null,
+		dateInitial: null,
+		dateFinal: null,
+		show: false
 	}
 
-	var showSystem = function(show) {
-		this.show = show;
-		return this;
-	}
+	system.showSystem = function(show) {
+		system.show = show;
+	},
 
-	var addPermission = function(role) {
-		this.role = role;
-		return this;
-	}
+	system.addPermission = function(role) {
+		system.role = role;
+	},	
 
-	var addPeriod = function(periodos, periodo, dateInitial, dateFinal) {
-		this.periodos = periodos;
-        this.periodo = periodo;
-		this.dateInitial = dateInitial;
-		this.dateFinal = dateFinal;	
-		return this;		
+	system.addPeriod = function(periodos, periodo, dateInitial, dateFinal) {
+		system.periodos = periodos;
+        system.periodo = periodo;
+		system.dateInitial = dateInitial;
+		system.dateFinal = dateFinal;			
 	}
 
 	return {
-		create: create,
-		showSystem: showSystem,
-		addPermission: addPermission,
-		addPeriod: addPeriod
+
+		create: function(id, name, description, image, icon) {
+			system.id = id;
+			system.name = name;
+			system.description = description;
+			system.image = image;
+			system.icon = icon;	
+			return system;	
+		}
+
 	}
 
 });

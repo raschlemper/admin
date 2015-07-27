@@ -2,8 +2,8 @@
 
 app.factory('UserBuilder', function(User, LISTS) {
 
-	var _createUserDefault = function() {
-		return User.create(
+	var createUserDefault = function() {
+		var obj = User.create (
 			null,
 			"image/users/user.png",
 			LISTS.providers[0].code,
@@ -11,10 +11,22 @@ app.factory('UserBuilder', function(User, LISTS) {
 			null,
 			null
 		);
+		return angular.copy(obj);
 	}
 
-	var _createUser = function(user) {
-		var user = User.create(
+	var addSystems = function(systems) {
+		_.map(systems, function(system) {
+			obj.addSystems(
+				system.id, 
+				system.role, 
+				system.dateInitial, 
+				system.dateFinal
+			);
+		})
+	}
+
+	var createUserWidthoutImage = function(user) {
+		var obj = User.create(
 			null,
 			"user.png",
 			user.provider,
@@ -22,19 +34,27 @@ app.factory('UserBuilder', function(User, LISTS) {
 			user.email,
 			user.password
 		);
-		_.map(user.systems, function(system) {
-			user.addSystems(
-				system.id, 
-				system.role, 
-				system.dateInitial, 
-				system.dateFinal
-			);
-		})
-		return user;
+		addSystems(user.systems);
+		return angular.copy(obj);
+	}
+
+	var createUserWidthImage = function(user, image) {
+		var obj = User.create(
+			null,
+			"user.png",
+			user.provider,
+			user.name,
+			user.email,
+			user.password
+		);
+		addImage(image);
+		addSystems(user.systems);
+		return angular.copy(obj);
 	}
 
 	return {
-		createUserDefault: _createUserDefault,
-		createUser: _createUser
+		createUserDefault: createUserDefault,
+		createUserWidthoutImage: createUserWidthoutImage,
+		createUserWidthImage: createUserWidthImage
 	}
 });
