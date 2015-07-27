@@ -14,7 +14,7 @@ app.factory('UserBuilder', function(User, LISTS) {
 		return angular.copy(obj);
 	}
 
-	var addSystems = function(systems) {
+	var addSystems = function(obj, systems) {
 		_.map(systems, function(system) {
 			obj.addSystems(
 				system.id, 
@@ -34,7 +34,7 @@ app.factory('UserBuilder', function(User, LISTS) {
 			user.email,
 			user.password
 		);
-		addSystems(user.systems);
+		addSystems(obj, user.systems);
 		return angular.copy(obj);
 	}
 
@@ -47,14 +47,29 @@ app.factory('UserBuilder', function(User, LISTS) {
 			user.email,
 			user.password
 		);
-		addImage(image);
-		addSystems(user.systems);
+		obj.addImage(image);
+		addSystems(obj, user.systems);
+		return angular.copy(obj);
+	}
+
+	var getUser = function(user) {
+		var image = "image/users/" + user.image;
+		var obj = User.create(
+			user._id,
+			image,
+			user.provider,
+			user.name,
+			user.email,
+			user.password
+		);
+		addSystems(obj, user.systems);
 		return angular.copy(obj);
 	}
 
 	return {
 		createUserDefault: createUserDefault,
 		createUserWidthoutImage: createUserWidthoutImage,
-		createUserWidthImage: createUserWidthImage
+		createUserWidthImage: createUserWidthImage,
+		getUser: getUser
 	}
 });

@@ -4,9 +4,11 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     UserBuilder, SystemBuilder, UserService, SystemService, ImageService, DateService, FORMAT, LISTS) {
 
     var init = function() {
-        $scope.user = {};
+        $scope.user = {teste: 'rafa'};
         $scope.systems = [];
+        $scope.files = [];
         $scope.msg = {};
+        $scope.getUser();
         $scope.getAllSystems();
         setUp();
     }
@@ -16,30 +18,24 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         $scope.msg = { success: null, error: null };
         AppFunction.tabUserCreate();
     }
-
-    var setUpSystems = function(systems) {
-        return _.map(systems, function(system) {
-            system.show = !$scope.existSystem(system);
-            return SystemBuilder.createSystem(system);
-        })
-    }
     
     var resetForm = function(form) {
         form.$setPristine();
         $scope.submitted = false;
         init();
-    }
+    } 
 
-    // $scope.getUser = function() {
-    //     if (!$stateParams.id) return;
-    //     UserService.getUser($stateParams.id)
-    //         .then(function(data) {
-    //             $scope.user = data;
-    //         })
-    //         .catch(function() {
-    //             $scope.user = {};
-    //         });
-    // }
+    $scope.getUser = function() {
+        if (!$stateParams.id) return;
+        UserService.getUser($stateParams.id)
+            .then(function(data) {
+                $scope.user = UserBuilder.getUser(data);
+                $scope.files[0] = $scope.user.image;
+            })
+            .catch(function() {
+                $scope.user = {};
+            });
+    }
 
     $scope.getAllSystems = function() {
         SystemService.allSystems()
@@ -49,11 +45,18 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
             .catch(function() {
                 $scope.systems = [];
             });
-    }
+    };
 
     $scope.existSystem = function(system) {
         return _.contains($scope.user.systems, system);
-    }
+    };
+
+    var setUpSystems = function(systems) {
+        return _.map(systems, function(system) {
+            system.show = !$scope.existSystem(system);
+            return SystemBuilder.createSystem(system);
+        })
+    };
 
     $scope.createUser = function(form) {  
         $scope.submitted = true;

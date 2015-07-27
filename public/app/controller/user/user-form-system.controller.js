@@ -7,7 +7,15 @@ app.controller('UserFormSystemCtrl', function($scope, $location, $stateParams, $
         $scope.roles = LISTS.roles;
         $scope.periodos = LISTS.periodos;
         $scope.format = FORMAT.date;
-    };
+        // $scope.getAllSystems();
+    };      
+
+    // $scope.$watch('user', function(newVal, oldVal) {
+    //     if(!$scope.user.systems) return;
+    //     if(!_.isEqual(oldVal, newVal)) {
+    //         $scope.systems = setUpSystems(newVal.systems);
+    //     }
+    // });  
 
     $scope.$watch('systemSelection.periodo', function(newVal, oldVal) {
         if(!$scope.systemSelection) return;
@@ -29,6 +37,27 @@ app.controller('UserFormSystemCtrl', function($scope, $location, $stateParams, $
             verifyDate();
         }
     });
+
+    // $scope.getAllSystems = function() {
+    //     SystemService.allSystems()
+    //         .then(function(data) {
+    //             $scope.systems = setUpSystems(data);
+    //         })
+    //         .catch(function() {
+    //             $scope.systems = [];
+    //         });
+    // };
+
+    // $scope.existSystem = function(system) {
+    //     return _.contains($scope.user.systems, system);
+    // };
+
+    // var setUpSystems = function(systems) {
+    //     return _.map(systems, function(system) {
+    //         system.show = !$scope.existSystem(system);
+    //         return SystemBuilder.createSystem(system);
+    //     })
+    // };
 
     $scope.getDate = function(periodo) {
         var dateInitial = new Date();
