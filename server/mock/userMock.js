@@ -11,6 +11,7 @@ User.find({}).remove(function() {
     var dateFin = new Date();
     dateFin.setDate(dateIni.getDate() + 30);
     User.create({
+        _id: '55b77647a8d5d3070db4e892',
         provider: 'local',
         name: 'Test User',
         email: 'test@test.com',
@@ -23,6 +24,7 @@ User.find({}).remove(function() {
             dateFinal: dateFin
         }]
     }, {
+        _id: '55b77647a8d5d3070db4e893',
         provider: 'Local',
         name: 'Rafael Augusto Schlemper',
         email: 'raschlemper@gmail.com',

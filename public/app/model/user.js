@@ -12,9 +12,10 @@ app.factory('User', function() {
 		systems: []
 	}
 
-	var createSystem = function(id, role, dateInitial, dateFinal) {
+	var createSystem = function(id, name, role, dateInitial, dateFinal) {
 		return {
 			id: id,
+			name: name,
 			role: role,
 			dateInitial: dateInitial,
 			dateFinal: dateFinal
@@ -25,9 +26,9 @@ app.factory('User', function() {
 		user.image = image;
 	}
 
-	user.addSystems = function(id, role, dateInitial, dateFinal) {
+	user.addSystems = function(id, name, role, dateInitial, dateFinal) {
 		user.systems.push(
-			createSystem(id, role, dateInitial, dateFinal)
+			createSystem(id, name, role, dateInitial, dateFinal)
 		);
 	}
 

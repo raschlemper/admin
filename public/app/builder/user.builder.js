@@ -18,6 +18,7 @@ app.factory('UserBuilder', function(User, LISTS) {
 		_.map(systems, function(system) {
 			obj.addSystems(
 				system.id, 
+				system.name,
 				system.role, 
 				system.dateInitial, 
 				system.dateFinal

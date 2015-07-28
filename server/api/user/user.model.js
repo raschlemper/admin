@@ -1,6 +1,9 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var _ = require('underscore');
+var compose = require('composable-middleware');
+var System = require('../system/system.model');
 
 var Schema = mongoose.Schema;
 
@@ -27,10 +30,12 @@ UserSchema
   .virtual('data')
   .get(function() {
     return {
-      'name': name,
-      'email': email,
-      'role': role,
-      'image': image
+      'provider': this.provider,
+      'name': this.name,
+      'email': this.email,
+      'role': this.role,
+      'image': this.image,
+      'systems': this.getSystem(this.systems)
     }
   });
 
@@ -48,7 +53,27 @@ UserSchema
 /**
  * Methods
  */
+
+ // http://mongoosejs.com/docs/populate.html
 UserSchema.methods = {
+
+    getSystem: function(userSystems) {
+      _.map(userSystems, function(userSystem) {
+        return compose() 
+          .use(function(next) {
+            System.findById(userSystem.id, function(err, system) {
+              if (err) return err;  
+              next(system);
+            }); 
+          })
+          .use(function(system, next) {
+              userSystem.name = system.name;
+              return userSystem;
+          })
+      });  
+      return userSystems;
+    }    
+
 };
 
 module.exports = mongoose.model('User', UserSchema);

@@ -8,14 +8,7 @@ app.controller('UserFormSystemCtrl', function($scope, $location, $stateParams, $
         $scope.periodos = LISTS.periodos;
         $scope.format = FORMAT.date;
         // $scope.getAllSystems();
-    };      
-
-    // $scope.$watch('user', function(newVal, oldVal) {
-    //     if(!$scope.user.systems) return;
-    //     if(!_.isEqual(oldVal, newVal)) {
-    //         $scope.systems = setUpSystems(newVal.systems);
-    //     }
-    // });  
+    }; 
 
     $scope.$watch('systemSelection.periodo', function(newVal, oldVal) {
         if(!$scope.systemSelection) return;

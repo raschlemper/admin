@@ -4,7 +4,7 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     UserBuilder, SystemBuilder, UserService, SystemService, ImageService, DateService, FORMAT, LISTS) {
 
     var init = function() {
-        $scope.user = {teste: 'rafa'};
+        $scope.user = {};
         $scope.systems = [];
         $scope.files = [];
         $scope.msg = {};

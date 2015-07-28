@@ -2,6 +2,7 @@
 
 var compose = require('composable-middleware');
 var Image = require('../image/image.controller');
+var System = require('../system/system.controller');
 var User = require('./user.model');
 
 /**
@@ -23,7 +24,7 @@ exports.show = function(req, res, next) {
     User.findById(userId, function(err, user) {
         if (err) return next(err);
         if (!user) return res.send(401);
-        res.json(200, user);
+        res.json(200, user.data);
     });
 };
 

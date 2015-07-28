@@ -20,7 +20,7 @@ exports.show = function(req, res, next) {
     var systemId = req.params.id;
     System.findById(systemId, function(err, system) {
         if (err) return next(err);
-        if (!user) return res.send(401);
+        if (!system) return res.send(401);
         res.json(200, system);
     });
 };
