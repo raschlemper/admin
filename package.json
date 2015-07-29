@@ -34,7 +34,8 @@
     "underscore": "~1.8.3",
     "connect-multiparty": "*",
     "hashids": "1.0.0",
-    "lwip": "*"
+    "lwip": "*",
+    "mongoose-deep-populate": "1.1.0"
   },
   "devDependencies": {},
   "bundleDependencies": [],

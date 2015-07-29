@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var deepPopulate = require('mongoose-deep-populate');
 var _ = require('underscore');
 var compose = require('composable-middleware');
 var System = require('../system/system.model');
@@ -13,15 +14,8 @@ var UserSchema = new Schema({
   password: String,
   image: String,
   provider: String,
-  systems: [{
-    _id: {type: Schema.Types.ObjectId, ref: 'System'},
-    role: { type: String, default: 'user' },
-    dateInitial: Date,
-    dateFinal: Date
-  }]
-
+  systems: [{type: Schema.Types.ObjectId, ref: 'UserSystem'}]
 });
-
 
 /**
  * Virtuals
@@ -34,8 +28,7 @@ UserSchema
       'name': this.name,
       'email': this.email,
       'role': this.role,
-      'image': this.image,
-      'systems': this.getSystem(this.systems)
+      'image': this.image
     }
   });
 
@@ -56,24 +49,7 @@ UserSchema
 
  // http://mongoosejs.com/docs/populate.html
 UserSchema.methods = {
-
-    getSystem: function(userSystems) {
-      _.map(userSystems, function(userSystem) {
-        return compose() 
-          .use(function(next) {
-            System.findById(userSystem.id, function(err, system) {
-              if (err) return err;  
-              next(system);
-            }); 
-          })
-          .use(function(system, next) {
-              userSystem.name = system.name;
-              return userSystem;
-          })
-      });  
-      return userSystems;
-    }    
-
 };
 
+UserSchema.plugin(deepPopulate);
 module.exports = mongoose.model('User', UserSchema);

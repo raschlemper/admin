@@ -5,5 +5,6 @@
 
 'use strict';
 
-require('./userMock'); 
-require('./systemMock'); 
+require('./user.mock'); 
+require('./system.mock'); 
+require('./user-system.mock');

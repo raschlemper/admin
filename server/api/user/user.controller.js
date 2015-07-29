@@ -21,10 +21,12 @@ exports.index = function(req, res, next) {
  */
 exports.show = function(req, res, next) {
     var userId = req.params.id;
-    User.findById(userId, function(err, user) {
+    User.findById(userId)
+    .deepPopulate('systems.system')
+    .exec(function(err, user) {
         if (err) return next(err);
         if (!user) return res.send(401);
-        res.json(200, user.data);
+        res.json(200, user);
     });
 };
 
