@@ -4,10 +4,10 @@ app.controller('UserFormSystemCtrl', function($scope, $location, $stateParams, $
     UserBuilder, SystemBuilder, UserService, SystemService, ImageService, DateService, FORMAT, LISTS) {
 
     var init = function() {
+        $scope.systemSelection = null;
         $scope.roles = LISTS.roles;
         $scope.periodos = LISTS.periodos;
         $scope.format = FORMAT.date;
-        // $scope.getAllSystems();
     }; 
 
     $scope.$watch('systemSelection.periodo', function(newVal, oldVal) {
@@ -30,27 +30,6 @@ app.controller('UserFormSystemCtrl', function($scope, $location, $stateParams, $
             verifyDate();
         }
     });
-
-    // $scope.getAllSystems = function() {
-    //     SystemService.allSystems()
-    //         .then(function(data) {
-    //             $scope.systems = setUpSystems(data);
-    //         })
-    //         .catch(function() {
-    //             $scope.systems = [];
-    //         });
-    // };
-
-    // $scope.existSystem = function(system) {
-    //     return _.contains($scope.user.systems, system);
-    // };
-
-    // var setUpSystems = function(systems) {
-    //     return _.map(systems, function(system) {
-    //         system.show = !$scope.existSystem(system);
-    //         return SystemBuilder.createSystem(system);
-    //     })
-    // };
 
     $scope.getDate = function(periodo) {
         var dateInitial = new Date();
@@ -105,7 +84,8 @@ app.controller('UserFormSystemCtrl', function($scope, $location, $stateParams, $
     }
 
     $scope.addSystem = function(system) {  
-        $scope.user.systems.push(system);
+        var userSystem = SystemBuilder.createSystem(system);
+        $scope.user.systems.push(userSystem);
         system.show = !$scope.existSystem(system);
     }
 

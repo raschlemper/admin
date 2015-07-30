@@ -18,10 +18,22 @@ app.factory('UserBuilder', function(User, LISTS) {
 		_.map(systems, function(system) {
 			obj.addSystems(
 				system.id, 
-				system.name,
 				system.role, 
 				system.dateInitial, 
-				system.dateFinal
+				system.dateFinal, 
+				null
+			);
+		})
+	}
+
+	var createSystems = function(obj, systems) {
+		_.map(systems, function(system) {
+			obj.addSystems(
+				system.id, 
+				system.role, 
+				system.dateInitial, 
+				system.dateFinal,
+				system.system
 			);
 		})
 	}
@@ -63,7 +75,7 @@ app.factory('UserBuilder', function(User, LISTS) {
 			user.email,
 			user.password
 		);
-		addSystems(obj, user.systems);
+		createSystems(obj, user.systems);
 		return angular.copy(obj);
 	}
 

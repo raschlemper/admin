@@ -12,23 +12,32 @@ app.factory('User', function() {
 		systems: []
 	}
 
-	var createSystem = function(id, name, role, dateInitial, dateFinal) {
-		return {
+	var addSystem = function(id, role, dateInitial, dateFinal, system) {
+		var result = {};
+		if(system) {			
+			_.extend(result, {
+				name: system.name,
+				description: system.description,
+				icon: system.icon,
+				image: system.image
+			})
+		}
+		_.extend(result, {
 			id: id,
-			name: name,
 			role: role,
 			dateInitial: dateInitial,
 			dateFinal: dateFinal
-		}
+		})
+		return result;
 	}
 
 	user.addImage = function(image) {
 		user.image = image;
 	}
 
-	user.addSystems = function(id, name, role, dateInitial, dateFinal) {
+	user.addSystems = function(id, role, dateInitial, dateFinal, system) {
 		user.systems.push(
-			createSystem(id, name, role, dateInitial, dateFinal)
+			addSystem(id, role, dateInitial, dateFinal, system)
 		);
 	}
 

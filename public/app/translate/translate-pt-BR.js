@@ -36,6 +36,8 @@ app.config(['$translateProvider', function($translateProvider) {
     	'MSG.VALID.EMAIL': 'Digite um email válido.',
         'MSG.USER.CREATE.SUCCESS': 'Usuário cadastrado com sucesso!',
         'MSG.USER.CREATE.ERROR': 'Problemas ao cadastrar o usuário!',
+        'MSG.USER.UPDATE.SUCCESS': 'Usuário alterado com sucesso!',
+        'MSG.USER.UPDATE.ERROR': 'Problemas ao alterar o usuário!',
         'MSG.DRAG_DROP.NOT_SUPORTTED': 'Arquivo Drag/Drop não suportado neste navegador!'
 
     });

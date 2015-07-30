@@ -61,14 +61,14 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     $scope.createUser = function(form) {  
         $scope.submitted = true;
         if (form.$valid) {             
-            if($scope.files) { createUserWithImage(form, $scope.files[0], user); }
-            else { createUserWithoutImage(form, user); }
+            if($scope.files) { createUserWithImage(form, $scope.files[0]); }
+            else { createUserWithoutImage(form); }
         } else {
             $scope.msg.error = 'MSG.EXISTS.INCORRET.DATA';
         }
     }
 
-    var createUserWithoutImage = function(form, user) {  
+    var createUserWithoutImage = function(form) {  
         var user = UserBuilder.createUserWidthoutImage($scope.user);
         UserService.createUser(user)
             .then(function(data) {
@@ -81,7 +81,7 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         
     }
 
-    var createUserWithImage = function(form, file, user) {
+    var createUserWithImage = function(form, file) {
         var user = UserBuilder.createUserWidthImage($scope.user, file);  
         UserService.createUserWithImage(file, user)
             .then(function(data) {
@@ -98,11 +98,11 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         if (form.$valid) {
             UserService.updateUser($scope.user)
                 .then(function(data) {
-                    $scope.msg.success = "Usuário alterado com sucesso!";
+                    $scope.msg.success = "MSG.USER.UPDATE.SUCCESS";
                     // $location.url("/user");
                 })
                 .catch(function(e) {
-                    $scope.msg.error = "Problemas ao alteradar o usuário!";
+                    $scope.msg.error = "MSG.USER.UPDATE.ERROR";
 
                 });
         }
