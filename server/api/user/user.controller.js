@@ -54,8 +54,9 @@ exports.destroy = function(req, res, next) {
 /**
  * Change a users
  */
+//TODO: Colocar o compose para salvar a imagem cas ela seja mudada
 exports.change = function(req, res, next) {
-    User.findByIdAndUpdate(req.body._id, req.body, function(err, user) {
+    User.findByIdAndUpdate(req.body.id, req.body, function(err, user) {
       if(err) return res.send(500, err);
       res.json(200);
     });

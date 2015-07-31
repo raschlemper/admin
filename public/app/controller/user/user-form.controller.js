@@ -58,14 +58,22 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         })
     };
 
-    $scope.createUser = function(form) {  
+    $scope.saveUser = function(form) {  
         $scope.submitted = true;
-        if (form.$valid) {             
-            if($scope.files) { createUserWithImage(form, $scope.files[0]); }
-            else { createUserWithoutImage(form); }
+        if (form.$valid) {   
+            if(!$scope.user.id) {
+                createUser(form);
+            } else {
+                updateUser(form);
+            }            
         } else {
             $scope.msg.error = 'MSG.EXISTS.INCORRET.DATA';
         }
+    }
+
+    var createUser = function(form) { 
+        if($scope.files) { createUserWithImage(form, $scope.files[0]); }
+        else { createUserWithoutImage(form); }
     }
 
     var createUserWithoutImage = function(form) {  
@@ -93,7 +101,7 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
             });
     }
 
-    $scope.updateUser = function(form) {
+    var updateUser = function(form) {
         $scope.submitted = true;
         if (form.$valid) {
             UserService.updateUser($scope.user)
