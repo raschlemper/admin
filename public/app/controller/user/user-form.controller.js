@@ -72,12 +72,14 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     }
 
     var createUser = function(form) { 
-        if($scope.files) { createUserWithImage(form, $scope.files[0]); }
-        else { createUserWithoutImage(form); }
+        var image = null;
+        if($scope.files[0]) { image = $scope.files[0]; }
+        var user = UserBuilder.createUser($scope.user, image);
+        if($scope.files) { createUserWithImage(form, user); }
+        else { createUserWithoutImage(form, user); }
     }
 
-    var createUserWithoutImage = function(form) {  
-        var user = UserBuilder.createUserWidthoutImage($scope.user);
+    var createUserWithoutImage = function(form, user) {  
         UserService.createUser(user)
             .then(function(data) {
                 resetForm(form);
@@ -89,9 +91,8 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         
     }
 
-    var createUserWithImage = function(form, file) {
-        var user = UserBuilder.createUserWidthImage($scope.user, file);  
-        UserService.createUserWithImage(file, user)
+    var createUserWithImage = function(form, user) {
+        UserService.createUserWithImage(user.file, user)
             .then(function(data) {
                 resetForm(form);
                 $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';           
@@ -106,6 +107,7 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         if (form.$valid) {
             UserService.updateUser($scope.user)
                 .then(function(data) {
+                    resetForm(form);
                     $scope.msg.success = "MSG.USER.UPDATE.SUCCESS";
                     // $location.url("/user");
                 })

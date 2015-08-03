@@ -3,8 +3,8 @@
 var compose = require('composable-middleware');
 var _ = require('underscore');
 var Image = require('../image/image.controller');
-var System = require('../system/system.controller');
 var User = require('./user.model');
+var UserSystem = require('./system/user-system.model');
 
 /**
  * Get list of users
@@ -61,21 +61,39 @@ exports.change = function(req, res, next) {
         .use(function(req, res, next) {
             // var newUser = new User(req.body);
             User.findOne({ _id: req.body.id }, function (err, user){
-                user.name = req.body.name;
-                user.email = req.body.email;
-                user.provider = req.body.provider;
-                user.save(function(err, user) {
-                    if (err) return res.send(500, err);
-                    next();
-                });
+                if (err) return res.send(500, err);
+                next(user);
+            });
+        })
+        .use(function(user, req, res, next) {
+            user.name = req.body.name;
+            user.email = req.body.email;
+            user.provider = req.body.provider;
+            user.save(function(err, user) {
+                if (err) return res.send(500, err);
+                next();
             });
         })
         .use(function(req, res, next) {
             _.map(req.body.systems, function(system) {
-                console.log(system);
+                UserSystem.findOne({ _id: system.id }, function (err, userSystem){
+                    if (err) return res.send(500, err);
+                    if(!userSystem) { userSystem = new UserSystem(system); }
+                    userSystem.user = system.user;
+                    userSystem.system = system.system;
+                    userSystem.role = system.role;
+                    userSystem.dateInitial = system.dateInitial;
+                    userSystem.dateFinal = system.dateFinal;
+                    next(userSystem);
+                });
             })                
         })
-            
+        .use(function(userSystem, req, res, next) {
+            userSystem.save(function(err, system) {
+                if (err) return res.send(500, err);
+                res.json(200);
+            });            
+        });            
 };
 
 /**
