@@ -1,6 +1,7 @@
 'use strict';
 
 var compose = require('composable-middleware');
+var _ = require('underscore');
 var Image = require('../image/image.controller');
 var System = require('../system/system.controller');
 var User = require('./user.model');
@@ -56,10 +57,25 @@ exports.destroy = function(req, res, next) {
  */
 //TODO: Colocar o compose para salvar a imagem cas ela seja mudada
 exports.change = function(req, res, next) {
-    User.findByIdAndUpdate(req.body.id, req.body, function(err, user) {
-      if(err) return res.send(500, err);
-      res.json(200);
-    });
+    return compose() 
+        .use(function(req, res, next) {
+            // var newUser = new User(req.body);
+            User.findOne({ _id: req.body.id }, function (err, user){
+                user.name = req.body.name;
+                user.email = req.body.email;
+                user.provider = req.body.provider;
+                user.save(function(err, user) {
+                    if (err) return res.send(500, err);
+                    next();
+                });
+            });
+        })
+        .use(function(req, res, next) {
+            _.map(req.body.systems, function(system) {
+                console.log(system);
+            })                
+        })
+            
 };
 
 /**

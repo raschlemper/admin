@@ -12,7 +12,7 @@ router.get('/', controller.index);
 router.post('/', controller.create);
 router.get('/:id', controller.show);
 router.delete('/:id', controller.destroy);
-router.put('/:id', controller.change);
+router.put('/:id', controller.change());
 router.post('/image/', multipartMiddleware, controller.createWithImage());
 
 //router.get('/system/:id', controllerSystem.show);
