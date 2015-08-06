@@ -14,7 +14,12 @@ var UserSchema = new Schema({
   password: String,
   image: String,
   provider: String,
-  systems: [{type: Schema.Types.ObjectId, ref: 'UserSystem'}]
+  systems: [{
+    system: { type: Schema.Types.ObjectId, ref: 'System' },
+    role: { type: String, default: 'user' },
+    dateInitial: Date,
+    dateFinal: Date
+  }]
 });
 
 /**

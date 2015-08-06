@@ -17,7 +17,12 @@ User.find({}).remove(function() {
         email: 'test@test.com',
         image: "homer.png",
         password: 'test',
-        systems: [ "55b8c22a1a6764da5d22f44f" ]
+        systems: [{
+            system: "55a6fbbd7b39890d0eff2e42",
+            role: 'user',
+            dateInitial: dateIni,
+            dateFinal: dateFin
+        }]
     }, {
         _id: '55b77647a8d5d3070db4e893',
         provider: 'Local',

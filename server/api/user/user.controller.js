@@ -8,10 +8,11 @@ var UserSystem = require('./system/user-system.model');
 
 /**
  * Get list of users
- * restriction: 'admin'
  */
 exports.index = function(req, res, next) {
-    User.find({}, function(err, users) {
+    User.find({})    
+    .deepPopulate('systems.system')
+    .exec(function(err, users) {
         if (err) return res.send(500, err);
         res.json(200, users);
     });
@@ -32,17 +33,6 @@ exports.show = function(req, res, next) {
 };
 
 /**
- * Create user
- */
-exports.create = function(req, res, next) {
-    var newUser = new User(req.body);
-    newUser.save(function(err, user) {
-        if (err) return res.send(500, err);
-        res.json(200);
-    });
-};
-
-/**
  * Remove user
  */
 exports.destroy = function(req, res, next) {
@@ -53,48 +43,72 @@ exports.destroy = function(req, res, next) {
 };
 
 /**
+ * Create user
+ */
+exports.create = function(req, res, next) {
+    return compose() 
+        .use(function(req, res, next) {
+            var newUser = new User(req.body);
+            next(user);
+        })
+        .use(function(user, req, res, next) {
+            populateUser(user, req, res, next);
+        })
+        .use(function(user, req, res, next) {
+            saveUser(user, req, res, next);
+        });            
+
+
+    var newUser = new User(req.body);
+    newUser.save(function(err, user) {
+        if (err) return res.send(500, err);
+        res.json(200);
+    });
+};
+
+/**
  * Change a users
  */
 //TODO: Colocar o compose para salvar a imagem cas ela seja mudada
 exports.change = function(req, res, next) {
     return compose() 
         .use(function(req, res, next) {
-            // var newUser = new User(req.body);
-            User.findOne({ _id: req.body.id }, function (err, user){
+            User.findById({ _id: req.body.id }, function (err, user){
                 if (err) return res.send(500, err);
                 next(user);
             });
         })
         .use(function(user, req, res, next) {
-            user.name = req.body.name;
-            user.email = req.body.email;
-            user.provider = req.body.provider;
-            user.save(function(err, user) {
-                if (err) return res.send(500, err);
-                next();
-            });
+            populateUser(user, req, res, next);
         })
-        .use(function(req, res, next) {
-            _.map(req.body.systems, function(system) {
-                UserSystem.findOne({ _id: system.id }, function (err, userSystem){
-                    if (err) return res.send(500, err);
-                    if(!userSystem) { userSystem = new UserSystem(system); }
-                    userSystem.user = system.user;
-                    userSystem.system = system.system;
-                    userSystem.role = system.role;
-                    userSystem.dateInitial = system.dateInitial;
-                    userSystem.dateFinal = system.dateFinal;
-                    next(userSystem);
-                });
-            })                
-        })
-        .use(function(userSystem, req, res, next) {
-            userSystem.save(function(err, system) {
-                if (err) return res.send(500, err);
-                res.json(200);
-            });            
+        .use(function(user, req, res, next) {
+            saveUser(user, req, res, next);
         });            
 };
+
+var populateUser = function(user, req, res, next) {
+    user.name = req.body.name;
+    user.email = req.body.email;
+    user.provider = req.body.provider;
+    var systems = [];
+    _.map(req.body.systems, function(system) {
+        systems.push({
+            system: system._id,
+            role: system.role,
+            dateInitial: system.dateInitial,
+            dateFinal: system.dateFinal
+        })
+    });
+    user.systems = systems;
+    next(user);
+}
+
+var saveUser = function(user, req, res, next) {
+    user.save(function(err, user) {
+        if (err) return res.send(500, err);
+        res.json(200);
+    });    
+}
 
 /**
  * Create user
