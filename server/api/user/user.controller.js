@@ -48,22 +48,18 @@ exports.destroy = function(req, res, next) {
 exports.create = function(req, res, next) {
     return compose() 
         .use(function(req, res, next) {
-            var newUser = new User(req.body);
+            var user = new User(req.body);
             next(user);
         })
         .use(function(user, req, res, next) {
             populateUser(user, req, res, next);
         })
         .use(function(user, req, res, next) {
+            saveImage(user, req, res, next);
+        })
+        .use(function(user, req, res, next) {
             saveUser(user, req, res, next);
-        });            
-
-
-    var newUser = new User(req.body);
-    newUser.save(function(err, user) {
-        if (err) return res.send(500, err);
-        res.json(200);
-    });
+        });      
 };
 
 /**
@@ -82,6 +78,9 @@ exports.change = function(req, res, next) {
             populateUser(user, req, res, next);
         })
         .use(function(user, req, res, next) {
+            saveImage(user, req, res, next);
+        })
+        .use(function(user, req, res, next) {
             saveUser(user, req, res, next);
         });            
 };
@@ -90,6 +89,12 @@ var populateUser = function(user, req, res, next) {
     user.name = req.body.name;
     user.email = req.body.email;
     user.provider = req.body.provider;
+    user.image = populateUserImage(req);
+    user.systems = populateUserSystems(req);
+    next(user);
+}
+
+var populateUserSystems = function(req) {
     var systems = [];
     _.map(req.body.systems, function(system) {
         systems.push({
@@ -99,8 +104,13 @@ var populateUser = function(user, req, res, next) {
             dateFinal: system.dateFinal
         })
     });
-    user.systems = systems;
-    next(user);
+    return systems;
+}
+
+var populateUserImage = function(req) {
+    if(!req.files.file) { return null; }
+    var file = req.files.file;
+    return Image.fileName(file.type, req.body.name);
 }
 
 var saveUser = function(user, req, res, next) {
@@ -110,28 +120,32 @@ var saveUser = function(user, req, res, next) {
     });    
 }
 
-/**
- * Create user
- */
-exports.createWithImage = function() {
-    return compose() 
-        .use(function(req, res, next) {
-            var file = req.files.file;
-            var name = Image.fileName(file.type, req.body.name);
-            if(req.files.file) { 
-                Image.createImageUser(file, name); 
-                next();
-            }
-        })
-        .use(function(req, res, next) {
-            var file = req.files.file;
-            var name = Image.fileName(file.type, req.body.name);
-            User.update( { 'name': req.body.name, 'email': req.body.email }, 
-                { 'image': name },
-                function(err, numberAffected, user) {
-                    if (err) return res.send(500, err);
-                    res.json(200, user);
-                });
+var saveImage = function(user, req, res, next) {
+    if(!req.files.file) { next(); }
+    var file = req.files.file;
+    var name = Image.fileName(file.type, req.body.name);
+    Image.removeImageUser(file, name); 
+    Image.createImageUser(file, name); 
+    next(user);
+}
 
-        });
-};
+// var saveImage = function(req, res, next) {
+//     if(!req.files.file) { next(); }
+//     var file = req.files.file;
+//     var name = Image.fileName(file.type, req.body.name);
+//     User.update( 
+//         { 'name': req.body.name, 'email': req.body.email }, 
+//         { 'image': name },
+//         function(err, numberAffected, user) {
+//             if (err) return res.send(500, err);
+//             res.json(200, user);
+//         });
+// }
+
+// exports.createWithImage = function() {
+//     return compose() 
+//         .use(function(req, res, next) {
+//         })
+//         .use(function(req, res, next) {
+//         });
+// };

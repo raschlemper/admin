@@ -13,11 +13,11 @@ var imagePath = 'public/image/users/';
 /**
  * Create image
  */
-var create = function(req, res, next) {
+exports.create = function(req, res, next) {
 	var file = req.files.file;
 	var name = fileName(file.type, req.body.name);
 	fs.readFile(file.path, function (err, data) {
-		var path = 'public/image/users/' + name;
+		var path = imagePath + name;
 		fs.writeFile(path, data, function(err) {
 			if (err) return err;
         	res.json(200, data);
@@ -25,11 +25,11 @@ var create = function(req, res, next) {
 	});
 };
 
-// TODO: Fazer o resize conforme o h ou o w da image,
-// considerar o maior pelo tamanho da image e calcular a outra medida
-// http://thejackalofjavascript.com/image-manipulation-node-js/ 
-var createImageUser = function(file, name) {
-    var path = 'public/image/users/' + name;
+/**
+ * Create image to user
+ */
+exports.createImageUser = function(file, name) {
+    var path = imagePath + name;
     lwip.open(file.path, function(err, image) {
         if (err) throw err;
         var size = calculateImageSize(image);
@@ -40,6 +40,33 @@ var createImageUser = function(file, name) {
             });
         });
     });
+}
+
+/**
+ * Remove image to user
+ */
+exports.removeImageUser = function() {
+    var path = imagePath + name;
+    fs.unlink(path, function (err) {
+        if (err) throw err;
+    });
+}
+
+/**
+ * Create name to image
+ */
+exports.fileName = function(type, name) {
+    var nameEncode = encode(name);
+    switch(type) {
+    case "image/jpeg":
+        return nameEncode + '.jpg';
+        break;
+    case "image/png":
+        return nameEncode + '.png';
+        break;
+    default:
+        return nameEncode + '.png';
+    }
 }
 
 var calculateImageSize = function(image) {
@@ -91,20 +118,6 @@ var calculateSize = function(size, percentual) {
     return (size * percentual) / 100;
 }
 
-var fileName = function(type, name) {
-	var nameEncode = encode(name);
-	switch(type) {
-    case "image/jpeg":
-        return nameEncode + '.jpg';
-        break;
-    case "image/png":
-        return nameEncode + '.png';
-        break;
-    default:
-        return nameEncode + '.png';
-    }
-}
-
 var encode = function(value) {
     var valueHex = Buffer(value).toString('hex');
     return hashids.encodeHex(valueHex);
@@ -114,7 +127,3 @@ var decode = function(value) {
 	var valueHex = hashids.decodeHex(value);
     return Buffer(valueHex, 'hex').toString('utf8');
 }
-
-exports.create = create;
-exports.createImageUser = createImageUser;
-exports.fileName = fileName;
