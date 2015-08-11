@@ -25,10 +25,22 @@ exports.create = function(req, res, next) {
 	});
 };
 
+exports.createImageUser = function(req, res, next) {
+    var file = req.files.file;
+    var name = Image.fileName(file.type, req.body.name);
+    var path = imagePath + name;    
+    fs.exists(path, function (exists) {
+        if (exists) { changeImage(req, res, next); }
+        createImage(req, res, next);
+    });
+};
+
 /**
  * Create image to user
  */
-exports.createImageUser = function(file, name) {
+var createImage = function(req, res, next) {
+    var file = req.files.file;
+    var name = Image.fileName(file.type, req.body.name);
     var path = imagePath + name;
     lwip.open(file.path, function(err, image) {
         if (err) throw err;
@@ -36,7 +48,7 @@ exports.createImageUser = function(file, name) {
         image.resize(size.width, size.height, function(err, rzdImg) {
             rzdImg.writeFile(path, function(err, image) {
                 if (err) throw err;
-                return image;
+                res.json(200, data);
             });
         });
     });
@@ -45,10 +57,13 @@ exports.createImageUser = function(file, name) {
 /**
  * Remove image to user
  */
-exports.removeImageUser = function() {
-    var path = imagePath + name;
+var changeImage = function(req, res, next) {
+    var file = req.files.file;
+    var name = Image.fileName(file.type, req.body.name);
+    var path = imagePath + name;    
     fs.unlink(path, function (err) {
         if (err) throw err;
+        createImage(req, res, next);
     });
 }
 

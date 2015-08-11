@@ -9,11 +9,10 @@ var router = express.Router();
 var multipartMiddleware = multipart();
 
 router.get('/', controller.index);
-router.post('/', controller.create);
+router.post('/', multipartMiddleware, controller.create());
+router.put('/:id', multipartMiddleware, controller.change());
 router.get('/:id', controller.show);
 router.delete('/:id', controller.destroy);
-router.put('/:id', controller.change());
-router.post('/image/', multipartMiddleware, controller.createWithImage());
 
 //router.get('/system/:id', controllerSystem.show);
 

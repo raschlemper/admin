@@ -54,11 +54,15 @@ exports.create = function(req, res, next) {
         .use(function(user, req, res, next) {
             populateUser(user, req, res, next);
         })
+        // .use(function(user, req, res, next) {
+        //     saveImage(user, req, res, next);
+        //     next(user);
+        // })
         .use(function(user, req, res, next) {
-            saveImage(user, req, res, next);
-        })
-        .use(function(user, req, res, next) {
-            saveUser(user, req, res, next);
+            user.save(function(err, user) {
+                if (err) return res.send(500, err);
+                res.json(200);
+            }); 
         });      
 };
 
@@ -77,11 +81,15 @@ exports.change = function(req, res, next) {
         .use(function(user, req, res, next) {
             populateUser(user, req, res, next);
         })
+        // .use(function(user, req, res, next) {
+        //     saveImage(user, req, res, next);
+        //     next(user);
+        // })
         .use(function(user, req, res, next) {
-            saveImage(user, req, res, next);
-        })
-        .use(function(user, req, res, next) {
-            saveUser(user, req, res, next);
+            user.save(function(err, user) {
+                if (err) return res.send(500, err);
+                res.json(200);
+            }); 
         });            
 };
 
@@ -108,26 +116,20 @@ var populateUserSystems = function(req) {
 }
 
 var populateUserImage = function(req) {
+    if(!req.files) { return null; }
     if(!req.files.file) { return null; }
     var file = req.files.file;
     return Image.fileName(file.type, req.body.name);
 }
 
-var saveUser = function(user, req, res, next) {
-    user.save(function(err, user) {
-        if (err) return res.send(500, err);
-        res.json(200);
-    });    
-}
-
-var saveImage = function(user, req, res, next) {
-    if(!req.files.file) { next(); }
-    var file = req.files.file;
-    var name = Image.fileName(file.type, req.body.name);
-    Image.removeImageUser(file, name); 
-    Image.createImageUser(file, name); 
-    next(user);
-}
+// var saveImage = function(user, req, res, next) {
+//     if(!req.files) { return; }
+//     if(!req.files.file) { return; }
+//     var file = req.files.file;
+//     var name = Image.fileName(file.type, req.body.name);
+//     Image.removeImageUser(file, name); 
+//     Image.createImageUser(file, name); 
+// }
 
 // var saveImage = function(req, res, next) {
 //     if(!req.files.file) { next(); }

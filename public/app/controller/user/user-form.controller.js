@@ -75,7 +75,7 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         var image = null;
         if($scope.files[0]) { image = $scope.files[0]; }
         var user = UserBuilder.createUser($scope.user, image);
-        if($scope.files) { createUserWithImage(form, user); }
+        if(image) { createUserWithImage(form, user); }
         else { createUserWithoutImage(form, user); }
     }
 
@@ -103,20 +103,36 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     }
 
     var updateUser = function(form) {
-        $scope.submitted = true;
-        if (form.$valid) {
-            UserService.updateUser($scope.user)
-                .then(function(data) {
-                    resetForm(form);
-                    $scope.msg.success = "MSG.USER.UPDATE.SUCCESS";
-                    // $location.url("/user");
-                })
-                .catch(function(e) {
-                    $scope.msg.error = "MSG.USER.UPDATE.ERROR";
-
-                });
-        }
+        var image = null;
+        if($scope.files[0]) { image = $scope.files[0]; }
+        var user = UserBuilder.createUser($scope.user, image);
+        if(image) { updateUserWithoutImage(form, user); }
+        else { updateUserWithImage(form, user); }
     }
+
+    var updateUserWithoutImage = function(form, user) {  
+        UserService.updateUser(user)
+            .then(function(data) {
+                resetForm(form);
+                $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';                
+            })
+            .catch(function() {
+                $scope.msg.error = 'MSG.USER.CREATE.ERROR';
+            });
+        
+    }
+
+    var updateUserWithImage = function(form, user) {
+        UserService.updateUserWithImage(user.file, user)
+            .then(function(data) {
+                resetForm(form);
+                $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';           
+            })
+            .catch(function() {
+                $scope.msg.error = 'MSG.USER.CREATE.ERROR';
+            });
+    }
+
 
     init();
 

@@ -22,8 +22,8 @@ app.factory('ImageService', function($q, Upload) {
         var cb = callback || angular.noop;
         var deferred = $q.defer();
         Upload.upload({
-            url: '/users/image/',
-            fields: { 'name': user.name, 'email': user.email },
+            url: '/image/user/',
+            fields: { 'name': user.name },
             file: file
         })
         ._progress(function(evt) {
