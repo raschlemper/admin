@@ -104,10 +104,10 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
 
     var updateUser = function(form) {
         var image = null;
-        if($scope.files[0]) { image = $scope.files[0]; }
+        if(!$scope.files[0].indexOf("user.png")) { image = $scope.files[0]; }
         var user = UserBuilder.createUser($scope.user, image);
-        if(image) { updateUserWithoutImage(form, user); }
-        else { updateUserWithImage(form, user); }
+        if(image) { updateUserWithImage(form, user); }
+        else { updateUserWithoutImage(form, user); }
     }
 
     var updateUserWithoutImage = function(form, user) {  

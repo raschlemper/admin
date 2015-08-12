@@ -2,10 +2,13 @@
 
 app.factory('UserBuilder', function(User, LISTS) {
 
+	var pathImageDefault = "image/users/";
+	var imageDefault = "user.png";
+
 	var createUserDefault = function() {
 		var obj = User.create (
 			null,
-			"image/users/user.png",
+			pathImageDefault + imageDefault,
 			LISTS.providers[0].code,
 			null,
 			null,
@@ -28,8 +31,8 @@ app.factory('UserBuilder', function(User, LISTS) {
 
 	var createUser = function(user, image) {
 		var obj = User.create(
-			null,
-			"user.png",
+			user.id,
+			imageDefault,
 			user.provider,
 			user.name,
 			user.email,
@@ -41,7 +44,8 @@ app.factory('UserBuilder', function(User, LISTS) {
 	}
 
 	var getUser = function(user) {
-		var image = "image/users/" + user.image;
+		if(!user.image) { user.image = imageDefault}
+		var image = pathImageDefault + user.image;
 		var obj = User.create(
 			user._id,
 			image,

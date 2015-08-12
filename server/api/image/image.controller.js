@@ -27,7 +27,7 @@ exports.create = function(req, res, next) {
 
 exports.createImageUser = function(req, res, next) {
     var file = req.files.file;
-    var name = Image.fileName(file.type, req.body.name);
+    var name = fileName(file.type, req.body.name);
     var path = imagePath + name;    
     fs.exists(path, function (exists) {
         if (exists) { changeImage(req, res, next); }
@@ -40,7 +40,7 @@ exports.createImageUser = function(req, res, next) {
  */
 var createImage = function(req, res, next) {
     var file = req.files.file;
-    var name = Image.fileName(file.type, req.body.name);
+    var name = fileName(file.type, req.body.name);
     var path = imagePath + name;
     lwip.open(file.path, function(err, image) {
         if (err) throw err;
@@ -59,7 +59,7 @@ var createImage = function(req, res, next) {
  */
 var changeImage = function(req, res, next) {
     var file = req.files.file;
-    var name = Image.fileName(file.type, req.body.name);
+    var name = fileName(file.type, req.body.name);
     var path = imagePath + name;    
     fs.unlink(path, function (err) {
         if (err) throw err;
@@ -70,7 +70,7 @@ var changeImage = function(req, res, next) {
 /**
  * Create name to image
  */
-exports.fileName = function(type, name) {
+var fileName = function(type, name) {
     var nameEncode = encode(name);
     switch(type) {
     case "image/jpeg":
