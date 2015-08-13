@@ -3,11 +3,17 @@
 app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter,
     UserBuilder, SystemBuilder, UserService, SystemService, ImageService, DateService, FORMAT, LISTS) {
 
-    var init = function() {
+    var init = function() {        
+        $scope.providers = LISTS.providers;
+        $scope.roles = LISTS.roles;
+        $scope.periodos = LISTS.periodos;
+        $scope.format = FORMAT.date;
         $scope.user = {};
+        $scope.image = {};
         $scope.systems = [];
         $scope.files = [];
         $scope.msg = {};
+        $scope.systemSelection = null;
         $scope.getUser();
         $scope.getAllSystems();
         setUp();
@@ -25,12 +31,14 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         init();
     } 
 
+    // USER
+
     $scope.getUser = function() {
         if (!$stateParams.id) return;
         UserService.getUser($stateParams.id)
             .then(function(data) {
                 $scope.user = UserBuilder.getUser(data);
-                $scope.files[0] = $scope.user.image;
+                // $scope.files[0] = $scope.user.image;
             })
             .catch(function() {
                 $scope.user = {};
@@ -72,10 +80,10 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     }
 
     var createUser = function(form) { 
-        var image = null;
-        if($scope.files[0]) { image = $scope.files[0]; }
+        // var image = null;
+        if($scope.files[0]) { $scope.image = $scope.files[0]; }
         var user = UserBuilder.createUser($scope.user, image);
-        if(image) { createUserWithImage(form, user); }
+        if($scope.image) { createUserWithImage(form, user); }
         else { createUserWithoutImage(form, user); }
     }
 
@@ -103,10 +111,10 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     }
 
     var updateUser = function(form) {
-        var image = null;
-        if(!$scope.files[0].indexOf("user.png")) { image = $scope.files[0]; }
+        // var image = null;
+        if($scope.files[0]) { $scope.image = $scope.files[0]; }
         var user = UserBuilder.createUser($scope.user, image);
-        if(image) { updateUserWithImage(form, user); }
+        if($scope.image) { updateUserWithImage(form, user); }
         else { updateUserWithoutImage(form, user); }
     }
 
@@ -133,6 +141,91 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
             });
     }
 
+    // SYSTEM
+
+    $scope.$watch('systemSelection.periodo', function(newVal, oldVal) {
+        if(!$scope.systemSelection) return;
+        if(!_.isEqual(oldVal, newVal) && $scope.systemSelection.periodo) {
+            $scope.getDate($scope.systemSelection.periodo);
+        }
+    });
+
+    $scope.$watch('systemSelection.dateInitial', function(newVal, oldVal) {
+        if(!$scope.systemSelection) return;
+        if(!_.isEqual(oldVal, newVal)) {
+            verifyDate();
+        }
+    });
+
+    $scope.$watch('systemSelection.dateFinal', function(newVal, oldVal) {
+        if(!$scope.systemSelection) return;
+        if(!_.isEqual(oldVal, newVal)) {
+            verifyDate();
+        }
+    });
+
+    $scope.getDate = function(periodo) {
+        var dateInitial = new Date();
+        var dateFinal = new Date(); 
+        dateFinal.setDate(dateInitial.getDate() + periodo.days);
+        $scope.systemSelection.dateInitial = $filter('date')(dateInitial, FORMAT.date);
+        $scope.systemSelection.dateFinal = $filter('date')(dateFinal, FORMAT.date);
+        $scope.systemSelection.periodo = angular.copy(periodo);
+    };  
+
+    $scope.openInitial = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        if($scope.openedInitial) {
+            $scope.openedInitial = false;  
+        } else { 
+            if($scope.openedFinal) { $scope.openedFinal = false; }
+            $scope.openedInitial = true;
+        }
+    };
+
+    $scope.openFinal = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        if($scope.openedFinal) { 
+            $scope.openedFinal = false; 
+        } else {
+            if($scope.openedInitial) $scope.openedInitial = false;
+            $scope.openedFinal = true;
+        }
+    };
+
+    var verifyDate = function() {
+        _.map($scope.systemSelection.periodos, function(periodo) {
+            var dateIntial = DateService.getDateFromStr($scope.systemSelection.dateInitial);
+            var dateFinal = DateService.getDateFromStr($scope.systemSelection.dateFinal);
+            var dateIntialVerify = DateService.addDaysToDate(dateIntial, periodo.days);
+            if(dateIntialVerify.getTime() === dateFinal.getTime()) {
+                periodo.checked = true;
+            } else {
+                periodo.checked = false;
+            }
+        });
+    };
+
+    $scope.getSystem = function(system) {
+        $scope.systemSelection = system;
+    }
+
+    $scope.showSystems = function() {
+        $scope.systemSelection = null;
+    }
+
+    $scope.addSystem = function(system) {  
+        var userSystem = SystemBuilder.createSystem(system);
+        $scope.user.systems.push(userSystem);
+        system.show = !$scope.existSystem(system);
+    }
+
+    $scope.delSystem = function(system) {  
+        $scope.user.systems.splice(system);
+        system.show = !$scope.existSystem(system);
+    }
 
     init();
 
