@@ -82,9 +82,9 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     var createUser = function(form) { 
         // var image = null;
         if($scope.files[0]) { $scope.image = $scope.files[0]; }
-        var user = UserBuilder.createUser($scope.user, image);
+        var user = UserBuilder.createUser($scope.user, $scope.image);
         if($scope.image) { createUserWithImage(form, user); }
-        else { createUserWithoutImage(form, user); }
+        else { createUserWithoutImage(form, user) }
     }
 
     var createUserWithoutImage = function(form, user) {  

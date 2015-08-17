@@ -14,7 +14,7 @@ app.factory('UserBuilder', function(User, LISTS) {
 			null,
 			null
 		);
-		return angular.copy(obj);
+		return obj;
 	}
 
 	var addSystems = function(obj, systems) {
@@ -40,7 +40,7 @@ app.factory('UserBuilder', function(User, LISTS) {
 		);
 		if(image) { obj.addImage(image); }
 		addSystems(obj, user.systems);
-		return angular.copy(obj);
+		return obj;
 	}
 
 	var getUser = function(user) {
@@ -55,7 +55,7 @@ app.factory('UserBuilder', function(User, LISTS) {
 			user.password
 		);
 		addSystems(obj, user.systems);
-		return angular.copy(obj);
+		return obj;
 	}
 
 	return {
