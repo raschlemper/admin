@@ -38,7 +38,7 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         UserService.getUser($stateParams.id)
             .then(function(data) {
                 $scope.user = UserBuilder.getUser(data);
-                // $scope.files[0] = $scope.user.image;
+                $scope.files[0] = $scope.user.image;
             })
             .catch(function() {
                 $scope.user = {};
@@ -83,8 +83,8 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         // var image = null;
         if($scope.files[0]) { $scope.image = $scope.files[0]; }
         var user = UserBuilder.createUser($scope.user, $scope.image);
-        if($scope.image) { createUserWithImage(form, user); }
-        else { createUserWithoutImage(form, user) }
+        if(_.isEmpty(user.image)) { createUserWithoutImage(form, user); }
+        else { createUserWithImage(form, user) }
     }
 
     var createUserWithoutImage = function(form, user) {  
@@ -100,7 +100,7 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     }
 
     var createUserWithImage = function(form, user) {
-        UserService.createUserWithImage(user.file, user)
+        UserService.createUserWithImage(user)
             .then(function(data) {
                 resetForm(form);
                 $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';           
@@ -113,9 +113,9 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     var updateUser = function(form) {
         // var image = null;
         if($scope.files[0]) { $scope.image = $scope.files[0]; }
-        var user = UserBuilder.createUser($scope.user, image);
-        if($scope.image) { updateUserWithImage(form, user); }
-        else { updateUserWithoutImage(form, user); }
+        var user = UserBuilder.createUser($scope.user, $scope.image);
+        if(_.isEmpty(user.image)) { updateUserWithoutImage(form, user); }
+        else { updateUserWithImage(form, user); }
     }
 
     var updateUserWithoutImage = function(form, user) {  
@@ -131,7 +131,7 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     }
 
     var updateUserWithImage = function(form, user) {
-        UserService.updateUserWithImage(user.file, user)
+        UserService.updateUserWithImage(user)
             .then(function(data) {
                 resetForm(form);
                 $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';           

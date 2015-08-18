@@ -35,6 +35,10 @@ exports.createImageUser = function(req, res, next) {
     });
 };
 
+exports.fileName = function(type, name) {
+    return fileName(type, name);
+}
+
 /**
  * Create image to user
  */
@@ -48,7 +52,7 @@ var createImage = function(req, res, next) {
         image.resize(size.width, size.height, function(err, rzdImg) {
             rzdImg.writeFile(path, function(err, image) {
                 if (err) throw err;
-                res.json(200, data);
+                res.json(200, image);
             });
         });
     });
@@ -99,21 +103,21 @@ var getSize = function(widthMax, heightMax, width, height) {
         'width': widthMax,
         'height': heightMax
     }
-    size = verifyHeightSize(heightMax, newWidth, newHeight);
-    size = verifyWidthSize(widthMax, newWidth, newHeight);
+    size = verifyHeightSize(size, heightMax, newWidth, newHeight);
+    size = verifyWidthSize(size, widthMax, newWidth, newHeight);
     return size;
 }
 
-var verifyWidthSize = function(widthMax, newWidth, newHeight) {
-    if(widthMax > newWidth) return;
+var verifyWidthSize = function(size, widthMax, newWidth, newHeight) {
+    if(widthMax > newWidth) return size;
     return {
         'width': widthMax,
         'height': newHeight      
     }
 }
 
-var verifyHeightSize = function(heightMax, newWidth, newHeight) {
-    if(heightMax > newHeight) return;
+var verifyHeightSize = function(size, heightMax, newWidth, newHeight) {
+    if(heightMax > newHeight) return size;
     return {
         'width': newWidth,
         'height': heightMax

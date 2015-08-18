@@ -116,9 +116,8 @@ var populateUserSystems = function(req) {
 }
 
 var populateUserImage = function(req) {
-    if(!req.files) { return null; }
-    if(!req.files.file) { return null; }
-    var file = req.files.file;
+    if(!req.body.image) { return null; }
+    var file = req.body.image;
     return Image.fileName(file.type, req.body.name);
 }
 
