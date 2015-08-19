@@ -40,7 +40,7 @@ app.factory('UserBuilder', function(User, LISTS) {
 		);
 		if(image) { obj.addImage(image); }
 		addSystems(obj, user.systems);
-		return angular.copy(obj);
+		return obj;
 	}
 
 	var getUser = function(user) {

@@ -51,7 +51,7 @@ app.factory('User', function() {
 			user.email = email;
 			user.password = password;
 			user.systems = [];
-			return user;
+			return new Object(user);
 		}
 	}
 
