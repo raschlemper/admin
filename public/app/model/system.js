@@ -2,38 +2,45 @@
 
 app.factory('System', function() {
 
-	var system = {
-		id: null,
-	    name: null, 
-	    description: null,
-		image: null,
-		icon: null,
-		role: null,
-		periodos: [],
-		periodo: null,
-		dateInitial: null,
-		dateFinal: null,
-		show: false
-	}
+	var System = function() {
 
-	system.showSystem = function(show) {
-		system.show = show;
-	},
+		this.id = null;
+		this.name = null;
+		this.description = null;
+		this.image = null;
+		this.icon = null;
+		this.role = null;
+		this.periodos = [];
+		this.periodo = null;
+		this.dateInitial = null;
+		this.dateFinal = null;
+		this.show = false;
 
-	system.addPermission = function(role) {
-		system.role = role;
-	},	
+		function System() {
+			return this;
+		}
 
-	system.addPeriod = function(periodos, periodo, dateInitial, dateFinal) {
-		system.periodos = periodos;
-        system.periodo = periodo;
-		system.dateInitial = dateInitial;
-		system.dateFinal = dateFinal;			
+		this.showSystem = function(show) {
+			this.show = show;
+		};
+
+		this.addPermission = function(role) {
+			this.role = role;
+		};	
+
+		this.addPeriod = function(periodos, periodo, dateInitial, dateFinal) {
+			this.periodos = periodos;
+	        this.periodo = periodo;
+			this.dateInitial = dateInitial;
+			this.dateFinal = dateFinal;			
+		};
+
 	}
 
 	return {
 
 		create: function(id, name, description, image, icon) {
+			var system = new System();
 			system.id = id;
 			system.name = name;
 			system.description = description;

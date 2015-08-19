@@ -50,11 +50,11 @@ app.factory('UserService', function($http, $q, $resource, PromiseTrackerService,
             PromiseTrackerService.addPromise(promise);
             return promise;
         },
-        createUserWithImage: function(file, user, callback) {
+        createUserWithImage: function(user, callback) {
             var cb = callback || angular.noop;
             return UserResource.save(user,
                 function(data) {
-                    ImageService.uploadFileUser(file, user);
+                    ImageService.uploadFileUser(user);
                     return cb(data);
                 },
                 function(err) {
@@ -73,13 +73,13 @@ app.factory('UserService', function($http, $q, $resource, PromiseTrackerService,
                     return cb(err);
                 }).$promise;
         },
-        updateUserWithImage: function(file, user, callback) {
+        updateUserWithImage: function(user, callback) {
             var cb = callback || angular.noop;
             return UserResource.update({ 
                     id: user.id 
                 }, user,
                 function(data) {
-                    ImageService.uploadFileUser(file, user);
+                    ImageService.uploadFileUser(user);
                     return cb(data);
                 },
                 function(err) {
