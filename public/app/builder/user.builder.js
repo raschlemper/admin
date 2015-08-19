@@ -30,21 +30,22 @@ app.factory('UserBuilder', function(User, LISTS) {
 	}
 
 	var createUser = function(user, image) {
+		var userImage = pathImageDefault + imageDefault;
+		if(image) { userImage = image; }
 		var obj = User.create(
 			user.id,
-			imageDefault,
+			userImage,
 			user.provider,
 			user.name,
 			user.email,
 			user.password
 		);
-		if(image) { obj.addImage(image); }
 		addSystems(obj, user.systems);
 		return obj;
 	}
 
 	var getUser = function(user) {
-		if(!user.image) { user.image = imageDefault}
+		if(!user.image) { user.image = imageDefault }
 		var image = pathImageDefault + user.image;
 		var obj = User.create(
 			user._id,

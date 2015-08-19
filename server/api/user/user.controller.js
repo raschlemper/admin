@@ -54,14 +54,10 @@ exports.create = function(req, res, next) {
         .use(function(user, req, res, next) {
             populateUser(user, req, res, next);
         })
-        // .use(function(user, req, res, next) {
-        //     saveImage(user, req, res, next);
-        //     next(user);
-        // })
         .use(function(user, req, res, next) {
             user.save(function(err, user) {
                 if (err) return res.send(500, err);
-                res.json(200);
+                res.json(200, user);
             }); 
         });      
 };
@@ -81,14 +77,10 @@ exports.change = function(req, res, next) {
         .use(function(user, req, res, next) {
             populateUser(user, req, res, next);
         })
-        // .use(function(user, req, res, next) {
-        //     saveImage(user, req, res, next);
-        //     next(user);
-        // })
         .use(function(user, req, res, next) {
             user.save(function(err, user) {
                 if (err) return res.send(500, err);
-                res.json(200);
+                res.json(200, user);
             }); 
         });            
 };
@@ -118,7 +110,13 @@ var populateUserSystems = function(req) {
 var populateUserImage = function(req) {
     if(!req.body.image) { return null; }
     var file = req.body.image;
+    if(!file.name || !req.body.name) { return getNameImage(req.body.image); }
     return Image.fileName(file.type, req.body.name);
+}
+
+var getNameImage = function(image) {
+    var parts = image.split('/');
+    return parts[parts.length - 1];
 }
 
 // var saveImage = function(user, req, res, next) {
