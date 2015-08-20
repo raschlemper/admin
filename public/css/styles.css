@@ -1,8 +1,9 @@
+body {
+    background-color: #FAFAFA;
+}
+
 #main {
     margin-top: 45px !important;
-    margin-left: 0;
-    margin-right: 0;
-    background-color: #FAFAFA;
 }
 
 #footer {
@@ -23,6 +24,10 @@
 
 button span {
     padding-left: 8px;
+}
+
+fieldset legend {
+    margin-top: 8px;
 }
 
 .line-user {
@@ -201,6 +206,7 @@ button span {
 
 .tab-pane {
     height: 320px;
+    margin-bottom: 0px;
 }
 
 .btn-full {
@@ -219,7 +225,7 @@ button span {
 }
 
 .systemChoose {
-    height: 225px;
+    height: 220px;
 }
 
 .horizontal-line {

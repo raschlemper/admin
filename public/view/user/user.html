@@ -12,7 +12,21 @@
 
     <div class="bs-component">
         <fieldset>
-            <legend>Usuários</legend>
+
+            <div class="row">
+                <div class="col-md-9">
+                    <legend>Usuários</legend>
+                </div>   
+
+                <div class="col-md-3">
+                    <div class="form-actions text-right">
+                            <button type="button" class="btn btn-primary" app-href="/user/create">
+                            <i class="glyphicon glyphicon-plus"></i><span translate="BUTTON.SAVE"/>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div class="list-group">
                 <div class="list-group-item" ng-repeat="user in users | limitTo : list.begin(pagination.currentPage) | limitTo: list.size(pagination.currentPage, users.length)">
                     <div class="row line-user vertical-align">

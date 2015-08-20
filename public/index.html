@@ -29,7 +29,7 @@
 
     <!-- MENU -->
     <nav class="navbar navbar-inverse navbar-fixed-top header" id="menu">
-        <div class="col-md-12">
+        <div class="container">
             <div class="navbar-header">
                 <a href="#" class="navbar-brand"><strong>Teratec - Admin</strong></a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse1">
@@ -37,14 +37,14 @@
                 </button>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav navbar-right">
                     <li class="active"><a href="#/user"><span translate="MENU.USERS"/></a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- MAIN -->
-    <div class="row" id="main">
+    <div class="container" id="main">
         <!-- SUBMENU -->
         <!-- <nav class="col-md-2 bs-docs-sidebar">
             <ul id="sidebar" class="nav nav-stacked fixed">
@@ -61,7 +61,7 @@
             </ul>
         </nav> -->
         <!--CONTAINER-->
-        <div class="col-md-10 col-md-offset-1 principal" id="mainContent"> 
+        <div class=" principal" id="mainContent"> 
             <div ui-view=""></div>
         </div>
     </div>

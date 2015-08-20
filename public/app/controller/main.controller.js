@@ -17,7 +17,7 @@ angular.module('teratecAdminApp').controller('MainCtrl', function($scope) {
         var main = angular.element(window).height();
         var menu = angular.element("#menu").height();
         var footer = angular.element("#footer").height();
-        var size = main - (menu + footer);
+        var size = main - (menu + footer + 40);
         var mainContent = angular.element('#mainContent');
         mainContent.css('minHeight', size);
     }
