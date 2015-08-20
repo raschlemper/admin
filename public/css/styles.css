@@ -30,6 +30,15 @@ fieldset legend {
     margin-top: 8px;
 }
 
+#menu ul.navbar-right {
+    margin-right: 0px;
+}
+
+#menu ul.navbar-right i {
+    font-size: 12pt;
+    color: #eee;
+}
+
 .line-user {
     margin-left: 0px;
     margin-right: 0px;

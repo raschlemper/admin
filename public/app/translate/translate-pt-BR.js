@@ -23,6 +23,7 @@ app.config(['$translateProvider', function($translateProvider) {
         'LABEL.DE': 'De',
         'LABEL.ATE': 'Até',
 
+        'BUTTON.ADD': 'Adicionar',
         'BUTTON.ADD.SYSTEM': 'Adicionar Sistema',
         'BUTTON.SAVE': 'Salvar',
         'BUTTON.CANCEL': 'Cancelar',
