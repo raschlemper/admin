@@ -78,11 +78,9 @@ var fileName = function(type, name) {
     var nameEncode = encode(name);
     switch(type) {
     case "image/jpeg":
-        return nameEncode + '.jpg';
-        break;
+        return nameEncode + '.png';
     case "image/png":
         return nameEncode + '.png';
-        break;
     default:
         return nameEncode + '.png';
     }

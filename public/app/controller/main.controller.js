@@ -10,7 +10,7 @@
 angular.module('teratecAdminApp').controller('MainCtrl', function($scope) {
 
     var init = function() {
-        setLineHeightMainContainer();
+        //setLineHeightMainContainer();
     }
 
     var setLineHeightMainContainer = function() {
@@ -23,7 +23,7 @@ angular.module('teratecAdminApp').controller('MainCtrl', function($scope) {
     }
 
     window.addEventListener('resize', function(event) {
-        setLineHeightMainContainer();
+        //setLineHeightMainContainer();
     });
 
     // $scope.$watch($scope.progress.active, function (isActive) {

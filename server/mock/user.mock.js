@@ -15,7 +15,7 @@ User.find({}).remove(function() {
         provider: 'local',
         name: 'Test User',
         email: 'test@test.com',
-        image: "homer.png",
+        image: "Rxr4zWOZ8lSEeLgl.png",
         password: 'test',
         systems: [{
             system: "55a6fbbd7b39890d0eff2e42",
@@ -28,7 +28,7 @@ User.find({}).remove(function() {
         provider: 'Local',
         name: 'Rafael Augusto Schlemper',
         email: 'raschlemper@gmail.com',
-        image: "bart.png",
+        image: "RxzGQRZ8BBFyXnxZyEgdUaNGl7M22KCk0YV41ovn.png",
         password: 'admin',
         systems: []
     }, function() {

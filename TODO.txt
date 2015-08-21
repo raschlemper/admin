@@ -1,0 +1,21 @@
+TODO:
+
+1 - Alterar o título da página (cadastro e alteração).
+2 - Criar uma maneira de retirar a foto do usuário, caso seja necessário excluir a foto.
+3 - Excluir a image quando o usuário trocar de imagem (não utilizar o tipo da imagem para pesquisar antes de deletar).
+4 - Ajustar o combo provider (algumas vezes vem sem ada setado).
+5 - Encadear a criação da imagem com a alteração ou criação do usuário (quando crio a imagem o sistema termina o processo e a imagem não foi criada)
+6 - Colocar a imagem na base de dados??
+
+OUTROS
+
+- Fazer a troca das msgs pelo translate
+- Fazer as validações dos campos
+- Criar a limpeza do formulario - ok
+- Retirar as directivas de form
+- Criar o translate dos campos das lista dos js contant
+- Fazer o ajuste para salvar os systema do usuário pelo mock - ok
+- Colocar os valores default no node
+- Colocar a image default do usuário quando não for escolhido foto - ok
+- Fazer o acrescimo dos campos do sistema no node
+- Quebrar o controller conforme as funções ??? - não

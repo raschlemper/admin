@@ -7,14 +7,15 @@ body {
 }
 
 #footer {
-    line-height: 40px;
+    line-height: 30px;
 }
 
 .principal {
+    display: block;
     min-height: 20px;
     padding: 19px;
     margin-top: 20px;
-    margin-bottom: 70px;
+    margin-bottom: 60px;
     background-color: #FFFFFF;
     border: 1px solid #e8e8e8;
     border-radius: 0;
