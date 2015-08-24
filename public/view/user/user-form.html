@@ -22,7 +22,7 @@
                 <div class="row">
 
                     <div class="col-md-9">
-                        <legend translate><span translate="TITLE.USER.CREATE"/></legend>
+                        <legend translate><span translate="{{titlePage}}"/></legend>
                     </div>    
 
                     <div class="col-md-3">
@@ -49,12 +49,15 @@
                         <div class="row height-full">
                             <div class="col-lg-3">
                                 <div ngf-drop ngf-select ng-model="files" class="drop-box" ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true" accept="image/*">
-                                    <img id="image" name="image" ngf-src="files[0]" ngf-default-src="{{user.image}}" ngf-accept="'image/*'" class="center-block img-thumbnail user-image-size">
+                                    <img id="image" name="image" ngf-src="files[0]" ngf-default-src="{{user.image.full}}" ngf-accept="'image/*'" class="center-block img-thumbnail user-image-size">
                                 </div>
                                 <div ngf-no-file-drop><span translate="MSG.DRAG_DROP.NOT_SUPORTTED"/></div>
                                 <h6 class="text-center title-file">
-                                    <strong>{{files[0].name}}</strong>
+                                    <strong>{{files[0].name || user.image.name}}</strong>
                                 </h6>
+                                <button type="button" class="btn btn-danger" app-href="/user">
+                                    <i class="glyphicon glyphicon-chevron-left"></i><span translate="BUTTON.CANCEL"/>
+                                </button>
                             </div>
                             <div class="col-lg-9">
                                 <div class="form-group" ng-class="{ 'has-success': form.provider.$valid && submitted,

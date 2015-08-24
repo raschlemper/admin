@@ -6,7 +6,8 @@ app.config(['$translateProvider', function($translateProvider) {
     	'MENU.LIST': 'Lista',
     	'MENU.CREATE': 'Criar',
 
-    	'TITLE.USER.CREATE': 'Usuário - Cadastro',
+    	'TITLE.USER.CREATE': 'Usuário - Cadastrar',
+        'TITLE.USER.UPDATE': 'Usuário - Alterar',
 
     	'NAV.CREATE': 'Cadastro',
     	'NAV.SYSTEMS': 'Sistemas',

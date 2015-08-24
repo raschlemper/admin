@@ -5,7 +5,7 @@ app.factory('User', function() {
 	var User = function() {
 
 		this.id = null;
-		this.image = null;
+		this.image = { name: null, path: null, full: null };
 		this.provider = null;
 		this.name = null;
 		this.email = null;
@@ -35,8 +35,8 @@ app.factory('User', function() {
 			return result;
 		}
 
-		this.addImage = function(image) {
-			this.image = image;
+		this.addImage = function(path, name) {
+			this.image = { name: name, path: path, full: path + name };
 		}
 
 		this.addSystems = function(id, role, dateInitial, dateFinal, system) {
@@ -49,10 +49,10 @@ app.factory('User', function() {
 
 	return {	
 
-		create: function(id, image, provider, name, email, password) {
+		create: function(id, provider, name, email, password) {
 			var user = new User();
 			user.id = id;
-			user.image = image;
+			// user.image = image;
 			user.provider = provider;
 			user.name = name;
 			user.email = email;

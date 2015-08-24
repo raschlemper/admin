@@ -54,7 +54,7 @@ app.factory('UserService', function($http, $q, $resource, PromiseTrackerService,
             var cb = callback || angular.noop;
             return UserResource.save(user,
                 function(data) {
-                    ImageService.uploadFileUser(user);
+                    // ImageService.uploadFileUser(user);
                     return cb(data);
                 },
                 function(err) {
@@ -79,7 +79,7 @@ app.factory('UserService', function($http, $q, $resource, PromiseTrackerService,
                     id: user.id 
                 }, user,
                 function(data) {
-                    ImageService.uploadFileUser(user);
+                    // ImageService.uploadFileUser(user);
                     return cb(data);
                 },
                 function(err) {

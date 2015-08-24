@@ -25,7 +25,7 @@ User.find({}).remove(function() {
         }]
     }, {
         _id: '55b77647a8d5d3070db4e893',
-        provider: 'Local',
+        provider: 'local',
         name: 'Rafael Augusto Schlemper',
         email: 'raschlemper@gmail.com',
         image: "RxzGQRZ8BBFyXnxZyEgdUaNGl7M22KCk0YV41ovn.png",

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter,
+app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter, $q,
     UserBuilder, SystemBuilder, UserService, SystemService, ImageService, DateService, FORMAT, LISTS) {
 
     var initDefault = function() {      
@@ -10,7 +10,7 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         $scope.format = FORMAT.date;
         $scope.image = {};
         $scope.systems = [];
-        $scope.files = [];        
+        $scope.files = [];    
     }
 
     var init = function() {  
@@ -21,6 +21,8 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         $scope.getUser();
         $scope.getAllSystems();
         AppFunction.tabUserCreate();
+        if (!$stateParams.id) { $scope.titlePage = 'TITLE.USER.CREATE'; }
+        else { $scope.titlePage = 'TITLE.USER.UPDATE'; }
     }
     
     var resetForm = function(form, data) {
@@ -41,7 +43,7 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         UserService.getUser($stateParams.id)
             .then(function(data) {
                 $scope.user = UserBuilder.getUser(data);
-                $scope.files[0] = $scope.user.image;
+                $scope.files[0] = $scope.user.image.full;
             })
             .catch(function() {
                 $scope.user = {};
@@ -103,7 +105,10 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     }
 
     var createUserWithImage = function(form, user) {
-        UserService.createUserWithImage(user)
+        $q.all([
+                UserService.createUserWithImage(user),
+                ImageService.uploadFileUser(user)
+            ])
             .then(function(data) {
                 resetForm(form, null);
                 $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';           
@@ -111,6 +116,15 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
             .catch(function() {
                 $scope.msg.error = 'MSG.USER.CREATE.ERROR';
             });
+
+        // UserService.createUserWithImage(user)
+        //     .then(function(data) {
+        //         resetForm(form, null);
+        //         $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';           
+        //     })
+        //     .catch(function() {
+        //         $scope.msg.error = 'MSG.USER.CREATE.ERROR';
+        //     });
     }
 
     var updateUser = function(form) {
@@ -134,14 +148,26 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     }
 
     var updateUserWithImage = function(form, user) {
-        UserService.updateUserWithImage(user)
+        $q.all([
+                UserService.updateUserWithImage(user),
+                ImageService.uploadFileUser(user)
+            ])
             .then(function(data) {
-                resetForm(form, data);
+                resetForm(form, data[0]);
                 $scope.msg.success = 'MSG.USER.UPDATE.SUCCESS';           
             })
             .catch(function() {
                 $scope.msg.error = 'MSG.USER.UPDATE.ERROR';
             });
+
+        // UserService.updateUserWithImage(user)
+        //     .then(function(data) {
+        //         resetForm(form, data);
+        //         $scope.msg.success = 'MSG.USER.UPDATE.SUCCESS';           
+        //     })
+        //     .catch(function() {
+        //         $scope.msg.error = 'MSG.USER.UPDATE.ERROR';
+        //     });
     }
 
     // SYSTEM

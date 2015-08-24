@@ -8,12 +8,13 @@ app.factory('UserBuilder', function(User, LISTS) {
 	var createUserDefault = function() {
 		var obj = User.create (
 			null,
-			pathImageDefault + imageDefault,
+			// pathImageDefault + imageDefault,
 			LISTS.providers[0].code,
 			null,
 			null,
 			null
 		);
+		obj.addImage(pathImageDefault, imageDefault);
 		return obj;
 	}
 
@@ -30,33 +31,43 @@ app.factory('UserBuilder', function(User, LISTS) {
 	}
 
 	var createUser = function(user, image) {
-		var userImage = pathImageDefault + imageDefault;
-		if(image) { userImage = image; }
 		var obj = User.create(
 			user.id,
-			userImage,
+			// userImage,
 			user.provider,
 			user.name,
 			user.email,
 			user.password
 		);
+		if(image) { obj.addImage(getImagePath(), getImageName(image)); }
+		else { obj.addImage(pathImageDefault, imageDefault); }
 		addSystems(obj, user.systems);
 		return obj;
 	}
 
 	var getUser = function(user) {
-		if(!user.image) { user.image = imageDefault }
-		var image = pathImageDefault + user.image;
 		var obj = User.create(
 			user._id,
-			image,
+			// image,
 			user.provider,
 			user.name,
 			user.email,
 			user.password
 		);
+		if(!user.image) { user.image = imageDefault }
+		obj.addImage(pathImageDefault, user.image);
 		addSystems(obj, user.systems);
 		return obj;
+	}
+
+	var getImagePath = function(image) {
+		var img = image.split("/");
+		return image.replace(img[img.length - 1], "");
+	}
+
+	var getImageName = function(image) {
+		var img = image.split("/");
+		return img[img.length - 1]
 	}
 
 	return {
