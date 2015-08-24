@@ -17,5 +17,7 @@ TODO:
 15 - Colocar a image default do usuário quando não for escolhido foto - ok
 16 - Fazer o acrescimo dos campos do sistema no node
 17 - Quebrar o controller conforme as funções ??? - Não
+18 - Excluir os métodos para criar e atualizar usuário com imagem, pois esses métodos não utilizam mais o imageservice
+19 - Verificar se existe dependencias nos crotrollers e Services que não esta sendo utilizada
 
 *** Verificar se a imagem continua salvando de maneira correta ***
