@@ -1,16 +1,5 @@
 <div class="col-md-12 col-md-12 principal">
-<!-- 
-    - Fazer a troca das msgs pelo translate
-    - Fazer as validações dos campos
-    - Criar a limpeza do formulario
-    - Retirar as directivas de form
-    - Criar o translate dos campos das lista dos js contant
-    - Fazer o ajuste para salvar os systema do usuário pelo mock
-    - Colocar os valores default no node
-    - Colocar a image default do usuário quando não for escolhido foto
-    - Fazer o acrescimo dos campos do sistema no node
-    - Quebrar o controller conforme as funções ???
--->
+
     <message success="msg.success" error="msg.error" dismiss="false" />
 
     <div class="bs-component">
@@ -28,10 +17,10 @@
                     <div class="col-md-3">
                         <div class="form-actions text-right">
                             <button type="button" class="btn btn-danger" app-href="/user">
-                                <i class="glyphicon glyphicon-chevron-left"></i><span translate="BUTTON.CANCEL"/>
+                                <i class="fa fa-chevron-left"></i><span translate="BUTTON.CANCEL"/>
                             </button>
                             <button type="submit" class="btn btn-primary">
-                                <i class="glyphicon glyphicon-ok"></i><span translate="BUTTON.SAVE"/>
+                                <i class="fa fa-check"></i><span translate="BUTTON.SAVE"/>
                             </button>
                         </div>
                     </div>
@@ -52,12 +41,15 @@
                                     <img id="image" name="image" ngf-src="files[0]" ngf-default-src="{{user.image.full}}" ngf-accept="'image/*'" class="center-block img-thumbnail user-image-size">
                                 </div>
                                 <div ngf-no-file-drop><span translate="MSG.DRAG_DROP.NOT_SUPORTTED"/></div>
-                                <h6 class="text-center title-file">
+                                <!-- <h6 class="text-center title-file">
                                     <strong>{{files[0].name || user.image.name}}</strong>
+                                </h6> -->
+                                <h6 class="text-center">
+                                    <button type="button" class="btn btn-danger btn-xs" ng-click="removerImage(user)">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                    <span class="rem-image" translate="BUTTON.REMOVE.IMAGE"/>
                                 </h6>
-                                <button type="button" class="btn btn-danger" app-href="/user">
-                                    <i class="glyphicon glyphicon-chevron-left"></i><span translate="BUTTON.CANCEL"/>
-                                </button>
                             </div>
                             <div class="col-lg-9">
                                 <div class="form-group" ng-class="{ 'has-success': form.provider.$valid && submitted,
@@ -109,7 +101,7 @@
                                 <div class="row">
                                     <div class="form-actions text-right col-md-12">
                                         <button type="button" class="btn btn-primary btn-full" ng-click="showSystems()">
-                                            <i class="glyphicon glyphicon-plus"></i><span translate="BUTTON.ADD.SYSTEM"/>
+                                            <i class="fa fa-plus"></i><span translate="BUTTON.ADD.SYSTEM"/>
                                         </button>
                                     </div>
                                 </div>

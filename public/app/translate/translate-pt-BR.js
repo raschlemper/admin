@@ -28,6 +28,7 @@ app.config(['$translateProvider', function($translateProvider) {
         'BUTTON.ADD.SYSTEM': 'Adicionar Sistema',
         'BUTTON.SAVE': 'Salvar',
         'BUTTON.CANCEL': 'Cancelar',
+        'BUTTON.REMOVE.IMAGE': 'Excluir Imagem',
 
         'MSG.EXISTS.INCORRET.DATA': 'Verfique os dados preenchidos.',
     	'MSG.ITEM.CHOOSE.ONE': 'Escolha um item da lista.',
@@ -40,6 +41,8 @@ app.config(['$translateProvider', function($translateProvider) {
         'MSG.USER.CREATE.ERROR': 'Problemas ao cadastrar o usuário!',
         'MSG.USER.UPDATE.SUCCESS': 'Usuário alterado com sucesso!',
         'MSG.USER.UPDATE.ERROR': 'Problemas ao alterar o usuário!',
+        'MSG.IMAGE.REMOVE.SUCCESS': 'Imagem removida com sucesso!',
+        'MSG.IMAGE.REMOVE.ERROR': 'Problemas ao remover a imagem!',
         'MSG.DRAG_DROP.NOT_SUPORTTED': 'Arquivo Drag/Drop não suportado neste navegador!'
 
     });

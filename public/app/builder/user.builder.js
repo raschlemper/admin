@@ -61,11 +61,13 @@ app.factory('UserBuilder', function(User, LISTS) {
 	}
 
 	var getImagePath = function(image) {
+		if(!image) return pathImageDefault;
 		var img = image.split("/");
 		return image.replace(img[img.length - 1], "");
 	}
 
 	var getImageName = function(image) {
+		if(!image) return imageDefault;
 		var img = image.split("/");
 		return img[img.length - 1]
 	}

@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('ImageService', function($q, Upload) {
+app.factory('ImageService', function($q, $http, Upload) {
 
     var progress = function(deferred, cb, evt) {
         var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
@@ -60,9 +60,25 @@ app.factory('ImageService', function($q, Upload) {
         return deferred.promise;
     }
 
+    var removeFileUser = function(user, callback) {
+        var cb = callback || angular.noop;
+        var deferred = $q.defer();
+        $http.post('/image/user/remove/', {
+               'name': user.image.name 
+            },
+            function(data) {
+                return cb(data);
+            },
+            function(err) {
+                return cb(err);
+            }.bind(this));
+        return deferred.promise;
+    }
+
     return {
         uploadFileUser: uploadFileUser,
-        uploadFile: uploadFile
+        uploadFile: uploadFile,
+        removeFileUser: removeFileUser
     }
 
 });

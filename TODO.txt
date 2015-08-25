@@ -1,7 +1,7 @@
 TODO:
 
 1  - Alterar o título da página (cadastro e alteração) - ok
-2  - Criar uma maneira de retirar a foto do usuário, caso seja necessário excluir a foto e o usuário ficar sem foto
+2  - Criar uma maneira de retirar a foto do usuário, caso seja necessário excluir a foto e o usuário ficar sem foto - falta retornar a mensagem de sucesso ou erro
 3  - Excluir a image quando o usuário trocar de imagem (não utilizar o tipo da imagem para pesquisar antes de deletar) - ok
 4  - Ajustar o combo provider (algumas vezes vem sem nada setado) - ok
 5  - Encadear a criação da imagem com a alteração ou criação do usuário (quando crio a imagem o sistema termina o processo e a imagem não foi criada) - ok

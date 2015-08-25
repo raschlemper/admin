@@ -116,20 +116,9 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
             .catch(function() {
                 $scope.msg.error = 'MSG.USER.CREATE.ERROR';
             });
-
-        // UserService.createUserWithImage(user)
-        //     .then(function(data) {
-        //         resetForm(form, null);
-        //         $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';           
-        //     })
-        //     .catch(function() {
-        //         $scope.msg.error = 'MSG.USER.CREATE.ERROR';
-        //     });
     }
 
     var updateUser = function(form) {
-        // var image = null;
-        // if($scope.files[0]) { $scope.image = $scope.files[0]; }
         var user = UserBuilder.createUser($scope.user, $scope.files[0]);
         if(_.isEmpty(user.image) || !user.image.type) { updateUserWithoutImage(form, user); }
         else { updateUserWithImage(form, user); }
@@ -159,15 +148,22 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
             .catch(function() {
                 $scope.msg.error = 'MSG.USER.UPDATE.ERROR';
             });
+    }
 
-        // UserService.updateUserWithImage(user)
-        //     .then(function(data) {
-        //         resetForm(form, data);
-        //         $scope.msg.success = 'MSG.USER.UPDATE.SUCCESS';           
-        //     })
-        //     .catch(function() {
-        //         $scope.msg.error = 'MSG.USER.UPDATE.ERROR';
-        //     });
+    $scope.removerImage = function(user) {
+        var userImage = angular.copy(user);
+        user.image = null;
+        $q.all([
+                UserService.updateUser(user),
+                ImageService.removeFileUser(userImage)
+            ])
+            .then(function(data) {
+                resetForm(form, data[0]);
+                $scope.msg.success = 'MSG.IMAGE.REMOVE.SUCCESS';                
+            })
+            .catch(function() {
+                $scope.msg.error = 'MSG.IMAGE.REMOVE.ERROR';
+            });
     }
 
     // SYSTEM

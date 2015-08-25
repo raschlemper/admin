@@ -9,5 +9,6 @@ var multipartMiddleware = multipart();
 
 router.post('/', multipartMiddleware, controller.create);
 router.post('/user/', multipartMiddleware, controller.createImageUser);
+router.post('/user/remove/', controller.removeImageUser);
 
 module.exports = router;

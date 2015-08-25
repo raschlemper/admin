@@ -224,6 +224,11 @@ fieldset legend {
     margin: 10px 0;
 }
 
+.rem-image {
+    margin-left: 10px;
+    font-size: 10pt;
+}
+
 .height-full {
     height: 100%;
 }

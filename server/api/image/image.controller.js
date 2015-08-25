@@ -25,6 +25,9 @@ exports.create = function(req, res, next) {
 	});
 };
 
+/**
+ * Create image user
+ */
 exports.createImageUser = function(req, res, next) {
     var file = req.files.file;
     var name = fileName(file.type, req.body.name);
@@ -35,6 +38,23 @@ exports.createImageUser = function(req, res, next) {
     });
 };
 
+/**
+ * Create image user
+ */
+exports.removeImageUser = function(req, res, next) {
+    var path = imagePath + req.body.name;    
+    fs.exists(path, function (exists) {
+        if (!exists) return res.json(200);            
+        fs.unlink(path, function (err) {
+            if (err) throw err;
+            res.json(200);
+        });
+    });
+};
+
+/**
+ * Name to image
+ */
 exports.fileName = function(type, name) {
     return fileName(type, name);
 }
@@ -59,7 +79,7 @@ var createImage = function(req, res, next) {
 }
 
 /**
- * Remove image to user
+ * Change image to user
  */
 var changeImage = function(req, res, next) {
     var file = req.files.file;
@@ -68,6 +88,17 @@ var changeImage = function(req, res, next) {
     fs.unlink(path, function (err) {
         if (err) throw err;
         createImage(req, res, next);
+    });
+}
+
+/**
+ * Remove image to user
+ */
+var removeImage = function(req, res, next) {
+    var path = imagePath + req.body.name;    
+    fs.unlink(path, function (err) {
+        if (err) throw err;
+        res.json(200);
     });
 }
 
