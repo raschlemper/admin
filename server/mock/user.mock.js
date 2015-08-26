@@ -17,7 +17,7 @@ User.find({}).remove(function() {
         username: 'usertest',
         email: 'test@test.com',
         gender: 'masculino',
-        image: "usertest.png",
+        image: "55b77647a8d5d3070db4e892.png",
         password: 'test',
         systems: [{
             system: "55a6fbbd7b39890d0eff2e42",
@@ -32,7 +32,7 @@ User.find({}).remove(function() {
         username: 'raschlemper',
         email: 'raschlemper@gmail.com',
         gender: 'masculino',
-        image: "raschlemper.png",
+        image: "55b77647a8d5d3070db4e893.png",
         password: 'admin',
         systems: []
     }, function() {

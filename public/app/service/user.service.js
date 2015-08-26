@@ -50,29 +50,7 @@ app.factory('UserService', function($http, $q, $resource, PromiseTrackerService,
             PromiseTrackerService.addPromise(promise);
             return promise;
         },
-        createUserWithImage: function(user, callback) {
-            var cb = callback || angular.noop;
-            return UserResource.save(user,
-                function(data) {
-                    return cb(data);
-                },
-                function(err) {
-                    return cb(err);
-                }).$promise;
-        },
         updateUser: function(user, callback) {
-            var cb = callback || angular.noop;
-            return UserResource.update({ 
-                    id: user.id 
-                }, user,
-                function(data) {
-                    return cb(data);
-                },
-                function(err) {
-                    return cb(err);
-                }).$promise;
-        },
-        updateUserWithImage: function(user, callback) {
             var cb = callback || angular.noop;
             return UserResource.update({ 
                     id: user.id 

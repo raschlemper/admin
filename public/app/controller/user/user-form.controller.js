@@ -72,17 +72,20 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     }
 
     var createUserWithImage = function(form, user) {
-        $q.all([
-                UserService.createUserWithImage(user),
-                ImageService.uploadFileUser(user)
-            ])
+        UserService.createUserWithImage(user)
             .then(function(data) {
-                resetForm(form, null);
-                $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';           
+                ImageService.uploadFileUser(data)
+                    .then(function(data) {
+                        resetForm(form, null);
+                        $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';  
+                    })       
+                    .catch(function() {
+                        $scope.msg.error = 'MSG.USER.CREATE.ERROR';
+                    });   
             })
             .catch(function() {
                 $scope.msg.error = 'MSG.USER.CREATE.ERROR';
-            });
+            });            
     }
 
     var updateUser = function(form) {

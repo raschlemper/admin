@@ -47,7 +47,7 @@ exports.removeImageUser = function(req, res, next) {
         if (!exists) return res.json(200);            
         fs.unlink(path, function (err) {
             if (err) throw err;
-            res.json(200);
+            res.send(200);
         });
     });
 };
