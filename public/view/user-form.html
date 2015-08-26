@@ -1,31 +1,232 @@
-<div class="col-md-12 col-md-12">
-    
+<div class="col-md-12 col-md-12 principal">
+
     <message success="msg.success" error="msg.error" dismiss="false" />
 
     <div class="bs-component">
 
-        <form class="form-horizontal" role="form" class="form" name="form" ng-submit="createUser(form)" novalidate>
+        <form class="form-horizontal" role="form" class="form" name="form" ng-submit="saveUser(form)" novalidate>
+            
             <fieldset>
-                <legend translate>TITLE.USER.CREATE</legend>
+
+                <div class="row">
+
+                    <div class="col-md-9">
+                        <legend translate><span translate="{{titlePage}}"/></legend>
+                    </div>    
+
+                    <div class="col-md-3">
+                        <div class="form-actions text-right">
+                            <button type="button" class="btn btn-danger" app-href="/user">
+                                <i class="fa fa-chevron-left"></i><span translate="BUTTON.CANCEL"/>
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-check"></i><span translate="BUTTON.SAVE"/>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
                 <ul class="nav nav-tabs" id="myTab">
-                    <li><a href="#tabcadastro" data-toggle="tab" ng-click="showTab($event)">{{'NAV.CREATE' | translate}}</a></li>
-                    <li><a href="#tabsistemas" data-toggle="tab" ng-click="showTab($event)">{{'NAV.SYSTEMS' | translate}}</a></li>
+                    <li><a href="#tabcadastro" data-toggle="tab" ng-click="showTab($event)"><span translate="NAV.CREATE"/></a></li>
+                    <li><a href="#tabsistemas" data-toggle="tab" ng-click="showTab($event)"><span translate="NAV.SYSTEMS"/></a></li>
                 </ul>
                 <div class="tab-content">
-                    <div class="well tab-pane fade" id="tabcadastro" ng-controller="UserFormUserCtrl">
-                        <div ng-include src="'view/user/user-form-user.html'"></div>
-                    </div
-                    <div class="well tab-pane fade" id="tabsistemas" ng-controller="UserFormSystemCtrl">
+                    <div class="well tab-pane fade" id="tabcadastro">
+                        <!-- <div ng-include src="'view/user/user-form-user.html'"></div> -->
+
+                        <div class="row height-full">
+                            <div class="col-lg-3">
+                                <div ngf-drop ngf-select ng-model="files" class="drop-box" ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true" accept="image/*">
+                                    <img id="image" name="image" ngf-src="files[0]" ngf-default-src="{{user.image.full}}" ngf-accept="'image/*'" class="center-block img-thumbnail user-image-size">
+                                </div>
+                                <div ngf-no-file-drop><span translate="MSG.DRAG_DROP.NOT_SUPORTTED"/></div>
+                                <!-- <h6 class="text-center title-file">
+                                    <strong>{{files[0].name || user.image.name}}</strong>
+                                </h6> -->
+                                <h6 class="text-center">
+                                    <button type="button" class="btn btn-danger btn-xs" ng-click="removerImage(user)">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                    <span class="rem-image" translate="BUTTON.REMOVE.IMAGE"/>
+                                </h6>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="form-group" ng-class="{ 'has-success': form.provider.$valid && submitted,
+                                                                    'has-error': form.provider.$invalid && submitted }">
+                                    <label class="col-md-2 control-label" for="provider"><span translate="LABEL.PROVIDER"/>:</label>
+                                    <div class="col-md-3">
+                                        <select class="form-control" name="provider" id="provider" ng-model="user.provider" required>
+                                            <option value="{{provider.code}}" ng-repeat="provider in providers track by $index">
+                                                {{provider.descricao}}
+                                            </option>
+                                        </select>
+                                        <p class="help-block" ng-show="form.provider.$error.required && submitted"><span translate="MSG.ITEM.CHOOSE.ONE"/></p>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
+                                                                    'has-error': form.name.$invalid && submitted }">
+                                    <label class="col-md-2 control-label" for="name"><span translate="LABEL.NAME"/>:</label>
+                                    <div class="col-md-6">
+                                        <input type="text" name="name" id="name" class="form-control" ng-model="user.name" required>
+                                        <p class="help-block" ng-show="form.name.$error.required && submitted"><span translate="MSG.USER.NAME"/></p>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-class="{ 'has-success': form.email.$valid && submitted,
+                                                                    'has-error': form.email.$invalid && submitted }">
+                                    <label class="col-md-2 control-label" for="email"><span translate="LABEL.EMAIL"/>:</label>
+                                    <div class="col-md-5">
+                                        <input type="email" name="email" id="email" class="form-control" ng-model="user.email" required>
+                                        <p class="help-block" ng-show="form.email.$error.required && submitted"><span translate="MSG.USER.EMAIL"/></p>
+                                        <p class="help-block" ng-show="form.email.$error.email && submitted"><span translate="MSG.VALID.EMAIL"/></p>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-class="{ 'has-success': form.password.$valid && submitted,
+                                                                    'has-error': form.password.$invalid && submitted }">
+                                    <label class="col-md-2 control-label" for="password"><span translate="LABEL.PASSWORD"/>:</label>
+                                    <div class="col-md-4">
+                                        <input type="password" name="password" id="password" class="form-control" ng-model="user.password" required>
+                                        <p class="help-block" ng-show="form.password.$error.required && submitted"><span translate="MSG.USER.PASSWORD"/></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="well tab-pane fade" id="tabsistemas">
+                        <!-- <div ng-include src="'view/user/user-form-system.html'"></div> -->
+
+                        <div class="row height-full">
+                            <div class="col-md-4 systemChoose">
+                                <div class="row">
+                                    <div class="form-actions text-right col-md-12">
+                                        <button type="button" class="btn btn-primary btn-full" ng-click="showSystems()">
+                                            <i class="fa fa-plus"></i><span translate="BUTTON.ADD.SYSTEM"/>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="list-group list-group-overflow">
+                                    <div class="list-group-item list-group-item-link center-block" ng-click="getSystem(system)" ng-repeat="system in user.systems track by $index">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <i class="fa fa-{{system.icon.image}} icon icon-radius" ng-class="system.icon.color"></i> {{system.name}}
+                                            </div>
+                                            <div class="col-md-2 text-right normal">
+                                                <i ng-class="{ 'fa fa-chevron-right': systemSelection == system,
+                                                               'fa fa-link': systemSelection != system }" class="icon"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 border-system height-full">
+                                <div class="systemChoose" ng-show="!systemSelection">
+                                    <div class="row">
+                                        <div class="choose col-md-12 text-center">
+                                            <legend><span translate="MSG.ITEM.CHOOSE.SYSTEM"/></legend>
+                                        </div>
+                                    </div>
+                                    <div class="list-group list-group-overflow">
+                                        <div ng-repeat="system in systems track by $index">
+                                            <div class="list-group-item" ng-show="system.show">
+                                                <div class="row row-50">
+                                                    <div class="col-md-2">
+                                                        <img ng-src="image/systems/{{ system.image }}" class="center-block img-thumbnail" />
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h4 class="list-group-item-heading">
+                                                            <strong>{{ system.name }}</strong>
+                                                        </h4>
+                                                        <p class="list-group-item-text text-justify">{{ system.description }}</p>
+                                                    </div>
+                                                    <div class="col-md-2 vertical-align text-center">
+                                                        <button type="button" class="btn btn-primary" ng-click="addSystem(system)">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="width-margin" ng-show="systemSelection">
+                                    <div class="row row-70">
+                                        <div class="col-md-3">
+                                            <img ng-src="image/systems/{{ systemSelection.image }}" class="center-block img-thumbnail img-system"/>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <h4 class="list-group-item-heading">
+                                                <strong>{{ systemSelection.name }}</strong>
+                                            </h4>
+                                            <p class="list-group-item-text text-justify">
+                                                {{ systemSelection.description }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="role"><span translate="LABEL.ROLE"/>:</label>
+                                            <div class="col-md-6">
+                                                <select class="form-control" name="role" id="role" ng-model="systemSelection.role">
+                                                    <option value="{{role.code}}" ng-repeat="role in roles track by $index">{{role.descricao}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label"><span translate="LABEL.PERIOD"/>:</label>
+                                            <div class="col-md-9">
+                                                <div class="row">
+                                                    <div class="radio col-md-3" ng-repeat="periodo in systemSelection.periodos track by $index">
+                                                        <label>
+                                                            <input type="radio" name="periodos" ng-checked="periodo.checked" ng-model="periodo.checked" ng-value="true" ng-click="getDate(periodo)"> {{ periodo.descricao }}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label"><span translate="LABEL.DE"/>:</label>
+                                            <div class="col-md-9">
+                                                <div class="row">
+                                                    <div class="col-md-5">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="systemSelection.dateInitial" is-open="openedInitial" close-text="Close" />
+                                                            <span class="input-group-btn">
+                                                                <button type="button" class="btn btn-default" ng-click="openInitial($event)">
+                                                                    <i class="fa fa-calendar"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-1 control-label text-center"><span translate="LABEL.ATE"/></div>
+                                                    <div class="col-md-5">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-change="verifyDate()" ng-model="systemSelection.dateFinal" is-open="openedFinal" close-text="Close" />
+                                                            <span class="input-group-btn">
+                                                                <button type="button" class="btn btn-default" ng-click="openFinal($event)">
+                                                                    <i class="fa fa-calendar"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         
                     </div>
-                    <div class="form-actions text-right">
+                    <!-- <div class="form-actions text-right">
                         <button type="button" class="btn btn-danger" app-href="/user">
-                            <i class="glyphicon glyphicon-chevron-left"></i> {{'BUTTON.CANCEL' | translate}}
+                            <i class="glyphicon glyphicon-chevron-left"></i><span translate="BUTTON.CANCEL"/>
                         </button>
                         <button type="submit" class="btn btn-primary">
-                            <i class="glyphicon glyphicon-ok"></i> {{'BUTTON.SAVE' | translate}}
+                            <i class="glyphicon glyphicon-ok"></i><span translate="BUTTON.SAVE"/>
                         </button>
-                    </div>
+                    </div> -->
                 </div>
             </fieldset>
         </form>

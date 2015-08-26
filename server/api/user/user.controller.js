@@ -87,6 +87,8 @@ exports.change = function(req, res, next) {
 
 var populateUser = function(user, req, res, next) {
     user.name = req.body.name;
+    user.lastname = req.body.lastname;
+    user.username = req.body.username;
     user.email = req.body.email;
     user.provider = req.body.provider;
     user.image = populateUserImage(req);
@@ -110,8 +112,8 @@ var populateUserSystems = function(req) {
 var populateUserImage = function(req) {
     if(!req.body.image) { return null; }
     var file = req.body.image;
-    if(!file.name || !req.body.name) { return getNameImage(req.body.image); }
-    return Image.fileName(file.type, req.body.name);
+    if(!file.name || !req.body.username) { return req.body.image.name; }
+    return Image.fileName(file.type, req.body.username);
 }
 
 var getNameImage = function(image) {

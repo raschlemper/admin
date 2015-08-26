@@ -19,5 +19,7 @@ TODO:
 17 - Quebrar o controller conforme as funções ??? - Não
 18 - Excluir os métodos para criar e atualizar usuário com imagem, pois esses métodos não utilizam mais o imageservice
 19 - Verificar se existe dependencias nos crotrollers e Services que não esta sendo utilizada
+20 - Deixar o nome da imagem conforme o original
+21 - Separar o systema do usuario
 
 *** Verificar se a imagem continua salvando de maneira correta ***

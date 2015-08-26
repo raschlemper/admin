@@ -10,10 +10,12 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
   name: String,
+  lastname: String,
+  username: String,
   email: { type: String, lowercase: true },  
   password: String,
+  gender: String,
   image: String,
-  provider: String,
   systems: [{
     system: { type: Schema.Types.ObjectId, ref: 'System' },
     role: { type: String, default: 'user' },
@@ -29,8 +31,10 @@ UserSchema
   .virtual('data')
   .get(function() {
     return {
-      'provider': this.provider,
       'name': this.name,
+      'lastname': this.lastname,
+      'username': this.username,
+      'gender': this.gender,
       'email': this.email,
       'role': this.role,
       'image': this.image

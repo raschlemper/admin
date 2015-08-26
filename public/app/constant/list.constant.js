@@ -2,12 +2,15 @@
 
 app.constant('LISTS', {
 
-    'providers': [{
-        code: 'local',
-        descricao: 'Local'
+    'gender': [{
+        code: 'feminino',
+        descricao: 'Feminino'
     }, {
-        code: 'producao',
-        descricao: 'Produção'
+        code: 'masculino',
+        descricao: 'Masculino'
+    }, {
+        code: 'outro',
+        descricao: 'Outros'
     }],
 
     'roles': [{

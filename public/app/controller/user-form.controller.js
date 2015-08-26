@@ -1,62 +1,172 @@
 'use strict';
 
-app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter,
+app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter, $q,
     UserBuilder, SystemBuilder, UserService, SystemService, ImageService, DateService, FORMAT, LISTS) {
 
-    // var element = {
-    //     'tab': angular.element('#myTab')
-    // }
-
-    var init = function() {
-        $scope.user = {};
-        $scope.systems = [];
-        $scope.msg = {};
-        $scope.image = {};
+    var initDefault = function() {      
         $scope.providers = LISTS.providers;
         $scope.roles = LISTS.roles;
         $scope.periodos = LISTS.periodos;
         $scope.format = FORMAT.date;
-        $scope.getUser();
-        $scope.getAllSystems();
-        setUp();
+        $scope.image = {};
+        $scope.systems = [];
+        $scope.files = [];    
     }
 
-    var setUp = function() {
-        // $scope.image = "image/users/user.png";
-        // $scope.user = {
-        //     'provider': LISTS.providers[0].code,
-        //     'systems': []
-        // };
-        // $scope.periodos[3].checked = true;
+    var init = function() {  
+        initDefault();
         $scope.user = UserBuilder.createUserDefault();
         $scope.msg = { success: null, error: null };
-        // element.tab.find('a:first').tab('show');
+        $scope.systemSelection = null;
+        $scope.getUser();
+        $scope.getAllSystems();
         AppFunction.tabUserCreate();
+        if (!$stateParams.id) { $scope.titlePage = 'TITLE.USER.CREATE'; }
+        else { $scope.titlePage = 'TITLE.USER.UPDATE'; }
     }
+    
+    var resetForm = function(form, data) {
+        form.$setPristine();
+        $scope.submitted = false;
+        if(!data) { 
+            init(); 
+        } else { 
+            initDefault(); 
+            $scope.user = UserBuilder.getUser(data);
+        }
+    } 
+
+    // USER
+
+    $scope.getUser = function() {
+        if (!$stateParams.id) return;
+        UserService.getUser($stateParams.id)
+            .then(function(data) {
+                $scope.user = UserBuilder.getUser(data);
+                $scope.files[0] = $scope.user.image.full;
+            })
+            .catch(function() {
+                $scope.user = {};
+            });
+    }
+
+    $scope.getAllSystems = function() {
+        SystemService.allSystems()
+            .then(function(data) {
+                $scope.systems = setUpSystems(data);
+            })
+            .catch(function() {
+                $scope.systems = [];
+            });
+    };
+
+    $scope.existSystem = function(system) {
+        return _.contains($scope.user.systems, system);
+    };
 
     var setUpSystems = function(systems) {
         return _.map(systems, function(system) {
-            // system.role = 'user';
-            // system.periodos = angular.copy($scope.periodos);
-            // system.periodo = system.periodos[3];
-            // system.dateInitial = new Date();
-            // system.dateFinal = DateService.addDaysToDate(new Date(), system.periodo.days);
+            system.show = !$scope.existSystem(system);
             return SystemBuilder.createSystem(system);
         })
-    }
-    
-    var resetForm = function(form) {
-        form.$setPristine();
-        $scope.submitted = false;
-        init();
+    };
+
+    $scope.saveUser = function(form) {  
+        $scope.submitted = true;
+        if (form.$valid) {   
+            if(!$scope.user.id) {
+                createUser(form);
+            } else {
+                updateUser(form);
+            }            
+        } else {
+            $scope.msg.error = 'MSG.EXISTS.INCORRET.DATA';
+        }
     }
 
-    $scope.$watch('systems', function(newVal, oldVal) {
-        if(!$scope.systems) return;
-        if(!_.isEqual(oldVal, newVal)) {
-            $scope.systems = setUpSystems($scope.systems);
-        }
-    });
+    var createUser = function(form) { 
+        // var image = null;
+        // if($scope.files[0]) { $scope.image = $scope.files[0]; }
+        var user = UserBuilder.createUser($scope.user, $scope.files[0]);
+        if(_.isEmpty(user.image) || !user.image.type) { createUserWithoutImage(form, user); }
+        else { createUserWithImage(form, user) }
+    }
+
+    var createUserWithoutImage = function(form, user) {  
+        UserService.createUser(user)
+            .then(function(data) {
+                resetForm(form, null);
+                $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';                
+            })
+            .catch(function() {
+                $scope.msg.error = 'MSG.USER.CREATE.ERROR';
+            });
+        
+    }
+
+    var createUserWithImage = function(form, user) {
+        $q.all([
+                UserService.createUserWithImage(user),
+                ImageService.uploadFileUser(user)
+            ])
+            .then(function(data) {
+                resetForm(form, null);
+                $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';           
+            })
+            .catch(function() {
+                $scope.msg.error = 'MSG.USER.CREATE.ERROR';
+            });
+    }
+
+    var updateUser = function(form) {
+        var user = UserBuilder.createUser($scope.user, $scope.files[0]);
+        if(_.isEmpty(user.image) || !user.image.type) { updateUserWithoutImage(form, user); }
+        else { updateUserWithImage(form, user); }
+    }
+
+    var updateUserWithoutImage = function(form, user) {  
+        UserService.updateUser(user)
+            .then(function(data) {
+                resetForm(form, data);
+                $scope.msg.success = 'MSG.USER.UPDATE.SUCCESS';                
+            })
+            .catch(function() {
+                $scope.msg.error = 'MSG.USER.UPDATE.ERROR';
+            });
+        
+    }
+
+    var updateUserWithImage = function(form, user) {
+        $q.all([
+                UserService.updateUserWithImage(user),
+                ImageService.uploadFileUser(user)
+            ])
+            .then(function(data) {
+                resetForm(form, data[0]);
+                $scope.msg.success = 'MSG.USER.UPDATE.SUCCESS';           
+            })
+            .catch(function() {
+                $scope.msg.error = 'MSG.USER.UPDATE.ERROR';
+            });
+    }
+
+    $scope.removerImage = function(user) {
+        var userImage = angular.copy(user);
+        user.image = null;
+        $q.all([
+                UserService.updateUser(user),
+                ImageService.removeFileUser(userImage)
+            ])
+            .then(function(data) {
+                resetForm(form, data[0]);
+                $scope.msg.success = 'MSG.IMAGE.REMOVE.SUCCESS';                
+            })
+            .catch(function() {
+                $scope.msg.error = 'MSG.IMAGE.REMOVE.ERROR';
+            });
+    }
+
+    // SYSTEM
 
     $scope.$watch('systemSelection.periodo', function(newVal, oldVal) {
         if(!$scope.systemSelection) return;
@@ -123,93 +233,6 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         });
     };
 
-    $scope.getUser = function() {
-        if (!$stateParams.id) {
-            return;
-        }
-        UserService.getUser($stateParams.id)
-            .then(function(data) {
-                $scope.user = data;
-            })
-            .catch(function() {
-                $scope.user = {};
-            });
-    }
-
-    $scope.createUser = function(form) {  
-        $scope.submitted = true;
-        if (form.$valid) { 
-            setSystemsUser();
-            if($scope.files) { createUserWithImage(form, $scope.files[0], $scope.user); }
-            else { createUserWithoutImage(form, $scope.user); }
-        } else {
-            $scope.msg.error = 'Msg de formulario invalido';
-        }
-    }
-
-    var setSystemsUser = function() {
-        var systems = angular.copy($scope.user.systems);
-        $scope.user.systems = _.map(systems, function(system) {
-            return {
-                _id: system._id,
-                role: system.role,
-                dateInitial: getDateFromStr.getDate(system.dateInitial),
-                dateFinal: getDateFromStr.getDate(system.dateFinal)
-            };
-        })
-    }
-
-    var createUserWithoutImage = function(form, user) {  
-        UserService.createUser(user)
-            .then(function(data) {
-                resetForm(form);
-                $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';                
-            })
-            .catch(function() {
-                $scope.msg.error = 'MSG.USER.CREATE.ERROR';
-            });
-        
-    }
-
-    var createUserWithImage = function(form, file, user) {  
-        UserService.createUserWithImage(file, user)
-            .then(function(data) {
-                resetForm(form);
-                $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';           
-            })
-            .catch(function() {
-                $scope.msg.error = 'MSG.USER.CREATE.ERROR';
-            });
-    }
-
-    $scope.updateUser = function(form) {
-        $scope.submitted = true;
-        if (form.$valid) {
-            UserService.updateUser($scope.user)
-                .then(function(data) {
-                    $scope.msg.success = "Usuário alterado com sucesso!";
-                    // $location.url("/user");
-                })
-                .catch(function(e) {
-                    $scope.msg.error = "Problemas ao alteradar o usuário!";
-
-                });
-        }
-    }
-
-    $scope.getAllSystems = function() {
-        SystemService.allSystems()
-            .then(function(data) {
-                //addItensParaTeste(data);
-                // var systems = setUpSystems(data);
-                $scope.systems = data;
-                $scope.systems = $scope.hideSystemBySelection($scope.systems);
-            })
-            .catch(function() {
-                $scope.systems = [];
-            });
-    }
-
     $scope.getSystem = function(system) {
         $scope.systemSelection = system;
     }
@@ -219,7 +242,8 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     }
 
     $scope.addSystem = function(system) {  
-        $scope.user.systems.push(system);
+        var userSystem = SystemBuilder.createSystem(system);
+        $scope.user.systems.push(userSystem);
         system.show = !$scope.existSystem(system);
     }
 
@@ -227,28 +251,6 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         $scope.user.systems.splice(system);
         system.show = !$scope.existSystem(system);
     }
-    
-    $scope.hideSystemBySelection = function(systems) {
-        return _.map(systems, function(system) {
-            system.show = !$scope.existSystem(system);
-            return system;
-        })
-    }
-
-    $scope.existSystem = function(system) {
-        return _.contains($scope.user.systems, system);
-    }
-
-    // Apenas para teste
-    // var addItensParaTeste = function(systems) {
-    //     if(!$scope.user.systems) { $scope.user.systems = []; }
-    //     $scope.addSystem(systems[0]);
-    // }
-
-    // $scope.showTab = function($event) {
-    //     $event.preventDefault();
-    //     angular.element(this).tab('show');
-    // };
 
     init();
 

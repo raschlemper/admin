@@ -6,9 +6,11 @@ app.factory('User', function() {
 
 		this.id = null;
 		this.image = { name: null, path: null, full: null };
-		this.provider = null;
 		this.name = null;
+		this.lastname = null;
+		this.username = null;
 		this.email = null;
+		this.gender = null;
 		this.password = null;
 		this.systems = [];
 
@@ -49,13 +51,14 @@ app.factory('User', function() {
 
 	return {	
 
-		create: function(id, provider, name, email, password) {
+		create: function(id, name, lastname, username, email, gender, password) {
 			var user = new User();
 			user.id = id;
-			// user.image = image;
-			user.provider = provider;
 			user.name = name;
+			user.lastname = lastname;
+			user.username = username;
 			user.email = email;
+			user.gender = gender;
 			user.password = password;
 			user.systems = [];
 			return new Object(user);

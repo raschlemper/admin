@@ -8,8 +8,9 @@ app.factory('UserBuilder', function(User, LISTS) {
 	var createUserDefault = function() {
 		var obj = User.create (
 			null,
-			// pathImageDefault + imageDefault,
-			LISTS.providers[0].code,
+			null,
+			null,
+			null,
 			null,
 			null,
 			null
@@ -33,10 +34,11 @@ app.factory('UserBuilder', function(User, LISTS) {
 	var createUser = function(user, image) {
 		var obj = User.create(
 			user.id,
-			// userImage,
-			user.provider,
 			user.name,
+			user.lastname,
+			user.username,
 			user.email,
+			user.gender,
 			user.password
 		);
 		if(image) { obj.addImage(getImagePath(), getImageName(image)); }
@@ -48,10 +50,11 @@ app.factory('UserBuilder', function(User, LISTS) {
 	var getUser = function(user) {
 		var obj = User.create(
 			user._id,
-			// image,
-			user.provider,
 			user.name,
+			user.lastname,
+			user.username,
 			user.email,
+			user.gender,
 			user.password
 		);
 		if(!user.image) { user.image = imageDefault }

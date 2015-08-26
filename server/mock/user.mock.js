@@ -12,10 +12,12 @@ User.find({}).remove(function() {
     dateFin.setDate(dateIni.getDate() + 30);
     User.create({
         _id: '55b77647a8d5d3070db4e892',
-        provider: 'local',
-        name: 'Test User',
+        name: 'Test',
+        lastname: 'User',
+        username: 'usertest',
         email: 'test@test.com',
-        image: "Rxr4zWOZ8lSEeLgl.png",
+        gender: 'masculino',
+        image: "usertest.png",
         password: 'test',
         systems: [{
             system: "55a6fbbd7b39890d0eff2e42",
@@ -25,10 +27,12 @@ User.find({}).remove(function() {
         }]
     }, {
         _id: '55b77647a8d5d3070db4e893',
-        provider: 'local',
-        name: 'Rafael Augusto Schlemper',
+        name: 'Rafael Augusto',
+        lastname: 'Schlemper',
+        username: 'raschlemper',
         email: 'raschlemper@gmail.com',
-        image: "RxzGQRZ8BBFyXnxZyEgdUaNGl7M22KCk0YV41ovn.png",
+        gender: 'masculino',
+        image: "raschlemper.png",
         password: 'admin',
         systems: []
     }, function() {

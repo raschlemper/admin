@@ -23,7 +23,7 @@ app.factory('ImageService', function($q, $http, Upload) {
         var deferred = $q.defer();
         Upload.upload({
             url: '/image/user/',
-            fields: { 'name': user.name },
+            fields: { 'name': user.username },
             file: user.image
         })
         .progress(function(evt) {
@@ -64,7 +64,7 @@ app.factory('ImageService', function($q, $http, Upload) {
         var cb = callback || angular.noop;
         var deferred = $q.defer();
         $http.post('/image/user/remove/', {
-               'name': user.image.name 
+               'imageName': user.image.name 
             },
             function(data) {
                 return cb(data);
