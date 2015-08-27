@@ -56,7 +56,7 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
 
     var createUser = function(form) { 
         var user = UserBuilder.createUser($scope.user, $scope.files[0]);
-        if(_.isEmpty(user.image) || !user.image.type) { createUserWithoutImage(form, user); }
+        if(_.isEmpty(user.image) || !user.image.file.type) { createUserWithoutImage(form, user); }
         else { createUserWithImage(form, user) }
     }
 
@@ -90,7 +90,7 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
 
     var updateUser = function(form) {
         var user = UserBuilder.createUser($scope.user, $scope.files[0]);
-        if(_.isEmpty(user.image) || !user.image.type) { updateUserWithoutImage(form, user); }
+        if(_.isEmpty(user.image) || !user.image.file.type) { updateUserWithoutImage(form, user); }
         else { updateUserWithImage(form, user); }
     }
 
@@ -108,7 +108,7 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
 
     var updateUserWithImage = function(form, user) {
         $q.all([
-                UserService.updateUserWithImage(user),
+                UserService.updateUser(user),
                 ImageService.uploadFileUser(user)
             ])
             .then(function(data) {
@@ -128,7 +128,7 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
                 ImageService.removeFileUser(userImage)
             ])
             .then(function(data) {
-                resetForm(form, data[0]);
+                init(); 
                 $scope.msg.success = 'MSG.IMAGE.REMOVE.SUCCESS';                
             })
             .catch(function() {

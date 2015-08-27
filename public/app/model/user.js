@@ -5,7 +5,7 @@ app.factory('User', function() {
 	var User = function() {
 
 		this.id = null;
-		this.image = { name: null, path: null, full: null };
+		this.image = { name: null, path: null, full: null, file: null };
 		this.name = null;
 		this.lastname = null;
 		this.username = null;
@@ -37,8 +37,8 @@ app.factory('User', function() {
 			return result;
 		}
 
-		this.addImage = function(path, name) {
-			this.image = { name: name, path: path, full: path + name };
+		this.addImage = function(path, name, file) {
+			this.image = { name: name, path: path, full: path + name, file: file};
 		}
 
 		this.addSystems = function(id, role, dateInitial, dateFinal, system) {

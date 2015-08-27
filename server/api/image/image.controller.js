@@ -15,7 +15,7 @@ var imagePath = 'public/image/users/';
  */
 exports.create = function(req, res, next) {
 	var file = req.files.file;
-	var name = fileName(file.type, req.body.username);
+	var name = fileName(file.type, req.body.id);
 	fs.readFile(file.path, function (err, data) {
 		var path = imagePath + name;
 		fs.writeFile(path, data, function(err) {
@@ -30,7 +30,7 @@ exports.create = function(req, res, next) {
  */
 exports.createImageUser = function(req, res, next) {
     var file = req.files.file;
-    var name = fileName(file.type, req.body.username);
+    var name = fileName(file.type, req.body.name);
     var path = imagePath + name;    
     fs.exists(path, function (exists) {
         if (exists) { changeImage(req, res, next); }
@@ -42,7 +42,8 @@ exports.createImageUser = function(req, res, next) {
  * Create image user
  */
 exports.removeImageUser = function(req, res, next) {
-    var path = imagePath + req.body.name;    
+    var name = fileName("image/png", req.body.id);
+    var path = imagePath + name;
     fs.exists(path, function (exists) {
         if (!exists) return res.json(200);            
         fs.unlink(path, function (err) {
@@ -64,7 +65,7 @@ exports.fileName = function(type, name) {
  */
 var createImage = function(req, res, next) {
     var file = req.files.file;
-    var name = fileName(file.type, req.body.username);
+    var name = fileName(file.type, req.body.name);
     var path = imagePath + name;
     lwip.open(file.path, function(err, image) {
         if (err) throw err;
@@ -83,7 +84,7 @@ var createImage = function(req, res, next) {
  */
 var changeImage = function(req, res, next) {
     var file = req.files.file;
-    var name = fileName(file.type, req.body.username);
+    var name = fileName(file.type, req.body.name);
     var path = imagePath + name;    
     fs.unlink(path, function (err) {
         if (err) throw err;
@@ -95,7 +96,7 @@ var changeImage = function(req, res, next) {
  * Remove image to user
  */
 var removeImage = function(req, res, next) {
-    var path = imagePath + req.body.imageName;    
+    var path = imagePath + req.body.name;    
     fs.unlink(path, function (err) {
         if (err) throw err;
         res.json(200);

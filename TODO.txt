@@ -21,5 +21,7 @@ TODO:
 19 - Verificar se existe dependencias nos crotrollers e Services que não esta sendo utilizada
 20 - Deixar o nome da imagem conforme o original
 21 - Separar o systema do usuario
+22 - Não permitir o usuário excluir imagem caso não exista
+23 - Eliminar as mensagens quando for executar outra ação
 
 *** Verificar se a imagem continua salvando de maneira correta ***

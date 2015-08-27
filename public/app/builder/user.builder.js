@@ -15,7 +15,7 @@ app.factory('UserBuilder', function(User, LISTS) {
 			null,
 			null
 		);
-		obj.addImage(pathImageDefault, imageDefault);
+		obj.addImage(pathImageDefault, imageDefault, null);	
 		return obj;
 	}
 
@@ -41,8 +41,7 @@ app.factory('UserBuilder', function(User, LISTS) {
 			user.gender,
 			user.password
 		);
-		if(image) { obj.addImage(getImagePath(), getImageName(image)); }
-		else { obj.addImage(pathImageDefault, imageDefault); }
+		obj.addImage(user.image.path, user.image.name, image);	
 		addSystems(obj, user.systems);
 		return obj;
 	}
@@ -57,22 +56,30 @@ app.factory('UserBuilder', function(User, LISTS) {
 			user.gender,
 			user.password
 		);
-		if(!user.image) { user.image = imageDefault }
-		obj.addImage(pathImageDefault, user.image);
+		if(!user.image) { user.image = addImageDefault(); }
+		//if(user.image.path && user.image.name) { obj.addImage(user.image.path, user.image.name, null); }
+		//else { obj.addImage(pathImageDefault, user.image, null); }
+		obj.addImage(pathImageDefault, user.image, null);
 		addSystems(obj, user.systems);
 		return obj;
 	}
 
-	var getImagePath = function(image) {
-		if(!image) return pathImageDefault;
-		var img = image.split("/");
-		return image.replace(img[img.length - 1], "");
+	var addImageDefault = function() {
+		return {
+			path: pathImageDefault,
+			name: imageDefault
+		}
 	}
 
 	var getImageName = function(image) {
 		if(!image) return imageDefault;
-		var img = image.split("/");
-		return img[img.length - 1]
+		return image.name;
+	}
+
+	var getImageFile = function(image) {
+		if(!image) return null;
+		if(!image.name || !image.size || !image.type) return null;
+		return image;
 	}
 
 	return {

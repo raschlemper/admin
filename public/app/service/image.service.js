@@ -10,7 +10,7 @@ app.factory('ImageService', function($q, $http, Upload) {
     var success = function (deferred, cb, data, config) {
         // console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
         deferred.resolve(data);
-        return cb();
+        return cb(data);
     }
 
     var error = function (deferred, cb, err) {
@@ -24,7 +24,7 @@ app.factory('ImageService', function($q, $http, Upload) {
         Upload.upload({
             url: '/image/user/',
             fields: { 'name': user.id },
-            file: user.image
+            file: user.image.file
         })
         .progress(function(evt) {
             progress(deferred, cb, evt);        
@@ -60,20 +60,19 @@ app.factory('ImageService', function($q, $http, Upload) {
         return deferred.promise;
     }
 
-    var removeFileUser = function(user, callback) {
-        var cb = callback || angular.noop;
+    var removeFileUser = function(user, callback) { 
+        var cb = callback || angular.noop;       
         var deferred = $q.defer();
         $http.post('/image/user/remove/', {
-               'imageName': user.image.name 
-            },
-            function(data) {
-                deferred.resolve(data);
-                return cb(data);
-            },
-            function(err) {
-                deferred.reject(err);
-                return cb(err);
-            }.bind(this));
+            'id': user.id
+        })
+        .success(function(data) { 
+            deferred.resolve(data);
+            return cb(data);
+        }).error(function(msg, code) {
+            deferred.reject(err);
+            return cb(err);
+        });
         return deferred.promise;
     }
 

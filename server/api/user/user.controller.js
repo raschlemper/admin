@@ -111,9 +111,9 @@ var populateUserSystems = function(req) {
 
 var populateUserImage = function(req) {
     if(!req.body.image) { return null; }
-    var file = req.body.image;
-    if(!file.name || !req.body.username) { return req.body.image.name; }
-    return Image.fileName(file.type, req.body.username);
+    var file = req.body.image.file;
+    if(!file.name || !req.body.id) { return req.body.image.name; }
+    return Image.fileName(file.type, req.body.id);
 }
 
 var getNameImage = function(image) {
