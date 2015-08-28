@@ -15,7 +15,7 @@ var UserSchema = new Schema({
   email: { type: String, lowercase: true },  
   password: String,
   gender: String,
-  image: String,
+  image: { 'name': String, 'format': String },
   systems: [{
     system: { type: Schema.Types.ObjectId, ref: 'System' },
     role: { type: String, default: 'user' },

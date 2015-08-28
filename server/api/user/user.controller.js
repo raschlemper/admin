@@ -110,10 +110,11 @@ var populateUserSystems = function(req) {
 }
 
 var populateUserImage = function(req) {
-    if(!req.body.image) { return null; }
-    // var file = req.body.image.file;
-    // if(!file.name || !req.body.id) { return req.body.image.name; }
-    return Image.fileName(file.type, req.body.id);
+    var image = { name: null, format: null };
+    if(!req.body.image) return image;
+    image.name = req.body.image.name;
+    image.format = req.body.image.format;
+    return image;
 }
 
 var getNameImage = function(image) {

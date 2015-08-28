@@ -1,9 +1,6 @@
 'use strict';
 
-app.factory('UserBuilder', function(User, LISTS) {
-
-	var pathImageDefault = "image/users/";
-	var imageDefault = "user.png";
+app.factory('UserBuilder', function(User, ImageBuilder, LISTS) {
 
 	var createUserDefault = function() {
 		var obj = User.create (
@@ -12,10 +9,10 @@ app.factory('UserBuilder', function(User, LISTS) {
 			null,
 			null,
 			null,
-			null,
+			LISTS.gender[0].code,
 			null
 		);
-		obj.addImage(pathImageDefault, imageDefault, null);	
+		obj.addImage(ImageBuilder.createImageUserDefault());	
 		return obj;
 	}
 
@@ -29,8 +26,7 @@ app.factory('UserBuilder', function(User, LISTS) {
 			user.gender,
 			user.password
 		);
-		user.image = addImageDefault(user, image);
-		obj.addImage(user.image.path, user.image.name, image);	
+		obj.addImage(ImageBuilder.createImageUser(user, image));
 		addSystems(obj, user.systems);
 		return obj;
 	}
@@ -45,16 +41,6 @@ app.factory('UserBuilder', function(User, LISTS) {
 				system.system
 			);
 		})
-	}
-
-	var addImageDefault = function(user, image) {
-		var name = imageDefault;
-		if(!user.image.name) { name = user.image };
-		if(user.image.name) { name = user.image.name; }
-		return {
-			path: pathImageDefault,
-			name: name
-		};
 	}
 
 	return {
