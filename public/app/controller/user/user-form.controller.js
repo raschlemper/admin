@@ -3,15 +3,12 @@
 app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter, $q,
     UserBuilder, SystemBuilder, UserService, SystemService, ImageService, DateService, FORMAT, LISTS) {
 
-    var initDefault = function() {      
-        $scope.genders = LISTS.gender;
-        $scope.image = {};
-        $scope.files = [];    
+    var initDefault = function() {    
     }
 
-    var init = function() {  
-        initDefault();
-        $scope.user = UserBuilder.createUserDefault();
+    var init = function() {    
+        $scope.genders = LISTS.gender;
+        $scope.files = []; 
         $scope.msg = { success: null, error: null };
         $scope.getUser();
         if (!$stateParams.id) { $scope.titlePage = 'TITLE.USER.CREATE'; }
@@ -21,20 +18,16 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     var resetForm = function(form, data) {
         form.$setPristine();
         $scope.submitted = false;
-        if(!data) { 
-            init(); 
-        } else { 
-            initDefault(); 
-            $scope.user = UserBuilder.getUser(data);
-        }
+        init(); 
     } 
 
-    $scope.getUser = function() {
+    $scope.getUser = function() {        
+        $scope.user = UserBuilder.createUserDefault();
         if (!$stateParams.id) return;
         UserService.getUser($stateParams.id)
             .then(function(data) {
-                $scope.user = UserBuilder.getUser(data);
-                $scope.files[0] = $scope.user.image.full;
+                $scope.user = UserBuilder.createUser(data, $scope.files[0]);
+                $scope.files[0] = null;
             })
             .catch(function() {
                 $scope.user = {};
@@ -56,7 +49,7 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
 
     var createUser = function(form) { 
         var user = UserBuilder.createUser($scope.user, $scope.files[0]);
-        if(_.isEmpty(user.image) || !user.image.file.type) { createUserWithoutImage(form, user); }
+        if($scope.files[0]) { createUserWithoutImage(form, user); }
         else { createUserWithImage(form, user) }
     }
 

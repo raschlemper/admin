@@ -19,6 +19,22 @@ app.factory('UserBuilder', function(User, LISTS) {
 		return obj;
 	}
 
+	var createUser = function(user, image) {
+		var obj = User.create(
+			user.id || user._id,
+			user.name,
+			user.lastname,
+			user.username,
+			user.email,
+			user.gender,
+			user.password
+		);
+		user.image = addImageDefault(user, image);
+		obj.addImage(user.image.path, user.image.name, image);	
+		addSystems(obj, user.systems);
+		return obj;
+	}
+
 	var addSystems = function(obj, systems) {
 		_.map(systems, function(system) {
 			obj.addSystems(
@@ -31,60 +47,18 @@ app.factory('UserBuilder', function(User, LISTS) {
 		})
 	}
 
-	var createUser = function(user, image) {
-		var obj = User.create(
-			user.id,
-			user.name,
-			user.lastname,
-			user.username,
-			user.email,
-			user.gender,
-			user.password
-		);
-		obj.addImage(user.image.path, user.image.name, image);	
-		addSystems(obj, user.systems);
-		return obj;
-	}
-
-	var getUser = function(user) {
-		var obj = User.create(
-			user._id,
-			user.name,
-			user.lastname,
-			user.username,
-			user.email,
-			user.gender,
-			user.password
-		);
-		if(!user.image) { user.image = addImageDefault(); }
-		//if(user.image.path && user.image.name) { obj.addImage(user.image.path, user.image.name, null); }
-		//else { obj.addImage(pathImageDefault, user.image, null); }
-		obj.addImage(pathImageDefault, user.image, null);
-		addSystems(obj, user.systems);
-		return obj;
-	}
-
-	var addImageDefault = function() {
+	var addImageDefault = function(user, image) {
+		var name = imageDefault;
+		if(!user.image.name) { name = user.image };
+		if(user.image.name) { name = user.image.name; }
 		return {
 			path: pathImageDefault,
-			name: imageDefault
-		}
-	}
-
-	var getImageName = function(image) {
-		if(!image) return imageDefault;
-		return image.name;
-	}
-
-	var getImageFile = function(image) {
-		if(!image) return null;
-		if(!image.name || !image.size || !image.type) return null;
-		return image;
+			name: name
+		};
 	}
 
 	return {
 		createUserDefault: createUserDefault,
-		createUser: createUser,
-		getUser: getUser
+		createUser: createUser
 	}
 });
