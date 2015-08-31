@@ -42,7 +42,7 @@ exports.createImageUser = function(req, res, next) {
  * Create image user
  */
 exports.removeImageUser = function(req, res, next) {
-    var name = fileName("image/png", req.body.id);
+    var name = fileName("image/png", req.body.name);
     var path = imagePath + name;
     fs.exists(path, function (exists) {
         if (!exists) return res.json(200);            

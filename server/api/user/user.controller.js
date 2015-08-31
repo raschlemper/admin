@@ -53,11 +53,20 @@ exports.create = function(req, res, next) {
         })
         .use(function(user, req, res, next) {
             populateUser(user, req, res, next);
+            next(user);
         })
         .use(function(user, req, res, next) {
-            user.save(function(err, user) {
+            user.save(function(err, data) {
                 if (err) return res.send(500, err);
-                res.json(200, user);
+                if(req.body.image) next(user);
+                res.json(200, data);
+            }); 
+        })
+        .use(function(user, req, res, next) {
+            populateUserImageCreate(req, user);
+            user.save(function(err, data) {
+                if (err) return res.send(500, err);
+                res.json(200, data);
             }); 
         });      
 };
@@ -65,7 +74,6 @@ exports.create = function(req, res, next) {
 /**
  * Change a users
  */
-//TODO: Colocar o compose para salvar a imagem cas ela seja mudada
 exports.change = function(req, res, next) {
     return compose() 
         .use(function(req, res, next) {
@@ -76,11 +84,12 @@ exports.change = function(req, res, next) {
         })
         .use(function(user, req, res, next) {
             populateUser(user, req, res, next);
+            next(user);
         })
         .use(function(user, req, res, next) {
-            user.save(function(err, user) {
+            user.save(function(err, data) {
                 if (err) return res.send(500, err);
-                res.json(200, user);
+                res.json(200, data);
             }); 
         });            
 };
@@ -90,10 +99,9 @@ var populateUser = function(user, req, res, next) {
     user.lastname = req.body.lastname;
     user.username = req.body.username;
     user.email = req.body.email;
-    user.provider = req.body.provider;
+    user.gender = req.body.gender;
     user.image = populateUserImage(req);
     user.systems = populateUserSystems(req);
-    next(user);
 }
 
 var populateUserSystems = function(req) {
@@ -117,9 +125,12 @@ var populateUserImage = function(req) {
     return image;
 }
 
-var getNameImage = function(image) {
-    var parts = image.split('/');
-    return parts[parts.length - 1];
+var populateUserImageCreate = function(req, user) {
+    var image = { name: null, format: null };
+    if(!req.body.image) return image;
+    image.name = user._id.toJSON();
+    image.format = user.image.format;
+    user.image = image;
 }
 
 // var saveImage = function(user, req, res, next) {

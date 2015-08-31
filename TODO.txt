@@ -23,5 +23,6 @@ TODO:
 21 - Separar o systema do usuario
 22 - Não permitir o usuário excluir imagem caso não exista
 23 - Eliminar as mensagens quando for executar outra ação
+24 - Bloquear o botão de remover image quando não houver image, e quando ela tiver sido inderida e não salva, permiti que o usuário remova ela.
 
 *** Verificar se a imagem continua salvando de maneira correta ***
