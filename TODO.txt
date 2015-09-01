@@ -1,28 +1,28 @@
 TODO:
 
 1  - Alterar o título da página (cadastro e alteração) - ok
-2  - Criar uma maneira de retirar a foto do usuário, caso seja necessário excluir a foto e o usuário ficar sem foto - falta retornar a mensagem de sucesso ou erro
+2  - Criar uma maneira de retirar a foto do usuário, caso seja necessário excluir a foto e o usuário ficar sem foto - falta retornar a mensagem de sucesso ou erro - ok
 3  - Excluir a image quando o usuário trocar de imagem (não utilizar o tipo da imagem para pesquisar antes de deletar) - ok
 4  - Ajustar o combo provider (algumas vezes vem sem nada setado) - ok
 5  - Encadear a criação da imagem com a alteração ou criação do usuário (quando crio a imagem o sistema termina o processo e a imagem não foi criada) - ok
-6  - Colocar a imagem na base de dados?? - Não
+6  - Colocar a imagem na base de dados - Não
 7  - Ajustar o metodo para excluir usuário
 8  - Fazer a troca das msgs pelo translate
-9  - Fazer as validações dos campos
+9  - Fazer as validações dos campos - ok (USER)
 10 - Criar a limpeza do formulario - ok
-11 - Retirar as directivas de form
+11 - Retirar as directivas de form - ok
 12 - Criar o translate dos campos das lista dos js contant
 13 - Fazer o ajuste para salvar os systema do usuário pelo mock - ok
-14 - Colocar os valores default no node
+14 - Colocar os valores default no node - Não
 15 - Colocar a image default do usuário quando não for escolhido foto - ok
-16 - Fazer o acrescimo dos campos do sistema no node
-17 - Quebrar o controller conforme as funções ??? - Não
-18 - Excluir os métodos para criar e atualizar usuário com imagem, pois esses métodos não utilizam mais o imageservice
+16 - Fazer o acrescimo dos campos do sistema no node - Não
+17 - Quebrar o controller conforme as funções - Não
+18 - Excluir os métodos para criar e atualizar usuário com imagem, pois esses métodos não utilizam mais o imageservice - ok
 19 - Verificar se existe dependencias nos crotrollers e Services que não esta sendo utilizada
-20 - Deixar o nome da imagem conforme o original
-21 - Separar o systema do usuario
-22 - Não permitir o usuário excluir imagem caso não exista
+20 - Deixar o nome da imagem conforme o original - ok (ID)
+21 - Separar o systema do usuario - ok (USER)
+22 - Não permitir o usuário excluir imagem caso não exista - ok
 23 - Eliminar as mensagens quando for executar outra ação
-24 - Bloquear o botão de remover image quando não houver image, e quando ela tiver sido inderida e não salva, permiti que o usuário remova ela.
+24 - Bloquear o botão de remover image quando não houver image, e quando ela tiver sido inserida e não salva, permiti que o usuário remova ela - ok
 
 *** Verificar se a imagem continua salvando de maneira correta ***

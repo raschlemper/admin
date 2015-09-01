@@ -3,7 +3,7 @@
 app.constant('LISTS', {
 
     'gender': [{
-        code: 'selecione',
+        code: 'none',
         descricao: 'Selecione item'
     }, {
         code: 'feminino',

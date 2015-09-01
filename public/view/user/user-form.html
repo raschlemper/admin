@@ -42,7 +42,8 @@
                                     <strong>{{files[0].name || user.image.name}}</strong>
                                 </h6> -->
                                 <h6 class="text-center">
-                                    <button type="button" class="btn btn-danger btn-xs" ng-click="removerImage(user)">
+                                    <button type="button" class="btn btn-danger btn-xs" ng-click="removeImage()"
+                                        ng-disabled="statusImageButton" >
                                         <i class="fa fa-times-circle"></i><span class="rem-image" translate="BUTTON.REMOVE.IMAGE"/>
                                     </button>
                                     

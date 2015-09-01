@@ -9,7 +9,6 @@ app.factory('Image', function() {
 		this.format = null;
 		this.full = null;
 		this.file = null;
-		this.NewOne = null;
 
 		function Image() {
 			return this;
@@ -19,14 +18,13 @@ app.factory('Image', function() {
 
 	return {	
 
-		create: function(name, format, path, file, status) {
+		create: function(name, format, path, file) {
 			var image = new Image();
 			image.name = name;
 			image.format = format;
 			image.path = path;
 			image.full = path + name + '.' + format;
 			image.file = file;
-			image.NewOne = status || true;
 			return image;
 		}
 	}

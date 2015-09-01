@@ -1,25 +1,32 @@
 'use strict';
 
 app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter, $q,
-    UserBuilder, SystemBuilder, UserService, SystemService, ImageService, DateService, FORMAT, LISTS) {
+    UserBuilder, SystemBuilder, UserService, SystemService, ImageService, DateService, VALUE, LISTS) {
 
-    var initDefault = function() {    
-    }
 
     var init = function() {    
         $scope.genders = LISTS.gender;
         $scope.files = []; 
         $scope.msg = { success: null, error: null };
         $scope.getUser();
+        statusImageButton();
         if (!$stateParams.id) { $scope.titlePage = 'TITLE.USER.CREATE'; }
         else { $scope.titlePage = 'TITLE.USER.UPDATE'; }
-    }
+    };
     
     var resetForm = function(form, data) {
         form.$setPristine();
         $scope.submitted = false;
         init(); 
     } 
+
+    $scope.$watch('files', function(newValue, oldValue) {
+        $scope.user = UserBuilder.createUser($scope.user, $scope.files[0]);
+    });
+
+    $scope.$watch('user.image.name', function(newValue, oldValue) {
+        statusImageButton();
+    });
 
     $scope.getUser = function() {        
         $scope.user = UserBuilder.createUserDefault();
@@ -48,12 +55,16 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     }
 
     var createUser = function(form) { 
-        var user = UserBuilder.createUser($scope.user, $scope.files[0]);
-        if(user.image && user.image.file) { createUserWithImage(form, user); }
-        else { createUserWithoutImage(form, user) }
+        // var user = UserBuilder.createUser($scope.user, $scope.files[0]);
+        if($scope.user.image.file) { 
+            createUserWithImage(form, $scope.user); 
+        } else { 
+            createUserWithoutImage(form, $scope.user);
+        }
     }
 
     var createUserWithoutImage = function(form, user) {  
+        $scope.user.image = null;
         UserService.createUser(user)
             .then(function(data) {
                 resetForm(form, null);
@@ -67,7 +78,6 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     var createUserWithImage = function(form, user) {
         UserService.createUser(user)
             .then(function(data) {
-                user.image.name = data._id;
                 ImageService.uploadFileUser(user)
                     .then(function(data) {
                         resetForm(form, null);
@@ -83,9 +93,12 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     }
 
     var updateUser = function(form) {
-        var user = UserBuilder.createUser($scope.user, $scope.files[0]);
-        if(user.image && user.image.file) { updateUserWithImage(form, user); }
-        else { updateUserWithoutImage(form, user); }
+        // var user = UserBuilder.createUser($scope.user, $scope.files[0]);
+        if($scope.user.image.file) { 
+            updateUserWithImage(form, $scope.user); 
+        } else { 
+            updateUserWithoutImage(form, $scope.user); 
+        }
     }
 
     var updateUserWithoutImage = function(form, user) {  
@@ -117,7 +130,14 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
             });    
     }
 
-    $scope.removerImage = function(user) {
+    $scope.removeImage = function() {
+        if(!_.isEqual($scope.user.image.name, VALUE.imageNameUser)) { 
+            removeWithImage($scope.user); 
+        }
+        $scope.files = [];
+    }
+
+    var removeWithImage = function(user) {
         var userImage = angular.copy(user);
         user.image = null;
         $q.all([
@@ -131,6 +151,10 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
             .catch(function() {
                 $scope.msg.error = 'MSG.IMAGE.REMOVE.ERROR';
             });
+    }
+
+    var statusImageButton = function() {
+        $scope.statusImageButton = _.isEqual($scope.user.image.name, VALUE.imageNameUser);
     }
 
     init();
