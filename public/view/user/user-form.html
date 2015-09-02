@@ -28,8 +28,6 @@
                 </div>
                     <div class="">
 
-                        <!-- <div ng-include src="'view/user/user-form-user.html'"></div> -->
-
                         <div class="row height-full">
 
                             <div class="col-lg-3">
@@ -38,9 +36,11 @@
                                     <img id="image" name="image" ngf-src="files[0]" ngf-default-src="{{user.image.full}}" ngf-accept="'image/*'" class="center-block img-thumbnail user-image-size">
                                 </div>
                                 <div ngf-no-file-drop><span translate="MSG.DRAG_DROP.NOT_SUPORTTED"/></div>
-                                <!-- <h6 class="text-center title-file">
-                                    <strong>{{files[0].name || user.image.name}}</strong>
-                                </h6> -->
+                                <!-- 
+                                    <h6 class="text-center title-file">
+                                        <strong>{{files[0].name || user.image.name}}</strong>
+                                    </h6> 
+                                -->
                                 <h6 class="text-center">
                                     <button type="button" class="btn btn-danger btn-xs" ng-click="removeImage()"
                                         ng-disabled="statusImageButton" >

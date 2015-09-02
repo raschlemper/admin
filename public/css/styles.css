@@ -46,8 +46,15 @@ fieldset legend {
 }
 
 .img-size {
-    width: 100px;
-    height: 70px;
+    overflow: hidden;
+    width: 75px;
+    height: 75px;
+}
+
+.img-size img {
+    width: 75px;
+    height: 75px;
+    margin: -5px 0 0 -5px;
 }
 
 .user-image-size {
@@ -102,6 +109,10 @@ fieldset legend {
 
 .btn-icon-20 {
     font-size: 20px;
+}
+
+div.text-center button {
+    margin: 4px 4px 0 4px;
 }
 
 .alert-success {
@@ -253,4 +264,15 @@ p.help-block {
 
 button.close {
     color: #000;
+}
+
+@media (min-width: 992px) {
+
+    .line-user .col-md-2 {
+        width: 12.66666667%;
+    }
+    .line-user .col-md-10 {
+        width: 87.33333333%;
+    }
+
 }

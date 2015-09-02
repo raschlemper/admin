@@ -1,10 +1,10 @@
 'use strict';
 
-app.factory('PaginationService', function() {
+app.factory('PaginationService', function(VALUE) {
 
     var _pagination = {
-        currentPage: 1,
-        maxPerPage: 6
+        currentPage: VALUE.currentPage,
+        maxPerPage: VALUE.maxPerPage
     };
 
     var _list = {

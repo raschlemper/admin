@@ -9,6 +9,7 @@ app.factory('User', function() {
 		this.name = null;
 		this.lastname = null;
 		this.username = null;
+		this.fullname = null;
 		this.email = null;
 		this.gender = null;
 		this.password = null;
@@ -56,6 +57,7 @@ app.factory('User', function() {
 			user.id = id;
 			user.name = name;
 			user.lastname = lastname;
+			user.fullname = name + ' ' + lastname;
 			user.username = username;
 			user.email = email;
 			user.gender = gender;

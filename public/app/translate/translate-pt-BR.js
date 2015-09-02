@@ -25,6 +25,7 @@ app.config(['$translateProvider', function($translateProvider) {
         'LABEL.PERIOD': 'Período',
         'LABEL.DE': 'De',
         'LABEL.ATE': 'Até',
+        'LABEL.ACOES': 'Ações',
 
         'BUTTON.ADD': 'Adicionar',
         'BUTTON.ADD.SYSTEM': 'Adicionar Sistema',
@@ -41,6 +42,7 @@ app.config(['$translateProvider', function($translateProvider) {
     	'MSG.USER.EMAIL': 'Digite o email do usuário.',
     	'MSG.USER.PASSWORD': 'Digite a senha do usuário.',
     	'MSG.VALID.EMAIL': 'Digite um email válido.',
+        'MSG.USER.SEARCH.ERROR': 'Problemas ao pesquisar os usuários!',
         'MSG.USER.CREATE.SUCCESS': 'Usuário cadastrado com sucesso!',
         'MSG.USER.CREATE.ERROR': 'Problemas ao cadastrar o usuário!',
         'MSG.USER.UPDATE.SUCCESS': 'Usuário alterado com sucesso!',
