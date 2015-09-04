@@ -62,10 +62,10 @@ app.factory('UserService', function($http, $q, $resource, PromiseTrackerService,
                     return cb(err);
                 }).$promise;
         },
-        removeUser: function(id, callback) {
+        removeUser: function(user, callback) {
             var cb = callback || angular.noop;
             return UserResource.delete({
-                    id: id
+                    id: user.id
                 },
                 function(data) {
                     return cb(data);

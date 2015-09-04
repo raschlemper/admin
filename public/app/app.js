@@ -24,7 +24,12 @@ var app = angular.module('teratecAdminApp', [
                 controller: 'MainCtrl'
             })
             .state('user', {
-                url: '/user',
+                url: '/users',
+                templateUrl: 'view/user/user-list.html',
+                controller: 'UserCtrl'
+            })
+            .state('userView', {
+                url: '/user/:id',
                 templateUrl: 'view/user/user.html',
                 controller: 'UserCtrl'
             })
@@ -34,9 +39,14 @@ var app = angular.module('teratecAdminApp', [
                 controller: 'UserFormCtrl'
             })
             .state('userEdit', {
-                url: '/user/:id',
+                url: '/user/update/:id',
                 templateUrl: 'view/user/user-form.html',
                 controller: 'UserFormCtrl'
+            })
+            .state('userSystem', {
+                url: '/user/:id/system',
+                templateUrl: 'view/user/user-system-form.html',
+                controller: 'UserSystemFormCtrl'
             });
 
     })

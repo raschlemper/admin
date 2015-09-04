@@ -21,7 +21,9 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     } 
 
     $scope.$watch('files', function(newValue, oldValue) {
-        $scope.user = UserBuilder.createUser($scope.user, $scope.files[0]);
+        if(newValue !== null) {
+            $scope.user = UserBuilder.createUser($scope.user, newValue[0]);
+        }
     });
 
     $scope.$watch('user.image.name', function(newValue, oldValue) {

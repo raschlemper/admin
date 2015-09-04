@@ -13,7 +13,7 @@ app.controller('UserCtrl', function($scope, UserService, PaginationService, User
     $scope.getAllUsers = function() {
         UserService.allUsers()
             .then(function(data) {
-                getUser(data);
+                builderUser(data);
             })
             .catch(function() {
                 $scope.users = [];
@@ -21,7 +21,36 @@ app.controller('UserCtrl', function($scope, UserService, PaginationService, User
             });
     }
 
-    var getUser = function(users) {
+    $scope.getUser = function() {        
+        $scope.user = UserBuilder.createUserDefault();
+        if (!$stateParams.id) return;
+        UserService.getUser($stateParams.id)
+            .then(function(data) {
+                $scope.user = UserBuilder.createUser(data, null);
+                $scope.files[0] = null;
+            })
+            .catch(function() {
+                $scope.user = {};
+            });
+    };
+
+    $scope.removeUser = function(user) {
+        var userImage = angular.copy(user);
+        user.image = null;
+        $q.all([
+                UserService.removeUser(user),
+                ImageService.removeFileUser(userImage)
+            ])
+            .then(function(data) {
+                init(); 
+                $scope.msg.success = 'MSG.USER.REMOVE.SUCCESS';                
+            })
+            .catch(function() {
+                $scope.msg.error = 'MSG.USER.SEARCH.ERROR';
+            });
+    }
+
+    var builderUser = function(users) {
         $scope.users = _.map(users, function(user) {
             return UserBuilder.createUser(user, null);
         })

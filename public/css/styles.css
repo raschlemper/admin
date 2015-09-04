@@ -36,7 +36,6 @@ fieldset legend {
 }
 
 #menu ul.navbar-right i {
-    font-size: 12pt;
     color: #eee;
 }
 
@@ -53,8 +52,9 @@ fieldset legend {
 
 .img-size img {
     width: 75px;
-    height: 75px;
-    margin: -5px 0 0 -5px;
+    height: 90px;
+    margin-top: -8px;
+    margin-left: -5px;
 }
 
 .user-image-size {
