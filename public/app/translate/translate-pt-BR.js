@@ -6,8 +6,10 @@ app.config(['$translateProvider', function($translateProvider) {
     	'MENU.LIST': 'Lista',
     	'MENU.CREATE': 'Criar',
 
+        'TITLE.USER': 'Usuário',
     	'TITLE.USER.CREATE': 'Usuário - Cadastrar',
         'TITLE.USER.UPDATE': 'Usuário - Alterar',
+        'TITLE.SYSTEM.CREATE': 'Sistema - Cadastrar',
 
     	'NAV.CREATE': 'Cadastro',
     	'NAV.SYSTEMS': 'Sistemas',
@@ -30,6 +32,7 @@ app.config(['$translateProvider', function($translateProvider) {
         'BUTTON.ADD': 'Adicionar',
         'BUTTON.ADD.SYSTEM': 'Adicionar Sistema',
         'BUTTON.SAVE': 'Salvar',
+        'BUTTON.EDIT': 'Editar',
         'BUTTON.CANCEL': 'Cancelar',
         'BUTTON.REMOVE.IMAGE': 'Remover Imagem',
 

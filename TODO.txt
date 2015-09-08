@@ -26,5 +26,6 @@ TODO:
 24 - Bloquear o botão de remover image quando não houver image, e quando ela tiver sido inserida e não salva, permiti que o usuário remova ela - ok
 25 - Criar uma tabela para salvar as imagens ???
 26 - Criar uma js para os valores de constantes no node
+27 - Colocar um botão para excluir o sistema do usuário
 
 *** Verificar se a imagem continua salvando de maneira correta ***

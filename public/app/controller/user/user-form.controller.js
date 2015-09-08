@@ -6,6 +6,7 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
 
     var init = function() {    
         $scope.genders = LISTS.gender;
+        $scope.user = {};
         $scope.files = []; 
         $scope.msg = { success: null, error: null };
         $scope.getUser();

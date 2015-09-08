@@ -11,7 +11,7 @@
                 <div class="row">
 
                     <div class="col-md-9">
-                        <legend translate><span translate="{{titlePage}}"/></legend>
+                        <legend translate><span translate="TITLE.USER"/></legend>
                     </div>    
 
                     <div class="col-md-3">
@@ -19,95 +19,62 @@
                             <button type="button" class="btn btn-danger" app-href="/users">
                                 <i class="fa fa-chevron-circle-left"></i><span translate="BUTTON.CANCEL"/>
                             </button>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-check-circle"></i><span translate="BUTTON.SAVE"/>
+                            <button type="submit" class="btn btn-primary" app-href="/user/update/{{user.id}}">
+                                <i class="fa fa-pencil-square-o"></i><span translate="BUTTON.EDIT"/>
                             </button>
                         </div>
                     </div>
 
                 </div>
-                    <div class="">
 
-                        <div class="row height-full">
+                <div>
 
-                            <div class="col-lg-3">
+                    <div class="row height-full">
 
-                                <div ngf-drop ngf-select ng-model="files" class="drop-box" ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true" accept="image/*">
-                                    <img id="image" name="image" ngf-src="files[0]" ngf-default-src="{{user.image.full}}" ngf-accept="'image/*'" class="center-block img-thumbnail user-image-size">
-                                </div>
-                                <div ngf-no-file-drop><span translate="MSG.DRAG_DROP.NOT_SUPORTTED"/></div>
-                                <!-- 
-                                    <h6 class="text-center title-file">
-                                        <strong>{{files[0].name || user.image.name}}</strong>
-                                    </h6> 
-                                -->
-                                <h6 class="text-center">
-                                    <button type="button" class="btn btn-danger btn-xs" ng-click="removeImage()"
-                                        ng-disabled="statusImageButton" >
-                                        <i class="fa fa-times-circle"></i><span class="rem-image" translate="BUTTON.REMOVE.IMAGE"/>
-                                    </button>
-                                    
-                                </h6>
-
-                            </div>
-
-                            <div class="col-lg-9">
-
-                                <div class="form-group" ng-class="{ 'has-success': form.gender.$valid && submitted,
-                                                                    'has-error': form.gender.$invalid && submitted }">
-                                    <label class="col-md-2 control-label" for="gender"><span translate="LABEL.GENDER"/>:</label>
-                                    <div class="col-md-3">
-                                        <select class="form-control" name="gender" id="gender" ng-model="user.gender" required>
-                                            <option value="{{gender.code}}" ng-repeat="gender in genders track by $index">
-                                                {{gender.descricao}}
-                                            </option>
-                                        </select>
-                                        <p class="help-block" ng-show="form.gender.$error.required && submitted"><span translate="MSG.ITEM.CHOOSE.ONE"/></p>
-                                    </div>
-                                </div>
-
-                                <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
-                                                                    'has-error': form.name.$invalid && submitted }">
-                                    <label class="col-md-2 control-label" for="name"><span translate="LABEL.NAME"/>:</label>
-                                    <div class="col-md-6">
-                                        <input type="text" name="name" id="name" class="form-control" ng-model="user.name" required>
-                                        <p class="help-block" ng-show="form.name.$error.required && submitted"><span translate="MSG.USER.NAME"/></p>
-                                    </div>
-                                </div>
-
-                                <div class="form-group" ng-class="{ 'has-success': form.lastname.$valid && submitted,
-                                                                    'has-error': form.lastname.$invalid && submitted }">
-                                    <label class="col-md-2 control-label" for="lastname"><span translate="LABEL.LASTNAME"/>:</label>
-                                    <div class="col-md-5">
-                                        <input type="text" name="lastname" id="lastname" class="form-control" ng-model="user.lastname" required>
-                                        <p class="help-block" ng-show="form.lastname.$error.required && submitted"><span translate="MSG.USER.LASTNAME"/></p>
-                                    </div>
-                                </div>
-
-                                <div class="form-group" ng-class="{ 'has-success': form.username.$valid && submitted,
-                                                                    'has-error': form.username.$invalid && submitted }">
-                                    <label class="col-md-2 control-label" for="name"><span translate="LABEL.USERNAME"/>:</label>
-                                    <div class="col-md-4">
-                                        <input type="text" name="username" id="username" class="form-control" ng-model="user.username" required>
-                                        <p class="help-block" ng-show="form.username.$error.required && submitted"><span translate="MSG.USER.USERNAME"/></p>
-                                    </div>
-                                </div>
-
-                                <div class="form-group" ng-class="{ 'has-success': form.email.$valid && submitted,
-                                                                    'has-error': form.email.$invalid && submitted }">
-                                    <label class="col-md-2 control-label" for="email"><span translate="LABEL.EMAIL"/>:</label>
-                                    <div class="col-md-5">
-                                        <input type="email" name="email" id="email" class="form-control" ng-model="user.email" required>
-                                        <p class="help-block" ng-show="form.email.$error.required && submitted"><span translate="MSG.USER.EMAIL"/></p>
-                                        <p class="help-block" ng-show="form.email.$error.email && submitted"><span translate="MSG.VALID.EMAIL"/></p>
-                                    </div>
-                                </div>
-
-                            </div>
+                        <div class="col-lg-2">
+                            <img check-image ng-src="{{user.image.full}}" class="center-block img-thumbnail user-image-size">
                         </div>
 
+                        <div class="col-lg-6">
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+
+                                    <p class="list-item-text text-right"><strong><span translate="LABEL.NAME"/>:</strong></p>
+                                    <p class="list-item-text text-right"><strong><span translate="LABEL.USERNAME"/>:</strong></p>
+                                    <p class="list-item-text text-right"><strong><span translate="LABEL.GENDER"/>:</strong></p>
+                                    <p class="list-item-text text-right"><strong><span translate="LABEL.EMAIL"/>:</strong></p>
+
+                                </div>    
+
+                                <div class="col-md-8">
+
+                                    <p class="list-item-text"><i>{{user.fullname}}</i></p>
+                                    <p class="list-item-text"><i>{{user.username}}</i></p>
+                                    <p class="list-item-text"><i>{{user.gender}}</i></p>
+                                    <p class="list-item-text"><i>{{user.email}}</i></p>
+
+                                </div>    
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-4">
+
+                            <!-- Colocar os sistemas do usuário -->
+
+                        </div>
+
+                    </div>
+
                 </div>
+
             </fieldset>
+        
         </form>
+    
     </div>
+
 </div>

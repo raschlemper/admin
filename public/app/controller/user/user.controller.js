@@ -1,12 +1,13 @@
 'use strict';
 
-app.controller('UserCtrl', function($scope, UserService, PaginationService, UserBuilder) {
+app.controller('UserCtrl', function($scope, $q, $stateParams, UserService, ImageService, PaginationService, UserBuilder) {
 
     var init = function() {
         $scope.users = [];
         $scope.pagination = PaginationService.pagination;
         $scope.list = PaginationService.list;
         $scope.getAllUsers(); 
+        $scope.getUser();
         $scope.msg = { success: null, error: null };
     }
 
@@ -27,7 +28,6 @@ app.controller('UserCtrl', function($scope, UserService, PaginationService, User
         UserService.getUser($stateParams.id)
             .then(function(data) {
                 $scope.user = UserBuilder.createUser(data, null);
-                $scope.files[0] = null;
             })
             .catch(function() {
                 $scope.user = {};

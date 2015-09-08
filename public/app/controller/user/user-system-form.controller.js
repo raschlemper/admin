@@ -3,91 +3,23 @@
 app.controller('UserSystemFormCtrl', function($scope, $location, $stateParams, $filter, $q,
     UserBuilder, SystemBuilder, UserService, SystemService, ImageService, DateService, FORMAT, LISTS) {
 
-    var initDefault = function() {      
-        $scope.providers = LISTS.providers;
+    var init = function() {    
         $scope.roles = LISTS.roles;
         $scope.periodos = LISTS.periodos;
         $scope.format = FORMAT.date;
-        $scope.image = {};
+        $scope.user = {};
         $scope.systems = [];
-        $scope.files = [];    
-    }
-
-    var init = function() {  
-        initDefault();
-        $scope.user = UserBuilder.createUserDefault();
         $scope.msg = { success: null, error: null };
         $scope.systemSelection = null;
         $scope.getUser();
         $scope.getAllSystems();
-        AppFunction.tabUserCreate();
-        if (!$stateParams.id) { $scope.titlePage = 'TITLE.USER.CREATE'; }
-        else { $scope.titlePage = 'TITLE.USER.UPDATE'; }
-    }
+    };
     
     var resetForm = function(form, data) {
         form.$setPristine();
         $scope.submitted = false;
-        if(!data) { 
-            init(); 
-        } else { 
-            initDefault(); 
-            $scope.user = UserBuilder.getUser(data);
-        }
+        init(); 
     } 
-
-    // USER
-
-    $scope.getUser = function() {
-        if (!$stateParams.id) return;
-        UserService.getUser($stateParams.id)
-            .then(function(data) {
-                $scope.user = UserBuilder.getUser(data);
-                $scope.files[0] = $scope.user.image.full;
-            })
-            .catch(function() {
-                $scope.user = {};
-            });
-    }
-
-    $scope.getAllSystems = function() {
-        SystemService.allSystems()
-            .then(function(data) {
-                $scope.systems = setUpSystems(data);
-            })
-            .catch(function() {
-                $scope.systems = [];
-            });
-    };
-
-    $scope.existSystem = function(system) {
-        return _.contains($scope.user.systems, system);
-    };
-
-    var setUpSystems = function(systems) {
-        return _.map(systems, function(system) {
-            system.show = !$scope.existSystem(system);
-            return SystemBuilder.createSystem(system);
-        })
-    };
-
-    $scope.removerImage = function(user) {
-        var userImage = angular.copy(user);
-        user.image = null;
-        $q.all([
-                UserService.updateUser(user),
-                ImageService.removeFileUser(userImage)
-            ])
-            .then(function(data) {
-                resetForm(form, data[0]);
-                $scope.msg.success = 'MSG.IMAGE.REMOVE.SUCCESS';                
-            })
-            .catch(function() {
-                $scope.msg.error = 'MSG.IMAGE.REMOVE.ERROR';
-            });
-    }
-
-    // SYSTEM
 
     $scope.$watch('systemSelection.periodo', function(newVal, oldVal) {
         if(!$scope.systemSelection) return;
@@ -109,6 +41,39 @@ app.controller('UserSystemFormCtrl', function($scope, $location, $stateParams, $
             verifyDate();
         }
     });
+
+    $scope.getUser = function() {        
+        $scope.user = UserBuilder.createUserDefault();
+        if (!$stateParams.id) return;
+        UserService.getUser($stateParams.id)
+            .then(function(data) {
+                $scope.user = UserBuilder.createUser(data, null);
+            })
+            .catch(function() {
+                $scope.user = {};
+            });
+    };
+
+    $scope.getAllSystems = function() {
+        SystemService.allSystems()
+            .then(function(data) {
+                $scope.systems = setUpSystems(data);
+            })
+            .catch(function() {
+                $scope.systems = [];
+            });
+    };
+
+    $scope.existSystem = function(system) {
+        return _.contains($scope.systems, system);
+    };
+
+    var setUpSystems = function(systems) {
+        return _.map(systems, function(system) {
+            system.show = !$scope.existSystem(system);
+            return SystemBuilder.createSystem(system);
+        })
+    };
 
     $scope.getDate = function(periodo) {
         var dateInitial = new Date();

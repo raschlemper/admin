@@ -79,6 +79,10 @@ fieldset legend {
     margin-top: 10px;
 }
 
+.list-item-text {
+    padding-bottom: 10px;
+}
+
 .list-group-item-text strong {
     color: #999;
 }
