@@ -2,7 +2,7 @@
 
 app.factory('UserService', function($http, $q, $resource, PromiseTrackerService, ImageService) {
 
-    var UserResource = $resource('/users/:id', {
+    var UserResource = $resource('/api/users/:id', {
         id: '@id'
     }, {
         getAll: {

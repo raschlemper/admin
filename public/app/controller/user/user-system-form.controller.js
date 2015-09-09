@@ -44,8 +44,8 @@ app.controller('UserSystemFormCtrl', function($scope, $location, $stateParams, $
 
     $scope.getUser = function() {        
         $scope.user = UserBuilder.createUserDefault();
-        if (!$stateParams.id) return;
-        UserService.getUser($stateParams.id)
+        if (!$stateParams.idUser) return;
+        UserService.getUser($stateParams.idUser)
             .then(function(data) {
                 $scope.user = UserBuilder.createUser(data, null);
             })

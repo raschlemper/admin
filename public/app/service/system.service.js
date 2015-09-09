@@ -2,7 +2,7 @@
 
 app.factory('SystemService', function($resource) {
 
-    var System = $resource('/systems/:id', {
+    var System = $resource('/api/systems/:id', {
         id: '@id'
     }, {
         getAll: {

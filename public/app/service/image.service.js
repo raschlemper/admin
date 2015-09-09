@@ -22,7 +22,7 @@ app.factory('ImageService', function($q, $http, Upload) {
         var cb = callback || angular.noop;
         var deferred = $q.defer();
         Upload.upload({
-            url: '/image/user/',
+            url: '/api/image/user/',
             fields: { 'name': user.image.name },
             file: user.image.file
         })
@@ -43,7 +43,7 @@ app.factory('ImageService', function($q, $http, Upload) {
         var deferred = $q.defer();
         if (file) {
             Upload.upload({
-                url: '/image/',
+                url: '/api/image/',
                 fields: {'name': name},
                 file: file
             })
@@ -63,7 +63,7 @@ app.factory('ImageService', function($q, $http, Upload) {
     var removeFileUser = function(user, callback) { 
         var cb = callback || angular.noop;       
         var deferred = $q.defer();
-        $http.post('/image/user/remove/', {
+        $http.post('/api/image/user/remove/', {
             'name': user.image.name
         })
         .success(function(data) { 

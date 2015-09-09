@@ -3,7 +3,7 @@ body {
 }
 
 #main {
-    margin-top: 45px !important;
+    margin-top: 50px !important;
 }
 
 #footer {
@@ -80,7 +80,7 @@ fieldset legend {
 }
 
 .list-item-text {
-    padding-bottom: 10px;
+    padding-bottom: 5px;
 }
 
 .list-group-item-text strong {

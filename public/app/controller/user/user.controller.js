@@ -24,8 +24,8 @@ app.controller('UserCtrl', function($scope, $q, $stateParams, UserService, Image
 
     $scope.getUser = function() {        
         $scope.user = UserBuilder.createUserDefault();
-        if (!$stateParams.id) return;
-        UserService.getUser($stateParams.id)
+        if (!$stateParams.idUser) return;
+        UserService.getUser($stateParams.idUser)
             .then(function(data) {
                 $scope.user = UserBuilder.createUser(data, null);
             })

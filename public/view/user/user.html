@@ -2,78 +2,85 @@
 
     <message success="msg.success" error="msg.error" dismiss="false" />
 
-    <div class="bs-component">
-
-        <form class="form-horizontal" role="form" class="form" name="form" ng-submit="saveUser(form)" novalidate>
+    <div class="">
             
-            <fieldset>
+        <fieldset>
 
-                <div class="row">
+            <div class="row">
 
-                    <div class="col-md-9">
-                        <legend translate><span translate="TITLE.USER"/></legend>
-                    </div>    
+                <div class="col-md-9">
+                    <legend translate><span translate="TITLE.USER"/></legend>
+                </div>    
 
-                    <div class="col-md-3">
-                        <div class="form-actions text-right">
-                            <button type="button" class="btn btn-danger" app-href="/users">
-                                <i class="fa fa-chevron-circle-left"></i><span translate="BUTTON.CANCEL"/>
-                            </button>
-                            <button type="submit" class="btn btn-primary" app-href="/user/update/{{user.id}}">
-                                <i class="fa fa-pencil-square-o"></i><span translate="BUTTON.EDIT"/>
-                            </button>
-                        </div>
+                <div class="col-md-3">
+                    <div class="form-actions text-right">
+                        <button class="btn btn-danger" ui-sref="users">
+                            <i class="fa fa-chevron-circle-left"></i><span translate="BUTTON.CANCEL"/>
+                        </button>
+                        <button class="btn btn-primary" ui-sref="userEdit({idUser: user.id})">
+                            <i class="fa fa-pencil-square-o"></i><span translate="BUTTON.EDIT"/>
+                        </button>
                     </div>
-
                 </div>
 
-                <div>
+            </div>
 
-                    <div class="row height-full">
+            <div>
 
-                        <div class="col-lg-2">
-                            <img check-image ng-src="{{user.image.full}}" class="center-block img-thumbnail user-image-size">
+                <div class="row height-full">
+
+                    <div class="col-lg-3">
+                        <img check-image ng-src="{{user.image.full}}" class="center-block img-thumbnail user-image-size">
+                    </div>
+
+                    <div class="col-lg-5">
+
+                        <div class="row">
+
+                            <div class="col-md-3">
+
+                                <p class="list-item-text text-right"><strong><span translate="LABEL.NAME"/>:</strong></p>
+                                <p class="list-item-text text-right"><strong><span translate="LABEL.USERNAME"/>:</strong></p>
+                                <p class="list-item-text text-right"><strong><span translate="LABEL.GENDER"/>:</strong></p>
+                                <p class="list-item-text text-right"><strong><span translate="LABEL.EMAIL"/>:</strong></p>
+
+                            </div>    
+
+                            <div class="col-md-9">
+
+                                <p class="list-item-text"><i>{{user.fullname}}</i></p>
+                                <p class="list-item-text"><i>{{user.username}}</i></p>
+                                <p class="list-item-text"><i>{{user.gender}}</i></p>
+                                <p class="list-item-text"><i>{{user.email}}</i></p>
+
+                            </div>    
+
                         </div>
 
-                        <div class="col-lg-6">
+                    </div>
 
-                            <div class="row">
+                    <div class="col-lg-4">                        
 
-                                <div class="col-md-4">
-
-                                    <p class="list-item-text text-right"><strong><span translate="LABEL.NAME"/>:</strong></p>
-                                    <p class="list-item-text text-right"><strong><span translate="LABEL.USERNAME"/>:</strong></p>
-                                    <p class="list-item-text text-right"><strong><span translate="LABEL.GENDER"/>:</strong></p>
-                                    <p class="list-item-text text-right"><strong><span translate="LABEL.EMAIL"/>:</strong></p>
-
-                                </div>    
-
-                                <div class="col-md-8">
-
-                                    <p class="list-item-text"><i>{{user.fullname}}</i></p>
-                                    <p class="list-item-text"><i>{{user.username}}</i></p>
-                                    <p class="list-item-text"><i>{{user.gender}}</i></p>
-                                    <p class="list-item-text"><i>{{user.email}}</i></p>
-
-                                </div>    
-
+                        <div class="list-group list-group-overflow">
+                            <div class="list-group-item list-group-item-link center-block" ui-sref="userSystemEdit({idUser: user.id, idSystem: system.id})" ng-repeat="system in user.systems track by $index">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <i class="fa fa-{{system.icon.image}} icon icon-radius" ng-class="system.icon.color"></i> {{system.name}}
+                                    </div>
+                                    <div class="col-md-2 text-right normal">
+                                        <i class="fa fa-pencil-square-o icon"></i>teste - {{system.id}}
+                                    </div>
+                                </div>
                             </div>
-
-                        </div>
-
-                        <div class="col-lg-4">
-
-                            <!-- Colocar os sistemas do usuário -->
-
                         </div>
 
                     </div>
 
                 </div>
 
-            </fieldset>
-        
-        </form>
+            </div>
+
+        </fieldset>
     
     </div>
 

@@ -7,9 +7,9 @@
 module.exports = function(app) {
 
   // Insert routes below
-  app.use('/users', require('./api/user'));
-  app.use('/systems', require('./api/system'));
-  app.use('/image', require('./api/image'));
+  app.use('/api/users', require('./api/user'));
+  app.use('/api/systems', require('./api/system'));
+  app.use('/api/image', require('./api/image'));
 
   // All other routes should redirect to the index.html
   app.route('/*')

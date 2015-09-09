@@ -11,7 +11,7 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         $scope.msg = { success: null, error: null };
         $scope.getUser();
         statusImageButton();
-        if (!$stateParams.id) { $scope.titlePage = 'TITLE.USER.CREATE'; }
+        if (!$stateParams.idUser) { $scope.titlePage = 'TITLE.USER.CREATE'; }
         else { $scope.titlePage = 'TITLE.USER.UPDATE'; }
     };
     
@@ -33,8 +33,8 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
 
     $scope.getUser = function() {        
         $scope.user = UserBuilder.createUserDefault();
-        if (!$stateParams.id) return;
-        UserService.getUser($stateParams.id)
+        if (!$stateParams.idUser) return;
+        UserService.getUser($stateParams.idUser)
             .then(function(data) {
                 $scope.user = UserBuilder.createUser(data, null);
                 $scope.files[0] = null;

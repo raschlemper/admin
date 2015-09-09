@@ -12,7 +12,7 @@
 
                 <div class="col-md-2">
                     <div class="form-actions text-right">
-                            <button class="btn btn-primary" ui-sref="userCreate">
+                        <button class="btn btn-primary" ui-sref="userCreate">
                             <i class="fa fa-plus-circle"></i><span translate="BUTTON.ADD"/>
                         </button>
                     </div>
@@ -51,13 +51,13 @@
                                     </p>
                                 </div>
                                 <div class="col-md-4 text-center">
-                                    <button class="btn btn-warning" ui-sref="userView({id: user.id})">
+                                    <button class="btn btn-warning" ui-sref="userView({idUser: user.id})">
                                         <i class="fa fa-eye fa-lg"></i>
                                     </button>
-                                    <button class="btn btn-success" ui-sref="userSystem({id: user.id})">
+                                    <button class="btn btn-success" ui-sref="userSystem({idUser: user.id})">
                                         <i class="fa fa-th-large fa-lg"></i>
                                     </button>
-                                    <button class="btn btn-info" ui-sref="userEdit({id: user.id})">
+                                    <button class="btn btn-info" ui-sref="userEdit({idUser: user.id})">
                                         <i class="fa fa-edit fa-lg"></i>
                                     </button>
                                     <button class="btn btn-danger" ng-click="removeUser(user)">
