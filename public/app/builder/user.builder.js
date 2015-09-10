@@ -34,7 +34,7 @@ app.factory('UserBuilder', function(User, ImageBuilder, LISTS) {
 	var addSystems = function(obj, systems) {
 		_.map(systems, function(system) {
 			obj.addSystems(
-				system.id, 
+				system._id, 
 				system.role, 
 				system.dateInitial, 
 				system.dateFinal,

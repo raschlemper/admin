@@ -23,6 +23,7 @@ app.factory('User', function() {
 			var result = {};
 			if(system) {			
 				_.extend(result, {
+					idSystem: system._id,
 					name: system.name,
 					description: system.description,
 					icon: system.icon,

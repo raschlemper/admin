@@ -58,7 +58,6 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
     }
 
     var createUser = function(form) { 
-        // var user = UserBuilder.createUser($scope.user, $scope.files[0]);
         if($scope.user.image.file) { 
             createUserWithImage(form, $scope.user); 
         } else { 

@@ -54,6 +54,8 @@ app.config(['$translateProvider', function($translateProvider) {
         'MSG.USER.REMOVE.ERROR': 'Problemas ao remover o usuário!',
         'MSG.IMAGE.REMOVE.SUCCESS': 'Imagem removida com sucesso!',
         'MSG.IMAGE.REMOVE.ERROR': 'Problemas ao remover a imagem!',
+        'MSG.SYSTEM.UPDATE.SUCCESS': 'Sistema do usuário alterado com sucesso!',
+        'MSG.SYSTEM.UPDATE.ERROR': 'Problemas ao alterar o sistema do usuário!',
         'MSG.DRAG_DROP.NOT_SUPORTTED': 'Arquivo Drag/Drop não suportado neste navegador!'
 
     });

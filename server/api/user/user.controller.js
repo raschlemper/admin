@@ -108,7 +108,7 @@ var populateUserSystems = function(req) {
     var systems = [];
     _.map(req.body.systems, function(system) {
         systems.push({
-            system: system._id,
+            system: system.idSystem,
             role: system.role,
             dateInitial: system.dateInitial,
             dateFinal: system.dateFinal
@@ -132,33 +132,3 @@ var populateUserImageCreate = function(req, user) {
     image.format = user.image.format;
     user.image = image;
 }
-
-// var saveImage = function(user, req, res, next) {
-//     if(!req.files) { return; }
-//     if(!req.files.file) { return; }
-//     var file = req.files.file;
-//     var name = Image.fileName(file.type, req.body.name);
-//     Image.removeImageUser(file, name); 
-//     Image.createImageUser(file, name); 
-// }
-
-// var saveImage = function(req, res, next) {
-//     if(!req.files.file) { next(); }
-//     var file = req.files.file;
-//     var name = Image.fileName(file.type, req.body.name);
-//     User.update( 
-//         { 'name': req.body.name, 'email': req.body.email }, 
-//         { 'image': name },
-//         function(err, numberAffected, user) {
-//             if (err) return res.send(500, err);
-//             res.json(200, user);
-//         });
-// }
-
-// exports.createWithImage = function() {
-//     return compose() 
-//         .use(function(req, res, next) {
-//         })
-//         .use(function(req, res, next) {
-//         });
-// };

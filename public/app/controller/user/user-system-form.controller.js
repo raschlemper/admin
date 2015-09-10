@@ -11,8 +11,8 @@ app.controller('UserSystemFormCtrl', function($scope, $location, $stateParams, $
         $scope.systems = [];
         $scope.msg = { success: null, error: null };
         $scope.systemSelection = null;
-        $scope.getUser();
-        $scope.getAllSystems();
+        $scope.getSystems();
+        // $scope.getAllSystems();
     };
     
     var resetForm = function(form, data) {
@@ -42,31 +42,71 @@ app.controller('UserSystemFormCtrl', function($scope, $location, $stateParams, $
         }
     });
 
-    $scope.getUser = function() {        
-        $scope.user = UserBuilder.createUserDefault();
-        if (!$stateParams.idUser) return;
-        UserService.getUser($stateParams.idUser)
+    $scope.saveUser = function(form) {  
+        UserService.updateUser($scope.user)
             .then(function(data) {
-                $scope.user = UserBuilder.createUser(data, null);
+                resetForm(form, data);
+                $scope.msg.success = 'MSG.SYSTEM.UPDATE.SUCCESS';                
+            })
+            .catch(function() {
+                $scope.msg.error = 'MSG.SYSTEM.UPDATE.ERROR';
+            });
+        
+    }
+
+    $scope.getSystems = function() {        
+        $q.all([
+                UserService.getUser($stateParams.idUser),
+                SystemService.allSystems()
+            ])
+            .then(function(data) {
+                if(data[0]) { $scope.user = UserBuilder.createUser(data[0], null); }
+                if(data[1]) {
+                    $scope.systems = setUpSystems(data[1]);
+                    getSystemSelection($scope.systems);
+                }
             })
             .catch(function() {
                 $scope.user = {};
-            });
-    };
-
-    $scope.getAllSystems = function() {
-        SystemService.allSystems()
-            .then(function(data) {
-                $scope.systems = setUpSystems(data);
-            })
-            .catch(function() {
                 $scope.systems = [];
             });
-    };
+    }
+
+    // $scope.getUser = function() {        
+    //     $scope.user = UserBuilder.createUserDefault();
+    //     if (!$stateParams.idUser) return;
+    //     return UserService.getUser($stateParams.idUser)
+    //         .then(function(data) {
+    //             $scope.user = UserBuilder.createUser(data, null);
+    //         })
+    //         .catch(function() {
+    //             $scope.user = {};
+    //         });
+    // };
+
+    // $scope.getAllSystems = function() {
+    //     SystemService.allSystems()
+    //         .then(function(data) {
+    //             $scope.systems = setUpSystems(data);
+    //             getSystemSelection($scope.systems);
+    //         })
+    //         .catch(function() {
+    //             $scope.systems = [];
+    //         });
+    // };
 
     $scope.existSystem = function(system) {
         return _.contains($scope.systems, system);
     };
+
+    var getSystemSelection = function(systems) {
+        if (!$stateParams.idSystem) return;
+        _.map(systems, function(system) {
+            if(system.id === $stateParams.idSystem) {
+                $scope.systemSelection = system;
+            }
+        })
+    }
 
     var setUpSystems = function(systems) {
         return _.map(systems, function(system) {

@@ -62,13 +62,13 @@
                     <div class="col-lg-4">                        
 
                         <div class="list-group list-group-overflow">
-                            <div class="list-group-item list-group-item-link center-block" ui-sref="userSystemEdit({idUser: user.id, idSystem: system.id})" ng-repeat="system in user.systems track by $index">
+                            <div class="list-group-item list-group-item-link center-block" ui-sref="userSystemEdit({idUser: user.id, idSystem: system.idSystem})" ng-repeat="system in user.systems track by $index">
                                 <div class="row">
                                     <div class="col-md-10">
                                         <i class="fa fa-{{system.icon.image}} icon icon-radius" ng-class="system.icon.color"></i> {{system.name}}
                                     </div>
                                     <div class="col-md-2 text-right normal">
-                                        <i class="fa fa-pencil-square-o icon"></i>teste - {{system.id}}
+                                        <i class="fa fa-pencil-square-o icon"></i>
                                     </div>
                                 </div>
                             </div>

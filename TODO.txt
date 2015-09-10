@@ -27,5 +27,9 @@ TODO:
 25 - Criar uma tabela para salvar as imagens ???
 26 - Criar uma js para os valores de constantes no node
 27 - Colocar um botão para excluir o sistema do usuário
+28 - Colocar o método reset form para uma classe extra e passar a function init como parametro
+29 - Bloquear os botões de salvar enquanto os campos não estiverem preenchidos
+30 - Os checkboxs do período esta sumindo quando clico no sistema
+31 - Fazer a montagem do sistema utilizando também o sistema cadastrado do usuário 
 
 *** Verificar se a imagem continua salvando de maneira correta ***
