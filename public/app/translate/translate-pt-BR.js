@@ -2,8 +2,9 @@ app.config(['$translateProvider', function($translateProvider) {
 
     $translateProvider.translations('pt_BR', {
 
-    	'MENU.USERS': 'Usuário',
-    	'MENU.LIST': 'Lista',
+        'MENU.HOME': 'Home',
+    	'MENU.USERS': 'Usuários',
+    	'MENU.USER.CREATE': 'Cadastrar',
     	'MENU.CREATE': 'Criar',
 
         'TITLE.USER': 'Usuário',
@@ -28,6 +29,10 @@ app.config(['$translateProvider', function($translateProvider) {
         'LABEL.DE': 'De',
         'LABEL.ATE': 'Até',
         'LABEL.ACOES': 'Ações',
+        'LABEL.VIEW': 'Visualizar',
+        'LABEL.SYSTEMS': 'Sistemas',
+        'LABEL.EDIT': 'Editar',
+        'LABEL.REMOVE': 'Excluir',
 
         'BUTTON.ADD': 'Adicionar',
         'BUTTON.ADD.SYSTEM': 'Adicionar Sistema',

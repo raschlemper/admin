@@ -1,9 +1,9 @@
 body {
-    background-color: #FAFAFA;
+    background-color: #EEE;
 }
 
 #main {
-    margin-top: 50px !important;
+    margin-top: 90px !important;
 }
 
 #footer {
@@ -27,8 +27,36 @@ button span {
     padding-left: 8px;
 }
 
+a i span {
+    padding-left: 8px;
+}
+
+a i span:hover {
+    padding-left: 8px;
+    text-decoration: underline;
+}
+
+a span {
+    cursor: pointer;
+}
+
 fieldset legend {
     margin-top: 8px;
+}
+
+#menu {
+    background-color: #008CBA;
+    border-color: #e7e7e7;
+}
+
+#menu .navbar-nav>li>a,
+#menu .navbar-brand {
+    color: #FFF;
+}
+
+#menu .navbar-nav>li>a:hover,
+#menu .navbar-brand:hover {
+    color: #eee;
 }
 
 #menu ul.navbar-right {
@@ -36,7 +64,27 @@ fieldset legend {
 }
 
 #menu ul.navbar-right i {
-    color: #eee;
+    /*color: #eee;*/
+}
+
+#submenu {
+    top: 50px;
+    min-height: 40px !important;
+}
+
+#submenu ol {
+    padding-top: 8px;
+    list-style: none;
+}
+
+#submenu ol li {
+    display: inline-block;
+}
+
+#submenu ol li + li:before {
+    padding: 0 5px;
+    color: #ccc;
+    content: "/\00a0";
 }
 
 .line-user {
@@ -46,11 +94,24 @@ fieldset legend {
 
 .img-size {
     overflow: hidden;
+    width: 35px;
+    height: 35px;
+}
+
+.img-size img {
+    width: 35px;
+    height: 45px;
+    margin-top: -5px;
+    margin-left: -4px;
+}
+
+.img-size-list {
+    overflow: hidden;
     width: 75px;
     height: 75px;
 }
 
-.img-size img {
+.img-size-list img {
     width: 75px;
     height: 90px;
     margin-top: -8px;

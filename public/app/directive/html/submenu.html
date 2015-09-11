@@ -1,0 +1,21 @@
+<nav class="navbar navbar-default navbar-fixed-top" id="submenu">
+    <div class="container">
+
+        <ol>
+
+            <li>
+            	<a ui-sref="home">
+            		<i class="fa fa-home"><span translate="MENU.HOME"/></i>
+            	</a>
+            </li>
+
+            <li ng-repeat="menu in menus">
+            	<a ui-sref="{{menu.state}}"><span translate="{{menu.label}}"/></a>
+            </li>
+
+            <li class="active"><span translate="{{currentMenu}}"/></li>
+            
+        </ol>       
+    
+    </div>
+</nav> 

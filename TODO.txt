@@ -31,5 +31,8 @@ TODO:
 29 - Bloquear os botões de salvar enquanto os campos não estiverem preenchidos
 30 - Os checkboxs do período esta sumindo quando clico no sistema
 31 - Fazer a montagem do sistema utilizando também o sistema cadastrado do usuário 
+32 - Colocar o sistema do usuario view em uma tab ou coisa assim
+33 - Colocar os sistemas para adicionar em um modal
+34 - Verificar pq a imagem não altera quando salvamos uma nova imagem (sempre mostra a anterior)
 
 *** Verificar se a imagem continua salvando de maneira correta ***
