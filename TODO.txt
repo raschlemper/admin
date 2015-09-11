@@ -34,5 +34,6 @@ TODO:
 32 - Colocar o sistema do usuario view em uma tab ou coisa assim
 33 - Colocar os sistemas para adicionar em um modal
 34 - Verificar pq a imagem não altera quando salvamos uma nova imagem (sempre mostra a anterior)
+35 - Rever o css, retirar os não utilizados, renomear, colocar em ordem, agrupando as informações
 
 *** Verificar se a imagem continua salvando de maneira correta ***

@@ -1,6 +1,6 @@
 <div class="col-md-12 col-sm-12 principal"> 
     
-    <submenu current-menu="MENU.USERS"></submenu>        
+    <submenu current-menu="MENU.USERS"/>      
 
     <message success="msg.success" error="msg.error" dismiss="false" />
 
@@ -37,15 +37,15 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="user in users | limitTo : list.begin(pagination.currentPage) | limitTo: list.size(pagination.currentPage, users.length)">
-                        <td>
+                        <td class="text-center">
                             <div class="center-block img-size img-thumbnail img-circle">
                                 <img check-image ng-src="{{user.image.full}}"/>
                             </div>    
                         </td>
-                        <td><i>{{user.fullname}}</i></td>
-                        <td><i>{{user.username}}</i></td>
-                        <td><i>{{user.email}}</i></td>
-                        <td><i>{{user.gender}}</i></td>
+                        <td class="vertical-text-center"><i>{{user.fullname}}</i></td>
+                        <td class="vertical-text-center"><i>{{user.username}}</i></td>
+                        <td class="vertical-text-center"><i>{{user.email}}</i></td>
+                        <td class="vertical-text-center"><i>{{user.gender}}</i></td>
                         <td class="text-center">
                             <button class="btn btn-warning" ui-sref="userView({idUser: user.id})">
                                 <i class="fa fa-eye fa-lg"></i>

@@ -10,12 +10,13 @@ app.directive( 'submenu', function ( ) {
 
         link: function(scope, element, attrs) {
             scope.menus = [];
+            var menuUser = { 'label': 'MENU.USERS', 'state': 'users' };
             if(scope.currentMenu === 'MENU.USERS') {
                 scope.menus = [];
             } else if(scope.currentMenu === 'MENU.USER.CREATE') {
-                scope.menus = [
-                    { 'label': 'MENU.USERS', 'state': 'users' }
-                ];
+                scope.menus = [ menuUser ];
+            } else if(scope.currentMenu === 'MENU.USER.VIEW') {
+                scope.menus = [ menuUser ];
             }
         }
 
