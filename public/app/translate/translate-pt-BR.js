@@ -12,7 +12,7 @@ app.config(['$translateProvider', function($translateProvider) {
         'TITLE.SYSTEMS': 'Sistemas',
     	'TITLE.USER.CREATE': 'Usuário - Cadastrar',
         'TITLE.USER.UPDATE': 'Usuário - Alterar',
-        'TITLE.SYSTEM.CREATE': 'Sistema - Cadastrar',
+        'TITLE.USER.SYSTEM.CREATE': 'Usuário - Cadastrar Sistema',
 
     	'NAV.CREATE': 'Cadastro',
     	'NAV.SYSTEMS': 'Sistemas',
@@ -26,6 +26,7 @@ app.config(['$translateProvider', function($translateProvider) {
         'LABEL.USERNAME': 'Username',
     	'LABEL.EMAIL': 'Email',
     	'LABEL.PASSWORD': 'Senha',
+        'LABEL.DESCRIPTION': 'Descrição',
         'LABEL.ROLE': 'Role',
         'LABEL.PERIOD': 'Período',
         'LABEL.DE': 'De',
@@ -36,6 +37,7 @@ app.config(['$translateProvider', function($translateProvider) {
         'LABEL.VIEW': 'Visualizar',
         'LABEL.SYSTEMS': 'Sistemas',
         'LABEL.EDIT': 'Editar',
+        'LABEL.ADD': 'Incluir',
         'LABEL.REMOVE': 'Excluir',
 
         'BUTTON.ADD': 'Adicionar',
@@ -53,6 +55,7 @@ app.config(['$translateProvider', function($translateProvider) {
         'MSG.USER.USERNAME': 'Digite o username do usuário.',
     	'MSG.USER.EMAIL': 'Digite o email do usuário.',
     	'MSG.USER.PASSWORD': 'Digite a senha do usuário.',
+        'MSG.USER.WITHOUT.SYSTEM': 'Não possui sistemas cadastrados!',
     	'MSG.VALID.EMAIL': 'Digite um email válido.',
         'MSG.USER.SEARCH.ERROR': 'Problemas ao pesquisar os usuários!',
         'MSG.USER.CREATE.SUCCESS': 'Usuário cadastrado com sucesso!',

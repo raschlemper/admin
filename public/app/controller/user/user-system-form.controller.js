@@ -96,7 +96,10 @@ app.controller('UserSystemFormCtrl', function($scope, $location, $stateParams, $
     // };
 
     $scope.existSystem = function(system) {
-        return _.contains($scope.systems, system);
+        var systemUser = _.find($scope.user.systems, function(userSystem){ 
+            return userSystem.idSystem === system._id;
+        });
+        return _.isEmpty(systemUser);
     };
 
     var getSystemSelection = function(systems) {

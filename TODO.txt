@@ -35,5 +35,6 @@ TODO:
 33 - Colocar os sistemas para adicionar em um modal
 34 - Verificar pq a imagem não altera quando salvamos uma nova imagem (sempre mostra a anterior)
 35 - Rever o css, retirar os não utilizados, renomear, colocar em ordem, agrupando as informações
+36 - Colorir a tabela de sistemas conforme o status do sistema do usuário (Cadastrado - Default; Vencido - Vermelho; 1 dia para vencer - Info; Não cadsatdo - Apagado (desabilitado))
 
 *** Verificar se a imagem continua salvando de maneira correta ***

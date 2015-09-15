@@ -1,0 +1,137 @@
+<div class="col-md-12 col-md-12 principal">
+
+    <submenu current-menu="MENU.USER.VIEW"/>
+
+    <message success="msg.success" error="msg.error" dismiss="false" />
+
+    <div>
+
+        <form class="form-horizontal" role="form" class="form" name="form" ng-submit="saveUser(form)" novalidate>
+            
+            <fieldset>
+
+                <div class="row">
+
+                    <div class="col-md-9">
+                        <legend translate><span translate="TITLE.USER.SYSTEM.CREATE"/></legend>
+                    </div>    
+
+                    <div class="col-md-3">
+                        <div class="form-actions text-right">
+                            <button type="button" class="btn btn-danger" ui-sref="users">
+                                <i class="fa fa-chevron-left"></i><span translate="BUTTON.CANCEL"/>
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-check"></i><span translate="BUTTON.SAVE"/>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row height-full block-info well">
+
+                    <div class="col-md-2">
+                        <img check-image ng-src="{{user.image.full}}" class="center-block img-thumbnail user-image-size">
+                    </div>
+
+                    <div class="col-md-10">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="list-group-item-heading">
+                                    <strong>{{user.fullname}}</strong>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="list-item-text">
+                                    <strong><span translate="LABEL.USERNAME"/>:</strong> <i>{{user.username}}</i>
+                                </p>
+                                <p class="list-item-text">
+                                    <strong><span translate="LABEL.GENDER"/>:</strong> <i>{{user.gender}}</i>
+                                </p>
+                                <p class="list-item-text">
+                                    <strong><span translate="LABEL.EMAIL"/>:</strong> <i>{{user.email}}</i>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row height-full">
+
+                    <div class="col-md-12">    
+
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th><span translate="LABEL.NAME"/></th>
+                                    <th><span translate="LABEL.DESCRIPTION"/></th>
+                                    <th><span translate="LABEL.ROLE"/></th>
+                                    <th><span translate="LABEL.DATE.BEGIN"/></th>
+                                    <th><span translate="LABEL.DATE.END"/></th>
+                                    <th class="text-center"><span translate="LABEL.VIEW"/></th>
+                                    <th class="text-center"><span translate="LABEL.ADD"/></th>
+                                    <th class="text-center"><span translate="LABEL.EDIT"/></th>
+                                    <th class="text-center"><span translate="LABEL.REMOVE"/></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="system in systems track by $index | limitTo : list.begin(pagination.currentPage) | limitTo: list.size(pagination.currentPage, users.length)">
+                                    <td class="text-center">
+                                        <i class="fa fa-{{system.icon.image}} icon icon-radius" ng-class="system.icon.color"></i>
+                                    </td>
+                                    <td class="vertical-text-center"><i>{{system.name}}</i></td>
+                                    <td class="vertical-text-center"><i>{{system.description}}</i></td>
+                                    <td class="vertical-text-center">
+                                        <i ng-show="!system.show">---</i>
+                                        <i ng-show="system.show">{{system.role | uppercase}}</i>
+                                    </td>
+                                    <td class="vertical-text-center">
+                                        <i ng-show="!system.show">---</i>
+                                        <i ng-show="system.show">{{system.dateInitial | date : 'dd/MM/yyyy'}}</i>
+                                    </td>
+                                    <td class="vertical-text-center">
+                                        <i ng-show="!system.show">---</i>
+                                        <i ng-show="system.show">{{system.dateFinal | date : 'dd/MM/yyyy'}}</i>
+                                    </td>
+                                    <td class="text-center">                            
+                                        <button class="btn btn-warning" ui-sref="userSystemEdit({idUser: user.id, idSystem: system.idSystem})" ng-disabled="!system.show">
+                                            <i class="fa fa-eye fa-lg"></i>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">                            
+                                        <button class="btn btn-primary" ui-sref="userSystemEdit({idUser: user.id, idSystem: system.idSystem})" ng-disabled="system.show">
+                                            <i class="fa fa-plus-circle fa-lg"></i>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">                            
+                                        <button class="btn btn-info" ui-sref="userSystemEdit({idUser: user.id, idSystem: system.idSystem})" ng-disabled="!system.show">
+                                            <i class="fa fa-edit fa-lg"></i>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">                            
+                                        <button class="btn btn-danger" ui-sref="userSystemEdit({idUser: user.id, idSystem: system.idSystem})" ng-disabled="!system.show">
+                                            <i class="fa fa-trash-o fa-lg"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>  
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+        </form>
+
+    </div>
+
+</div>
