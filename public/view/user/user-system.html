@@ -1,6 +1,6 @@
 <div class="col-md-12 col-md-12 principal">
 
-    <submenu current-menu="MENU.USER.VIEW"/>
+    <submenu current-menu="MENU.USER.SYSTEM"/>
 
     <message success="msg.success" error="msg.error" dismiss="false" />
 
@@ -69,56 +69,50 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th></th>
-                                    <th><span translate="LABEL.NAME"/></th>
-                                    <th><span translate="LABEL.DESCRIPTION"/></th>
-                                    <th><span translate="LABEL.ROLE"/></th>
-                                    <th><span translate="LABEL.DATE.BEGIN"/></th>
-                                    <th><span translate="LABEL.DATE.END"/></th>
-                                    <th class="text-center"><span translate="LABEL.VIEW"/></th>
-                                    <th class="text-center"><span translate="LABEL.ADD"/></th>
-                                    <th class="text-center"><span translate="LABEL.EDIT"/></th>
-                                    <th class="text-center"><span translate="LABEL.REMOVE"/></th>
+                                    <th class="col-md-1"></th>
+                                    <th class="col-md-1"><span translate="LABEL.NAME"/></th>
+                                    <th class="col-md-4"><span translate="LABEL.DESCRIPTION"/></th>
+                                    <th class="col-md-1 text-center"><span translate="LABEL.ROLE"/></th>
+                                    <th class="col-md-1 text-center"><span translate="LABEL.BEGIN"/></th>
+                                    <th class="col-md-1 text-center"><span translate="LABEL.END"/></th>
+                                    <th class="col-md-2 text-center"><span translate="LABEL.ACOES"/></th>
+                                    <th class="col-md-1 text-center"><span translate="LABEL.ADD"/></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="system in systems track by $index | limitTo : list.begin(pagination.currentPage) | limitTo: list.size(pagination.currentPage, users.length)">
-                                    <td class="text-center">
+                                    <td class="vertical-text-center text-center">
                                         <i class="fa fa-{{system.icon.image}} icon icon-radius" ng-class="system.icon.color"></i>
                                     </td>
                                     <td class="vertical-text-center"><i>{{system.name}}</i></td>
                                     <td class="vertical-text-center"><i>{{system.description}}</i></td>
-                                    <td class="vertical-text-center">
+                                    <td class="vertical-text-center text-center">
                                         <i ng-show="!system.show">---</i>
                                         <i ng-show="system.show">{{system.role | uppercase}}</i>
                                     </td>
-                                    <td class="vertical-text-center">
+                                    <td class="vertical-text-center text-center">
                                         <i ng-show="!system.show">---</i>
                                         <i ng-show="system.show">{{system.dateInitial | date : 'dd/MM/yyyy'}}</i>
                                     </td>
-                                    <td class="vertical-text-center">
+                                    <td class="vertical-text-center text-center">
                                         <i ng-show="!system.show">---</i>
                                         <i ng-show="system.show">{{system.dateFinal | date : 'dd/MM/yyyy'}}</i>
                                     </td>
                                     <td class="text-center">                            
-                                        <button class="btn btn-warning" ui-sref="userSystemEdit({idUser: user.id, idSystem: system.idSystem})" ng-disabled="!system.show">
+                                        <button class="btn btn-warning btn-sm" ui-sref="userSystemEdit({idUser: user.id, idSystem: system.idSystem})" ng-disabled="!system.show">
                                             <i class="fa fa-eye fa-lg"></i>
-                                        </button>
-                                    </td>
-                                    <td class="text-center">                            
-                                        <button class="btn btn-primary" ui-sref="userSystemEdit({idUser: user.id, idSystem: system.idSystem})" ng-disabled="system.show">
-                                            <i class="fa fa-plus-circle fa-lg"></i>
-                                        </button>
-                                    </td>
-                                    <td class="text-center">                            
-                                        <button class="btn btn-info" ui-sref="userSystemEdit({idUser: user.id, idSystem: system.idSystem})" ng-disabled="!system.show">
+                                        </button>     
+                                        <button class="btn btn-info btn-sm" ui-sref="userSystemEdit({idUser: user.id, idSystem: system.idSystem})" ng-disabled="!system.show">
                                             <i class="fa fa-edit fa-lg"></i>
-                                        </button>
-                                    </td>
-                                    <td class="text-center">                            
-                                        <button class="btn btn-danger" ui-sref="userSystemEdit({idUser: user.id, idSystem: system.idSystem})" ng-disabled="!system.show">
+                                        </button>                          
+                                        <button class="btn btn-danger btn-sm" ui-sref="userSystemEdit({idUser: user.id, idSystem: system.idSystem})" ng-disabled="!system.show">
                                             <i class="fa fa-trash-o fa-lg"></i>
                                         </button>
+                                    </td>
+                                    <td class="text-center">                     
+                                        <button class="btn btn-primary btn-sm" ui-sref="userSystemEdit({idUser: user.id, idSystem: system.idSystem})" ng-disabled="system.show">
+                                            <i class="fa fa-plus-circle fa-lg"></i>
+                                        </button>                   
                                     </td>
                                 </tr>
                             </tbody>
