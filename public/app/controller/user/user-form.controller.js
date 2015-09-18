@@ -11,8 +11,13 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         $scope.msg = { success: null, error: null };
         $scope.getUser();
         statusImageButton();
-        if (!$stateParams.idUser) { $scope.titlePage = 'TITLE.USER.CREATE'; }
-        else { $scope.titlePage = 'TITLE.USER.UPDATE'; }
+        if (!$stateParams.idUser) { 
+            $scope.titlePage = 'TITLE.USER.CREATE'; 
+            $scope.currentMenu = 'MENU.USER.CREATE'; 
+        } else { 
+            $scope.titlePage = 'TITLE.USER.UPDATE'; 
+            $scope.currentMenu = 'MENU.USER.UPDATE'; 
+        }
     };
     
     var resetForm = function(form, data) {

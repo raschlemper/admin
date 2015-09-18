@@ -4,7 +4,8 @@ app.config(['$translateProvider', function($translateProvider) {
 
         'MENU.HOME': 'Home',
     	'MENU.USERS': 'Usuários',
-    	'MENU.USER.CREATE': 'Cadastrar',
+        'MENU.USER.CREATE': 'Cadastrar',
+    	'MENU.USER.UPDATE': 'Alterar',
         'MENU.USER.VIEW': 'Visualizar',
         'MENU.USER.SYSTEM': 'Sistemas',
         'MENU.USER.SYSTEM.VIEW': 'Editar',
