@@ -37,5 +37,7 @@ TODO:
 35 - Rever o css, retirar os não utilizados, renomear, colocar em ordem, agrupando as informações
 36 - Colorir a tabela de sistemas conforme o status do sistema do usuário (Cadastrado - Default; Vencido - Vermelho; 1 dia para vencer - Info; Não cadsatdo - Apagado (desabilitado))
 37 - Colocar a parte do título do sistema e botões na direcive
+38 - Tentar criar os breadcurmbs pela url, utilizando o que vem escrito
+
 
 *** Verificar se a imagem continua salvando de maneira correta ***
