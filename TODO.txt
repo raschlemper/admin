@@ -38,6 +38,7 @@ TODO:
 36 - Colorir a tabela de sistemas conforme o status do sistema do usuário (Cadastrado - Default; Vencido - Vermelho; 1 dia para vencer - Info; Não cadsatdo - Apagado (desabilitado))
 37 - Colocar a parte do título do sistema e botões na direcive
 38 - Tentar criar os breadcurmbs pela url, utilizando o que vem escrito
+39 - Colocar os botoes e os menus da directive no arquivo das constantes, para passar apenas o array com os valores que serão construidos
 
 
 *** Verificar se a imagem continua salvando de maneira correta ***
