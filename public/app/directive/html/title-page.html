@@ -1,0 +1,20 @@
+<div class="row">
+
+    <div class="col-md-9">
+        <legend translate><span translate="{{titlePage}}"/></legend>
+    </div>    
+
+    <div class="col-md-3">
+        <div class="form-actions text-right">
+            <span ng-repeat="button in buttons">
+                <button type="{{button.type}}" class="btn {{button.style}}" ui-sref="{{button.href}}" ng-if="button.href">
+                    <i class="fa {{button.icon}}"></i><span translate="{{button.label}}"/>
+                </button>
+                <button type="{{button.type}}" class="btn {{button.style}}" ng-if="!button.href">
+                    <i class="fa {{button.icon}}"></i><span translate="{{button.label}}"/>
+                </button>
+            </span>
+        </div>
+    </div>
+
+</div>

@@ -1,25 +1,11 @@
 <div class="col-md-12 col-sm-12 principal"> 
     
-    <submenu current-menu="MENU.USERS"/>      
-
-    <message success="msg.success" error="msg.error" dismiss="false" />
-
+    <submenu current-menu="MENU.USERS"></submenu> 
+    <message success="msg.success" error="msg.error" dismiss="false"></message>
     
         <fieldset>
 
-            <div class="row">
-                <div class="col-md-9">
-                    <legend><span translate="MENU.USERS"/></legend>
-                </div>   
-
-                <div class="col-md-3">
-                    <div class="form-actions text-right">
-                        <button class="btn btn-primary" ui-sref="userCreate">
-                            <i class="fa fa-plus-circle"></i><span translate="BUTTON.ADD"/>
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <title-page title-page="TITLE.USERS" current-menu="MENU.USERS"></title-page>
 
             <table class="table table-hover">
                 <thead>

@@ -14,7 +14,8 @@ app.directive( 'submenu', function ( ) {
 
             scope.menus = [];
             var menuUsers = { 'label': 'MENU.USERS', 'state': 'users' };
-            var menuUserView = { 'label': 'MENU.USER.VIEW', 'state': 'userView({idUser: ' + scope.userId + '})' };
+            var menuUserView = { 'label': 'MENU.USER.VIEW', 'state': "userView({idUser: '" + scope.userId + "'})" };
+            var menuUserSystems = { 'label': 'MENU.USER.SYSTEM', 'state': "userSystem({idUser: '" + scope.userId + "'})" };
 
             if(scope.currentMenu === 'MENU.USERS') {
                 scope.menus = [];
@@ -26,6 +27,8 @@ app.directive( 'submenu', function ( ) {
                 scope.menus = [ menuUsers ];
             } else if(scope.currentMenu === 'MENU.USER.SYSTEM') {
                 scope.menus = [ menuUsers, menuUserView ];
+            } else if(scope.currentMenu === 'MENU.USER.SYSTEM.UPDATE') {
+                scope.menus = [ menuUsers, menuUserView, menuUserSystems ];
             }
         }
 

@@ -6,12 +6,13 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
 
     var init = function() {    
         $scope.genders = LISTS.gender;
+        $scope.idUser = $stateParams.idUser;
         $scope.user = {};
         $scope.files = []; 
         $scope.msg = { success: null, error: null };
         $scope.getUser();
         statusImageButton();
-        if (!$stateParams.idUser) { 
+        if (!$scope.idUser) { 
             $scope.titlePage = 'TITLE.USER.CREATE'; 
             $scope.currentMenu = 'MENU.USER.CREATE'; 
         } else { 
@@ -38,8 +39,8 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
 
     $scope.getUser = function() {        
         $scope.user = UserBuilder.createUserDefault();
-        if (!$stateParams.idUser) return;
-        UserService.getUser($stateParams.idUser)
+        if (!$scope.idUser) return;
+        UserService.getUser($scope.idUser)
             .then(function(data) {
                 $scope.user = UserBuilder.createUser(data, null);
                 $scope.files[0] = null;

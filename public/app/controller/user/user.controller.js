@@ -6,6 +6,7 @@ app.controller('UserCtrl', function($scope, $q, $stateParams, UserService, Image
         $scope.users = [];
         $scope.pagination = PaginationService.pagination;
         $scope.list = PaginationService.list;
+        $scope.idUser = $stateParams.idUser;
         $scope.getAllUsers(); 
         $scope.getUser();
         $scope.msg = { success: null, error: null };
@@ -24,8 +25,8 @@ app.controller('UserCtrl', function($scope, $q, $stateParams, UserService, Image
 
     $scope.getUser = function() {        
         $scope.user = UserBuilder.createUserDefault();
-        if (!$stateParams.idUser) return;
-        UserService.getUser($stateParams.idUser)
+        if (!$scope.idUser) return;
+        UserService.getUser($scope.idUser)
             .then(function(data) {
                 $scope.user = UserBuilder.createUser(data, null);
             })

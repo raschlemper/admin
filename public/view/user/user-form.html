@@ -1,8 +1,7 @@
 <div class="col-md-12 col-md-12 principal">
     
-    <submenu current-menu="{{currentMenu}}"/>    
-
-    <message success="msg.success" error="msg.error" dismiss="false" />
+    <submenu current-menu="{{currentMenu}}"></submenu>
+    <message success="msg.success" error="msg.error" dismiss="false"></message>
 
     <div class="bs-component">
 
@@ -10,24 +9,7 @@
             
             <fieldset>
 
-                <div class="row">
-
-                    <div class="col-md-9">
-                        <legend translate><span translate="{{titlePage}}"/></legend>
-                    </div>    
-
-                    <div class="col-md-3">
-                        <div class="form-actions text-right">
-                            <button type="button" class="btn btn-danger" ui-sref="users">
-                                <i class="fa fa-chevron-circle-left"></i><span translate="BUTTON.CANCEL"/>
-                            </button>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-check-circle"></i><span translate="BUTTON.SAVE"/>
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
+                <title-page title-page="{{titlePage}}" current-menu="{{currentMenu}}" user-id="{{idUser}}"></title-page>
                     
                 <div>
 

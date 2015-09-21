@@ -7,6 +7,8 @@ app.controller('UserSystemFormCtrl', function($scope, $location, $stateParams, $
         $scope.roles = LISTS.roles;
         $scope.periodos = LISTS.periodos;
         $scope.format = FORMAT.date;
+        $scope.idUser = $stateParams.idUser;
+        $scope.idSystem = $stateParams.idSystem;
         $scope.user = {};
         $scope.systems = [];
         $scope.msg = { success: null, error: null };
@@ -56,7 +58,7 @@ app.controller('UserSystemFormCtrl', function($scope, $location, $stateParams, $
 
     $scope.getSystems = function() {        
         $q.all([
-                UserService.getUser($stateParams.idUser),
+                UserService.getUser($scope.idUser),
                 SystemService.allSystems()
             ])
             .then(function(data) {
@@ -103,9 +105,9 @@ app.controller('UserSystemFormCtrl', function($scope, $location, $stateParams, $
     };
 
     var getSystemSelection = function(systems) {
-        if (!$stateParams.idSystem) return;
+        if (!$scope.idSystem) return;
         _.map(systems, function(system) {
-            if(system.id === $stateParams.idSystem) {
+            if(system.id === $scope.idSystem) {
                 $scope.systemSelection = system;
             }
         })
