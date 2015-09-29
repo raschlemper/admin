@@ -1,9 +1,10 @@
 body {
-    background-color: #EEE;
+    /*background-color: #EEE;*/
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important
 }
 
 #main {
-    margin-top: 90px !important;
+    margin-top: 120px !important;
 }
 
 #footer {
@@ -40,8 +41,9 @@ a span {
     cursor: pointer;
 }
 
-fieldset legend {
-    margin-top: 8px;
+.title-page {
+    font-size: 16pt;
+    margin-bottom: 35px;
 }
 
 #menu {

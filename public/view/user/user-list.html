@@ -1,107 +1,51 @@
-<div class="col-md-12 col-sm-12 principal"> 
-    
-    <submenu current-menu="MENU.USERS"></submenu> 
-    <message success="msg.success" error="msg.error" dismiss="false"></message>
-    
-        <fieldset>
+<submenu current-menu="MENU.USERS"></submenu> 
+<message success="msg.success" error="msg.error" dismiss="false"></message>
+<title-page title-page="TITLE.USERS" current-menu="MENU.USERS"></title-page>
 
-            <title-page title-page="TITLE.USERS" current-menu="MENU.USERS"></title-page>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="col-md-1"></th>
+            <th class="col-md-3"><span translate="LABEL.NAME"/></th>
+            <th class="col-md-1"><span translate="LABEL.USERNAME"/></th>
+            <th class="col-md-3"><span translate="LABEL.EMAIL"/></th>
+            <th class="col-md-1"><span translate="LABEL.GENDER"/></th>
+            <th class="col-md-2 text-center"><span translate="LABEL.ACOES"/></th>
+            <th class="col-md-1 text-center"><span translate="LABEL.SYSTEMS"/></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="user in users | limitTo : list.begin(pagination.currentPage) | limitTo: list.size(pagination.currentPage, users.length)">
+            <td class="text-center">
+                <div class="center-block img-size img-thumbnail img-circle">
+                    <img check-image ng-src="{{user.image.full}}"/>
+                </div>    
+            </td>
+            <td class="vertical-text-center"><i>{{user.fullname}}</i></td>
+            <td class="vertical-text-center"><i>{{user.username}}</i></td>
+            <td class="vertical-text-center"><i>{{user.email}}</i></td>
+            <td class="vertical-text-center"><i>{{user.gender}}</i></td>
+            <td class="text-center">
+                <button class="btn btn-warning btn-sm" ui-sref="userView({idUser: user.id})" title="Visualizar Usuário">
+                    <i class="fa fa-eye fa-lg"></i>
+                </button>                            
+                <button class="btn btn-info btn-sm" ui-sref="userEdit({idUser: user.id})" title="Editar Usuário">
+                    <i class="fa fa-edit fa-lg"></i>
+                </button>
+                <button class="btn btn-danger btn-sm" ng-click="removeUser(user)" title="Remover Usuário">
+                    <i class="fa fa-trash-o fa-lg"></i>
+                </button>
+            </td>    
+            <td class="text-center">
+                <button class="btn btn-success btn-sm" ui-sref="userSystem({idUser: user.id})" title="Adicionar Sistemas ao Usuário">
+                    <span class="badge">{{user.systems.length}}</span>
+                </button>  
+            </td>
+        </tr>
+    </tbody>
+</table>
 
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th class="col-md-1"></th>
-                        <th class="col-md-3"><span translate="LABEL.NAME"/></th>
-                        <th class="col-md-1"><span translate="LABEL.USERNAME"/></th>
-                        <th class="col-md-3"><span translate="LABEL.EMAIL"/></th>
-                        <th class="col-md-1"><span translate="LABEL.GENDER"/></th>
-                        <th class="col-md-2 text-center"><span translate="LABEL.ACOES"/></th>
-                        <th class="col-md-1 text-center"><span translate="LABEL.SYSTEMS"/></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="user in users | limitTo : list.begin(pagination.currentPage) | limitTo: list.size(pagination.currentPage, users.length)">
-                        <td class="text-center">
-                            <div class="center-block img-size img-thumbnail img-circle">
-                                <img check-image ng-src="{{user.image.full}}"/>
-                            </div>    
-                        </td>
-                        <td class="vertical-text-center"><i>{{user.fullname}}</i></td>
-                        <td class="vertical-text-center"><i>{{user.username}}</i></td>
-                        <td class="vertical-text-center"><i>{{user.email}}</i></td>
-                        <td class="vertical-text-center"><i>{{user.gender}}</i></td>
-                        <td class="text-center">
-                            <button class="btn btn-warning btn-sm" ui-sref="userView({idUser: user.id})" title="Visualizar Usuário">
-                                <i class="fa fa-eye fa-lg"></i>
-                            </button>                            
-                            <button class="btn btn-info btn-sm" ui-sref="userEdit({idUser: user.id})" title="Editar Usuário">
-                                <i class="fa fa-edit fa-lg"></i>
-                            </button>
-                            <button class="btn btn-danger btn-sm" ng-click="removeUser(user)" title="Remover Usuário">
-                                <i class="fa fa-trash-o fa-lg"></i>
-                            </button>
-                        </td>    
-                        <td class="text-center">
-                            <button class="btn btn-success btn-sm" ui-sref="userSystem({idUser: user.id})" title="Adicionar Sistemas ao Usuário">
-                                <span class="badge">{{user.systems.length}}</span>
-                            </button>  
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- <div class="list-group">
-                <div class="list-group-item" ng-repeat="user in users | limitTo : list.begin(pagination.currentPage) | limitTo: list.size(pagination.currentPage, users.length)">
-                    <div class="row line-user vertical-align">
-                        <div class="col-md-2">
-                            <div class="center-block img-size-list img-thumbnail img-circle">
-                                <img check-image ng-src="{{user.image.full}}"/>
-                            </div>    
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h4 class="list-group-item-heading">
-                                        <strong>{{user.fullname}}</strong>
-                                    </h4>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <p class="list-group-item-text">
-                                        <strong><span translate="LABEL.USERNAME"/>:</strong> <i>{{user.username}}</i>
-                                    </p>
-                                    <p class="list-group-item-text">
-                                        <strong><span translate="LABEL.EMAIL"/>:</strong> <i>{{user.email}}</i>
-                                    </p>
-                                    <p class="list-group-item-text">
-                                        <strong><span translate="LABEL.GENDER"/>:</strong> <i>{{user.gender}}</i>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <button class="btn btn-warning" ui-sref="userView({idUser: user.id})">
-                                <i class="fa fa-eye fa-lg fa-3x"></i>
-                            </button>
-                            <button class="btn btn-success" ui-sref="userSystem({idUser: user.id})">
-                                <i class="fa fa-th-large fa-lg fa-3x"></i>
-                            </button>
-                            <button class="btn btn-info" ui-sref="userEdit({idUser: user.id})">
-                                <i class="fa fa-edit fa-lg fa-3x"></i>
-                            </button>
-                            <button class="btn btn-danger" ng-click="removeUser(user)">
-                                <i class="fa fa-trash-o fa-lg fa-3x"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-            <div class="text-center">
-                <pagination total-items="users.length" ng-model="pagination.currentPage" class="pagination-md" items-per-page="pagination.maxPerPage" boundary-links="true" rotate="true" num-pages="pagination.numPages">
-                </pagination>
-            </div>
-
-        </fieldset>
+<div class="text-center">
+    <pagination total-items="users.length" ng-model="pagination.currentPage" class="pagination-md" items-per-page="pagination.maxPerPage" boundary-links="true" rotate="true" num-pages="pagination.numPages">
+    </pagination>
 </div>

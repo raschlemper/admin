@@ -17,6 +17,7 @@ app.directive( 'titlePage', function ( ) {
 
             scope.buttons = [];
             var btnAddUser = { 'type': 'button', 'style': 'btn-primary', 'href': 'userCreate', 'icon': 'fa-plus-circle', 'label': 'BUTTON.ADD' };
+            var btnEditUser = { 'type': 'button', 'style': 'btn-primary', 'href': 'userEdit({' + idUser + '})', 'icon': 'fa-plus-circle', 'label': 'BUTTON.EDIT' };
             var btnSaveUser = { 'type': 'submit', 'style': 'btn-primary', 'icon': 'fa-check-circle', 'label': 'BUTTON.SAVE' };
             var btnCancelUser = { 'type': 'button', 'style': 'btn-danger', 'href': 'userView({' + idUser + '})', 'icon': 'fa-chevron-left', 'label': 'BUTTON.CANCEL' };
             var btnCancelUsers = { 'type': 'button', 'style': 'btn-danger', 'href': 'users', 'icon': 'fa-chevron-left', 'label': 'BUTTON.CANCEL' };
@@ -28,7 +29,7 @@ app.directive( 'titlePage', function ( ) {
             } else if(scope.currentMenu === 'MENU.USER.UPDATE') {
                 scope.buttons = [ btnCancelUser, btnSaveUser ];
             } else if(scope.currentMenu === 'MENU.USER.VIEW') {
-                scope.buttons = [ menuUsers ];
+                scope.buttons = [ btnCancelUsers, btnEditUser ];
             } else if(scope.currentMenu === 'MENU.USER.SYSTEM') {
                 scope.buttons = [ menuUsers, menuUserView ];
             } else if(scope.currentMenu === 'MENU.USER.SYSTEM.UPDATE') {

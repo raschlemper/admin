@@ -1,117 +1,92 @@
-<div class="col-md-12 col-md-12 principal">
+<submenu current-menu="MENU.USER.VIEW"/>
+<message success="msg.success" error="msg.error" dismiss="false" />
+<title-page title-page="TITLE.USER" current-menu="MENU.USER.VIEW" user-id="{{idUser}}"></title-page>
 
-    <submenu current-menu="MENU.USER.VIEW"/>
+<div class="row">
 
-    <message success="msg.success" error="msg.error" dismiss="false" />
+    <div class="col-md-3">    
 
-    <div>
-            
-        <fieldset>
+        <div class="row">
+            <div class="col-md-12"> 
+                <img check-image ng-src="{{user.image.full}}" class="center-block img-thumbnail user-image-size">  
+            </div>
+        </div>  
 
-            <div class="row">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="list-group-item-heading">
+                    <strong>{{user.fullname}}</strong>
+                </h4>
+            </div>
+        </div>
 
-                <div class="col-md-9">
-                    <legend translate><span translate="TITLE.USER"/></legend>
-                </div>    
+        <div class="row">
+            <div class="col-md-12">
+                <p class="list-item-text">
+                    <strong><span translate="LABEL.USERNAME"/>:</strong> <i>{{user.username}}</i>
+                </p>
+                <p class="list-item-text">
+                    <strong><span translate="LABEL.GENDER"/>:</strong> <i>{{user.gender}}</i>
+                </p>
+                <p class="list-item-text">
+                    <strong><span translate="LABEL.EMAIL"/>:</strong> <i>{{user.email}}</i>
+                </p>
+            </div>
+        </div>
 
-                <div class="col-md-3">
-                    <div class="form-actions text-right">
-                        <button class="btn btn-danger" ui-sref="users">
-                            <i class="fa fa-chevron-circle-left"></i><span translate="BUTTON.CANCEL"/>
-                        </button>
-                        <button class="btn btn-primary" ui-sref="userEdit({idUser: user.id})">
-                            <i class="fa fa-pencil-square-o"></i><span translate="BUTTON.EDIT"/>
-                        </button>
-                    </div>
-                </div>
+    </div>
+
+    <div class="col-md-9">    
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <legend translate><span translate="TITLE.SYSTEMS"/></legend>
+            </div>    
+
+        </div>
+
+        <div class="row height-full" ng-show="user.systems.length === 0">
+            <div class="col-md-12"><p><span translate="MSG.USER.WITHOUT.SYSTEM"/></p></div>
+        </div>
+
+        <div class="row height-full" ng-hide="user.systems.length === 0">
+
+            <div class="col-md-12">    
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th><span translate="LABEL.NAME"/></th>
+                            <th><span translate="LABEL.ROLE"/></th>
+                            <th><span translate="LABEL.DATE.BEGIN"/></th>
+                            <th><span translate="LABEL.DATE.END"/></th>
+                            <th class="text-center"><span translate="LABEL.EDIT"/></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="system in user.systems track by $index | limitTo : list.begin(pagination.currentPage) | limitTo: list.size(pagination.currentPage, users.length)">
+                            <td class="text-center">
+                                <i class="fa fa-{{system.icon.image}} icon icon-radius" ng-class="system.icon.color"></i>
+                            </td>
+                            <td class="vertical-text-center"><i>{{system.name}}</i></td>
+                            <td class="vertical-text-center"><i>{{system.role | uppercase}}</i></td>
+                            <td class="vertical-text-center"><i>{{system.dateInitial | date : 'dd/MM/yyyy'}}</i></td>
+                            <td class="vertical-text-center"><i>{{system.dateFinal | date : 'dd/MM/yyyy'}}</i></td>
+                            <td class="text-center">                            
+                                <button class="btn btn-info" ui-sref="userSystemEdit({idUser: user.id, idSystem: system.idSystem})">
+                                    <i class="fa fa-edit fa-lg"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>  
 
             </div>
 
-            <div class="row height-full block-info well">
+        </div>
 
-                <div class="col-md-2">
-                    <img check-image ng-src="{{user.image.full}}" class="center-block img-thumbnail user-image-size">
-                </div>
-
-                <div class="col-md-10">
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4 class="list-group-item-heading">
-                                <strong>{{user.fullname}}</strong>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p class="list-item-text">
-                                <strong><span translate="LABEL.USERNAME"/>:</strong> <i>{{user.username}}</i>
-                            </p>
-                            <p class="list-item-text">
-                                <strong><span translate="LABEL.GENDER"/>:</strong> <i>{{user.gender}}</i>
-                            </p>
-                            <p class="list-item-text">
-                                <strong><span translate="LABEL.EMAIL"/>:</strong> <i>{{user.email}}</i>
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="row">
-
-                <div class="col-md-12">
-                    <legend translate><span translate="TITLE.SYSTEMS"/></legend>
-                </div>    
-
-            </div>
-
-            <div class="row height-full" ng-show="user.systems.length === 0">
-                <div class="col-md-12"><p><span translate="MSG.USER.WITHOUT.SYSTEM"/></p></div>
-            </div>
-
-            <div class="row height-full" ng-hide="user.systems.length === 0">
-
-                <div class="col-md-12">    
-
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th><span translate="LABEL.NAME"/></th>
-                                <th><span translate="LABEL.ROLE"/></th>
-                                <th><span translate="LABEL.DATE.BEGIN"/></th>
-                                <th><span translate="LABEL.DATE.END"/></th>
-                                <th class="text-center"><span translate="LABEL.EDIT"/></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="system in user.systems track by $index | limitTo : list.begin(pagination.currentPage) | limitTo: list.size(pagination.currentPage, users.length)">
-                                <td class="text-center">
-                                    <i class="fa fa-{{system.icon.image}} icon icon-radius" ng-class="system.icon.color"></i>
-                                </td>
-                                <td class="vertical-text-center"><i>{{system.name}}</i></td>
-                                <td class="vertical-text-center"><i>{{system.role | uppercase}}</i></td>
-                                <td class="vertical-text-center"><i>{{system.dateInitial | date : 'dd/MM/yyyy'}}</i></td>
-                                <td class="vertical-text-center"><i>{{system.dateFinal | date : 'dd/MM/yyyy'}}</i></td>
-                                <td class="text-center">                            
-                                    <button class="btn btn-info" ui-sref="userSystemEdit({idUser: user.id, idSystem: system.idSystem})">
-                                        <i class="fa fa-edit fa-lg"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>  
-
-                </div>
-
-            </div>
-
-        </fieldset>
-    
     </div>
 
 </div>
