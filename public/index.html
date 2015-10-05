@@ -42,9 +42,12 @@
             </div>
         </div>
     </nav>
+   
+    <submenu current-menu="{{currentMenu}}"></submenu>
+    <message success="msg.success" error="msg.error" dismiss="false"></message>
 
     <!-- MAIN -->
-    <div ui-view class="container height-full" id="main"></div>
+    <div ui-view class="container" id="main"></div>
 
     <div class="footer navbar-inverse navbar-fixed-bottom" id="footer">
         <div class="container">

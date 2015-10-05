@@ -17,14 +17,12 @@ app.directive('message', function() {
               scope.dismissible = 'alert-dismissible';
             }
 
-            scope.msg = function(type) {
+            scope.getMessage = function(type) {
                 switch (type) {
                     case 'success':
                         return scope.success;
-                        break;
                     case 'error':
                         return scope.error;
-                        break;
                     default:
                     return '';
                 }

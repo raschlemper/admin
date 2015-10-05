@@ -10,7 +10,8 @@
 angular.module('teratecAdminApp').controller('MainCtrl', function($scope) {
 
     var init = function() {
-        setLineHeightMainContainer();
+        $scope.currentMenu = 'MENU.USERS'; 
+        $scope.msg = { success: null, error: null };
     }
 
     var setLineHeightMainContainer = function() {
@@ -21,14 +22,6 @@ angular.module('teratecAdminApp').controller('MainCtrl', function($scope) {
         var mainContent = angular.element('#mainContent');
         mainContent.css('minHeight', size);
     }
-
-    window.addEventListener('resize', function(event) {
-        // setLineHeightMainContainer();
-    });
-
-    // $scope.$watch($scope.progress.active, function (isActive) {
-    //     alert(isActive);
-    // });
 
     init();
 

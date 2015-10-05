@@ -17,7 +17,9 @@ app.directive( 'submenu', function ( ) {
             var menuUserView = { 'label': 'MENU.USER.VIEW', 'state': "userView({idUser: '" + scope.userId + "'})" };
             var menuUserSystems = { 'label': 'MENU.USER.SYSTEM', 'state': "userSystem({idUser: '" + scope.userId + "'})" };
 
-            if(scope.currentMenu === 'MENU.USERS') {
+            if(scope.currentMenu === 'MENU.HOME') {
+                scope.menus = [];
+            } else if(scope.currentMenu === 'MENU.USERS') {
                 scope.menus = [];
             } else if(scope.currentMenu === 'MENU.USER.CREATE') {
                 scope.menus = [ menuUsers ];

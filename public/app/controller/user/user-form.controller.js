@@ -9,15 +9,14 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         $scope.idUser = $stateParams.idUser;
         $scope.user = {};
         $scope.files = []; 
-        $scope.msg = { success: null, error: null };
         $scope.getUser();
         statusImageButton();
         if (!$scope.idUser) { 
             $scope.titlePage = 'TITLE.USER.CREATE'; 
-            $scope.currentMenu = 'MENU.USER.CREATE'; 
+            $scope.$parent.currentMenu = 'MENU.USER.CREATE'; 
         } else { 
             $scope.titlePage = 'TITLE.USER.UPDATE'; 
-            $scope.currentMenu = 'MENU.USER.UPDATE'; 
+            $scope.$parent.currentMenu = 'MENU.USER.UPDATE'; 
         }
     };
     
@@ -59,7 +58,7 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
                 updateUser(form);
             }            
         } else {
-            $scope.msg.error = 'MSG.EXISTS.INCORRET.DATA';
+            $scope.$parent.msg.error = 'MSG.EXISTS.INCORRET.DATA';
         }
     }
 
@@ -76,10 +75,10 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         UserService.createUser(user)
             .then(function(data) {
                 resetForm(form, null);
-                $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';                
+                $scope.$parent.msg.success = 'MSG.USER.CREATE.SUCCESS';                
             })
             .catch(function() {
-                $scope.msg.error = 'MSG.USER.CREATE.ERROR';
+                $scope.$parent.msg.error = 'MSG.USER.CREATE.ERROR';
             });        
     }
 
@@ -89,14 +88,14 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
                 ImageService.uploadFileUser(user)
                     .then(function(data) {
                         resetForm(form, null);
-                        $scope.msg.success = 'MSG.USER.CREATE.SUCCESS';  
+                        $scope.$parent.msg.success = 'MSG.USER.CREATE.SUCCESS';  
                     })       
                     .catch(function() {
-                        $scope.msg.error = 'MSG.USER.CREATE.ERROR';
+                        $scope.$parent.msg.error = 'MSG.USER.CREATE.ERROR';
                     });   
             })
             .catch(function() {
-                $scope.msg.error = 'MSG.USER.CREATE.ERROR';
+                $scope.$parent.msg.error = 'MSG.USER.CREATE.ERROR';
             });            
     }
 
@@ -113,10 +112,10 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
         UserService.updateUser(user)
             .then(function(data) {
                 resetForm(form, data);
-                $scope.msg.success = 'MSG.USER.UPDATE.SUCCESS';                
+                $scope.$parent.msg.success = 'MSG.USER.UPDATE.SUCCESS';                
             })
             .catch(function() {
-                $scope.msg.error = 'MSG.USER.UPDATE.ERROR';
+                $scope.$parent.msg.error = 'MSG.USER.UPDATE.ERROR';
             });
         
     }
@@ -127,14 +126,14 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
                 ImageService.uploadFileUser(user)
                     .then(function(data) {
                         resetForm(form, data);
-                        $scope.msg.success = 'MSG.USER.UPDATE.SUCCESS';  
+                        $scope.$parent.msg.success = 'MSG.USER.UPDATE.SUCCESS';  
                     })       
                     .catch(function() {
-                        $scope.msg.error = 'MSG.USER.UPDATE.ERROR';
+                        $scope.$parent.msg.error = 'MSG.USER.UPDATE.ERROR';
                     });   
             })
             .catch(function() {
-                $scope.msg.error = 'MSG.USER.UPDATE.ERROR';
+                $scope.$parent.msg.error = 'MSG.USER.UPDATE.ERROR';
             });    
     }
 
@@ -154,10 +153,10 @@ app.controller('UserFormCtrl', function($scope, $location, $stateParams, $filter
             ])
             .then(function(data) {
                 init(); 
-                $scope.msg.success = 'MSG.IMAGE.REMOVE.SUCCESS';                
+                $scope.$parent.msg.success = 'MSG.IMAGE.REMOVE.SUCCESS';                
             })
             .catch(function() {
-                $scope.msg.error = 'MSG.IMAGE.REMOVE.ERROR';
+                $scope.$parent.msg.error = 'MSG.IMAGE.REMOVE.ERROR';
             });
     }
 
